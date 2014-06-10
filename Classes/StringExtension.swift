@@ -13,25 +13,8 @@ extension String {
         return self.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
     }
     
-    func substring(start: Int, length: Int = 1) -> String {
-        var i = 0
-        var range = ""
-        let end = start + length
-        
-        if end < start || start < 0 || length < 1 {
-            return range
-        }
-        
-        for char in self {
-            if i >= start && i < end {
-                range += char
-            }
-            if i >= end {
-                break
-            }
-            i++
-        }
-        return range
+    func substring(location:Int, length:Int) -> String {
+        return (self as NSString).substringWithRange(NSMakeRange(location, length))
     }
     
     subscript(index: Int) -> String? {
@@ -40,14 +23,11 @@ extension String {
         }
     }
     
-    func contains(other: String) -> Bool{
-        var start = startIndex
-        do {
-            var subString = self[Range(start: start++, end: endIndex)]
-            if subString.hasPrefix(other){
-                return true
-            }
-        } while start != endIndex
-        return false
+    func location(other: String) -> Int {
+        return (self as NSString).rangeOfString(other).location
+    }
+    
+    func contains(other: String) -> Bool {
+        return (self as NSString).containsString(other)
     }
 }

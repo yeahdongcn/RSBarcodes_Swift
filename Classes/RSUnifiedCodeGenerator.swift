@@ -11,8 +11,7 @@ import UIKit
 import AVFoundation
 
 class RSUnifiedCodeGenerator: RSCodeGenerator {
-    
-    class var sharedInstance: RSUnifiedCodeGenerator {
+    class var shared: RSUnifiedCodeGenerator {
         return UnifiedCodeGeneratorSharedInstance
     }
     
@@ -25,7 +24,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         }
         var codeGenerator:RSCodeGenerator? = nil
         if machineReadableCodeObjectType == AVMetadataObjectTypeCode39Code {
-            
+            codeGenerator = RSCode39Generator()
         }
         
         if (codeGenerator) {

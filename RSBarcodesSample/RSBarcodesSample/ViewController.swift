@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
                             
@@ -14,10 +15,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var g = RSAbstractCodeGenerator()
-        let b = g.isValid("aaaa")
-        let i = g.drawCompleteBarcode("010101")
-        println(b)
+        let c39g = RSUnifiedCodeGenerator.shared
+        let r = c39g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+        println(r)
     }
 
     override func didReceiveMemoryWarning() {

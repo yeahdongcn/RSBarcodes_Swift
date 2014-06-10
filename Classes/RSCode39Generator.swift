@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 let CODE39_ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
 
@@ -60,63 +60,38 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         "1001011011010"
     ]
     
-    func encodeCharacterString(character:String) -> String {
-//        CODE39_ALPHABET_STRING
-//        return CODE39_CHARACTER_ENCODINGS
-        return ""
+    func encode(characterString:String) -> String {
+        let location = CODE39_ALPHABET_STRING.location(characterString)
+        return CODE39_CHARACTER_ENCODINGS[location]
     }
     
     override func isValid(contents: String) -> Bool {
         let length = contents.utf16count
         if length > 0 && contents == contents.uppercaseString {
-            return false;
+            for character in contents {
+                let location = CODE39_ALPHABET_STRING.location(String(character))
+                if (location == NSNotFound) {
+                    return false;
+                }
+            }
             return true;
         }
         return false;
     }
     
     override func initiator() -> String {
-        return self.encodeCharacterString("*")
+        return self.encode("*")
     }
     
     override func terminator() -> String {
-        return self.encodeCharacterString("*")
+        return self.encode("*")
     }
     
     override func barcode(contents: String) -> String {
         var barcode = ""
         for character in contents {
-            barcode += self.encodeCharacterString(String(character))
+            barcode += self.encode(String(character))
         }
         return barcode
     }
-
-//        - (NSString *)__encodeCharacter:(NSString *)character
-//    {
-//    return CODE39_CHARACTER_ENCODINGS[[CODE39_ALPHABET_STRING rangeOfString:character].location];
-//    }
-//    
-//    - (BOOL)isContentsValid:(NSString *)contents
-//    {
-//    if (contents.length > 0 && [contents isEqualToString:[contents uppercaseString]]) {
-//    for (int i = 0; i < contents.length; i++) {
-//    if ([CODE39_ALPHABET_STRING rangeOfString:[contents substringWithRange:NSMakeRange(i, 1)]].location == NSNotFound) {
-//    return NO;
-//    }
-//    }
-//    return YES;
-//    }
-//    return NO;
-//    }
-//
-//
-//    - (NSString *)barcode:(NSString *)contents
-//    {
-//    NSMutableString *barcode = [[NSMutableString alloc] initWithString:@""];
-//    for (int i = 0; i < contents.length; i++) {
-//    [barcode appendString:[self __encodeCharacter:[contents substringWithRange:NSMakeRange(i, 1)]]];
-//    }
-//    return [NSString stringWithString:barcode];
-//    }
-
 }
