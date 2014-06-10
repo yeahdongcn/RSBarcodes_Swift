@@ -114,51 +114,43 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         }
         return nil
     }
+    
+    class func filterName(codeObjectType:String) -> String! {
+        if codeObjectType == AVMetadataObjectTypeQRCode {
+            return "CIQRCodeGenerator"
+        } else if codeObjectType == AVMetadataObjectTypePDF417Code {
+            return "CIPDF417BarcodeGenerator"
+        } else if codeObjectType == AVMetadataObjectTypeAztecCode {
+            return "CIAztecCodeGenerator"
+        } else {
+            return ""
+        }
+    }
+    
+    class func generateCode(contents:String, filterName:String) -> UIImage {
+        var filter = CIFilter(name: filterName)
+        filter.setDefaults()
+        let inputMessage = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+        filter.setValue(inputMessage, forKey: "inputMessage")
+        
+        let outputImage = filter.outputImage
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent())
+        let image = UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)
+        CGImageRelease(cgImage)
+        return image
+    }
+    
+    class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage {
+        let width = source.size.width * scale
+        let height = source.size.height * scale
+        
+        UIGraphicsBeginImageContext(CGSizeMake(width, height))
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSetInterpolationQuality(context, kCGInterpolationNone)
+        source.drawInRect(CGRectMake(0, 0, width, height))
+        let target = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return target
+    }
 }
-
-//
-//static inline NSString* getFilterName(NSString *codeObjectType)
-//{
-//    if ([codeObjectType isEqualToString:AVMetadataObjectTypeQRCode]) {
-//        return @"CIQRCodeGenerator";
-//    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypePDF417Code]) {
-//        return @"CIPDF417BarcodeGenerator";
-//    } else if ([codeObjectType isEqualToString:AVMetadataObjectTypeAztecCode]) {
-//        return @"CIAztecCodeGenerator";
-//    }
-//    return nil;
-//}
-//
-//static inline UIImage* genCode(NSString *contents, NSString *filterName)
-//{
-//    CIFilter *filter = [CIFilter filterWithName:filterName];
-//    [filter setDefaults];
-//    NSData *data = [contents dataUsingEncoding:NSUTF8StringEncoding];
-//    [filter setValue:data forKey:@"inputMessage"];
-//    
-//    CIImage *outputImage = [filter outputImage];
-//    CIContext *context = [CIContext contextWithOptions:nil];
-//    CGImageRef cgImage = [context createCGImage:outputImage
-//    fromRect:[outputImage extent]];
-//    UIImage *image = [UIImage imageWithCGImage:cgImage
-//    scale:1
-//    orientation:UIImageOrientationUp];
-//    CGImageRelease(cgImage);
-//    return image;
-//}
-//
-//static inline UIImage *resizeImage(UIImage *source,
-//float scale)
-//{
-//    CGFloat width = source.size.width * scale;
-//    CGFloat height = source.size.height * scale;
-//    
-//    UIGraphicsBeginImageContext(CGSizeMake(width, height));
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
-//    [source drawInRect:CGRectMake(0, 0, width, height)];
-//    UIImage *target = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    return target;
-//}
