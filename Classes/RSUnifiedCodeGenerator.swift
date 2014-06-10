@@ -16,6 +16,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
     }
     
     // RSCodeGenerator
+    
     func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
         if machineReadableCodeObjectType == AVMetadataObjectTypeQRCode
             || machineReadableCodeObjectType == AVMetadataObjectTypeQRCode
@@ -25,6 +26,8 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         var codeGenerator:RSCodeGenerator? = nil
         if machineReadableCodeObjectType == AVMetadataObjectTypeCode39Code {
             codeGenerator = RSCode39Generator()
+        } else if machineReadableCodeObjectType == AVMetadataObjectTypeCode39Mod43Code {
+            codeGenerator = RSCode39Mod43Generator()
         }
         
         if (codeGenerator) {

@@ -23,12 +23,11 @@ protocol RSCodeGenerator {
 // UPC-E is using check digit to valid the contents to be encoded.
 // Code39Mod43, Code93 and Code128 is using check digit to encode barcode.
 @objc protocol RSCheckDigitGenerator {
-    @optional func checkDigit(contents:String) -> String
+    func checkDigit(contents:String) -> String
 }
 
 // Abstract code generator, provides default functions for validations and generations.
 class RSAbstractCodeGenerator : RSCodeGenerator {
-    
     // Check whether the given contents are valid.
     func isValid(contents:String) -> Bool {
         let length = contents.utf16count
@@ -118,6 +117,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Class funcs
     
+    // Get CIFilter name by code object type
     class func filterName(codeObjectType:String) -> String! {
         if codeObjectType == AVMetadataObjectTypeQRCode {
             return "CIQRCodeGenerator"
@@ -130,6 +130,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         }
     }
     
+    // Generate CI related code image
     class func generateCode(contents:String, filterName:String) -> UIImage {
         let filter = CIFilter(name: filterName)
         filter.setDefaults()
@@ -144,6 +145,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         return image
     }
     
+    // Resize image
     class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage {
         let width = source.size.width * scale
         let height = source.size.height * scale

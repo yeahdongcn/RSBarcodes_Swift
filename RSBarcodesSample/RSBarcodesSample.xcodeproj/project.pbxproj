@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D0106F721946CBAF00463F91 /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0106F711946CBAF00463F91 /* RSCode39Generator.swift */; };
+		D015DEF41946F053001A7243 /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D015DEF31946F053001A7243 /* RSCode39Mod43Generator.swift */; };
 		D073991419468EED003F0E14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991319468EED003F0E14 /* AppDelegate.swift */; };
 		D073991619468EED003F0E14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991519468EED003F0E14 /* ViewController.swift */; };
 		D073991919468EED003F0E14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D073991719468EED003F0E14 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		D0106F711946CBAF00463F91 /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCode39Generator.swift; sourceTree = "<group>"; };
+		D015DEF31946F053001A7243 /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		D073990E19468EED003F0E14 /* RSBarcodesSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSBarcodesSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D073991219468EED003F0E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D073991319468EED003F0E14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				D0739931194690F9003F0E14 /* RSCodeGenerator.swift */,
 				D0A5DDCE1946BF3200313B81 /* RSUnifiedCodeGenerator.swift */,
 				D0106F711946CBAF00463F91 /* RSCode39Generator.swift */,
+				D015DEF31946F053001A7243 /* RSCode39Mod43Generator.swift */,
 			);
 			name = Classes;
 			path = ../../Classes;
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D015DEF41946F053001A7243 /* RSCode39Mod43Generator.swift in Sources */,
 				D073991619468EED003F0E14 /* ViewController.swift in Sources */,
 				D07399341946BC27003F0E14 /* StringExtension.swift in Sources */,
 				D0A5DDCF1946BF3200313B81 /* RSUnifiedCodeGenerator.swift in Sources */,

@@ -65,6 +65,8 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         return CODE39_CHARACTER_ENCODINGS[location]
     }
     
+    // RSAbstractCodeGenerator
+    
     override func isValid(contents: String) -> Bool {
         let length = contents.utf16count
         if length > 0 && contents == contents.uppercaseString {

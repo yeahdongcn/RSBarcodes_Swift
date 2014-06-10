@@ -16,15 +16,17 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let c39g = RSUnifiedCodeGenerator.shared
-        let r = c39g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
-        println(r)
+        let c39r = c39g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+        println(c39r)
+        
+        let c39m43g = RSUnifiedCodeGenerator.shared
+        let c39m43r = c39m43g.generateCode("CODE 39", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Mod43Code)
+        println(c39m43r)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
