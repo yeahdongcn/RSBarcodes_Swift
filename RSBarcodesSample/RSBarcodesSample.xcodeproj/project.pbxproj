@@ -12,6 +12,8 @@
 		D073991919468EED003F0E14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D073991719468EED003F0E14 /* Main.storyboard */; };
 		D073991B19468EED003F0E14 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D073991A19468EED003F0E14 /* Images.xcassets */; };
 		D073992719468EED003F0E14 /* RSBarcodesSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */; };
+		D0739932194690F9003F0E14 /* RSCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0739931194690F9003F0E14 /* RSCodeGenerator.swift */; };
+		D07399341946BC27003F0E14 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07399331946BC27003F0E14 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		D073992019468EED003F0E14 /* RSBarcodesSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSBarcodesSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D073992519468EED003F0E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSBarcodesSampleTests.swift; sourceTree = "<group>"; };
+		D0739931194690F9003F0E14 /* RSCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCodeGenerator.swift; sourceTree = "<group>"; };
+		D07399331946BC27003F0E14 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,7 @@
 		D073991019468EED003F0E14 /* RSBarcodesSample */ = {
 			isa = PBXGroup;
 			children = (
+				D073993019468F26003F0E14 /* Classes */,
 				D073991319468EED003F0E14 /* AppDelegate.swift */,
 				D073991519468EED003F0E14 /* ViewController.swift */,
 				D073991719468EED003F0E14 /* Main.storyboard */,
@@ -107,6 +112,16 @@
 				D073992519468EED003F0E14 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D073993019468F26003F0E14 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D07399331946BC27003F0E14 /* StringExtension.swift */,
+				D0739931194690F9003F0E14 /* RSCodeGenerator.swift */,
+			);
+			name = Classes;
+			path = ../../Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,7 +224,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D073991619468EED003F0E14 /* ViewController.swift in Sources */,
+				D07399341946BC27003F0E14 /* StringExtension.swift in Sources */,
 				D073991419468EED003F0E14 /* AppDelegate.swift in Sources */,
+				D0739932194690F9003F0E14 /* RSCodeGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +414,7 @@
 				D073992C19468EED003F0E14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D073992D19468EED003F0E14 /* Build configuration list for PBXNativeTarget "RSBarcodesSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +423,7 @@
 				D073992F19468EED003F0E14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -13,6 +13,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        var g = RSAbstractCodeGenerator()
+        let b = g.isValid("aaaa")
+        let i = g.drawCompleteBarcode("010101")
+        println(b)
     }
 
     override func didReceiveMemoryWarning() {
