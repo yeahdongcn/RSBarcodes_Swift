@@ -18,10 +18,10 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         case A, B, C
     }
     
-
+    
     class RSCode128GeneratorAutoCodeTable {
         var startCodeTable = RSCode128GeneratorCodeTable.Auto
-        var sequence = []
+        var sequence:Array<Int> = []
     }
     
     
@@ -41,7 +41,6 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     }
     
     func startCodeTableValue(startCodeTable: RSCode128GeneratorCodeTable) -> Int {
-        var codeTableValue = 0
         switch self.autoCodeTable.startCodeTable {
         case .A:
             return self.codeTableSize - 4
@@ -51,6 +50,118 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             return self.codeTableSize - 2
         default:
             return 0
+        }
+    }
+    
+    func middleCodeTableValue(codeTable:RSCode128GeneratorCodeTable) -> Int {
+        switch codeTable {
+        case .A:
+            return self.codeTableSize - 6
+        case .B:
+            return self.codeTableSize - 7
+        case .C:
+            return self.codeTableSize - 8
+        default:
+            return 0
+        }
+    }
+    
+    func calculateContinousDigits(contents:String, defaultCodeTable:RSCode128GeneratorCodeTable, range:Range<Int>) {
+        var isFinished = false
+        if range.endIndex == contents.length() {
+            isFinished = true
+        }
+        
+        let length = range.endIndex - range.startIndex
+        if (range.startIndex == 0 && length >= 4)
+            || (range.startIndex > 0 && length >= 6) {
+                var isOrphanDigitUsed = false
+                // Use START C when continous digits are found from range.location == 0
+                if (range.startIndex == 0) {
+                    self.autoCodeTable.startCodeTable = .C
+                } else {
+                    if length % 2 == 1 {
+                        let digitValue = CODE128_ALPHABET_STRING.location(contents[range.startIndex]!)
+                        self.autoCodeTable.sequence += digitValue
+                        isOrphanDigitUsed = true
+                    }
+                    self.autoCodeTable.sequence += self.middleCodeTableValue(.C)
+                }
+                
+                // Insert all xx combinations
+                for i in 0..length / 2 {
+                    let startIndex = range.startIndex + i * 2
+                    let digitValue = contents.substring(isOrphanDigitUsed ? startIndex + 1 : startIndex, length: 2).toInt()!
+                    self.autoCodeTable.sequence += digitValue
+                }
+                
+                if (length % 2 == 1 && !isOrphanDigitUsed) || !isFinished {
+                    self.autoCodeTable.sequence += self.middleCodeTableValue(defaultCodeTable)
+                }
+                
+                if length % 2 == 1 && !isOrphanDigitUsed {
+                    let digitValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex - 1]!)
+                    self.autoCodeTable.sequence += digitValue
+                }
+                
+                if (!isFinished) {
+                    let characterValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex]!)
+                    self.autoCodeTable.sequence += characterValue
+                }
+        } else {
+            for i in range.startIndex...(isFinished ? range.endIndex - 1 : range.endIndex) {
+                let characterValue = CODE128_ALPHABET_STRING.location(contents[i]!)
+                self.autoCodeTable.sequence += characterValue
+            }
+        }
+    }
+    
+    func calculateAutoCodeTable(contents:String) {
+        if self.codeTable == .Auto {
+            // Select the short code table A as default code table
+            var defaultCodeTable: RSCode128GeneratorCodeTable = .A
+            
+            // Determine whether to use code table B
+            let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING.substring(0, length: 64)
+            
+            for i in 0..contents.length() {
+                if CODE128_ALPHABET_STRING_A.location(contents[i]!) == NSNotFound
+                    && defaultCodeTable == .A {
+                        defaultCodeTable = .B
+                        break
+                }
+            }
+            
+            var continousDigitsStartIndex:Int = NSNotFound
+            for i in 0..contents.length() {
+                let character = contents[i]!
+                var continousDigitsRange:Range<Int> = Range<Int>(start: 0, end: 0)
+                if DIGITS_STRING.location(character) == NSNotFound {
+                    // Non digit found
+                    if (continousDigitsStartIndex != NSNotFound) {
+                        continousDigitsRange = Range<Int>(start: continousDigitsStartIndex, end: i)
+                    } else {
+                        let characterValue = CODE128_ALPHABET_STRING_A.location(character)
+                        self.autoCodeTable.sequence += characterValue
+                    }
+                } else {
+                    // Digit found
+                    if continousDigitsStartIndex == NSNotFound {
+                        continousDigitsStartIndex = i
+                    } else if i == contents.length() - 1 {
+                        continousDigitsRange = Range<Int>(start: continousDigitsStartIndex, end: i + 1)
+                    }
+                }
+                
+                if continousDigitsRange.endIndex - continousDigitsRange.startIndex != 0 {
+                    self.calculateContinousDigits(contents, defaultCodeTable: defaultCodeTable, range: continousDigitsRange)
+                    continousDigitsStartIndex = NSNotFound
+                }
+            }
+            
+            if self.autoCodeTable.startCodeTable == .Auto {
+                self.autoCodeTable.startCodeTable = defaultCodeTable
+            }
         }
     }
     
