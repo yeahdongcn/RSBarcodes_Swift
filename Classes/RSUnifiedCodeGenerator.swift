@@ -18,23 +18,20 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
     // RSCodeGenerator
     
     func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
-        if machineReadableCodeObjectType == AVMetadataObjectTypeQRCode
-            || machineReadableCodeObjectType == AVMetadataObjectTypeQRCode
-            || machineReadableCodeObjectType == AVMetadataObjectTypeQRCode {
-                return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
-        }
         var codeGenerator:RSCodeGenerator? = nil
-        if machineReadableCodeObjectType == AVMetadataObjectTypeCode39Code {
+        switch machineReadableCodeObjectType {
+        case AVMetadataObjectTypeQRCode, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode:
+            return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+        case AVMetadataObjectTypeCode39Mod43Code:
             codeGenerator = RSCode39Generator()
-        } else if machineReadableCodeObjectType == AVMetadataObjectTypeCode39Mod43Code {
+        case AVMetadataObjectTypeCode39Mod43Code:
             codeGenerator = RSCode39Mod43Generator()
-        }
-        
-        if (codeGenerator) {
-            return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
-        } else {
+        case RSMetadataObjectTypeExtendedCode39Code:
+            codeGenerator = RSExtendedCode39Generator()
+        default:
             return nil
         }
+        return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
     }
     
     func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {

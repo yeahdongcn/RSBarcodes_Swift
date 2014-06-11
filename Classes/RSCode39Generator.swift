@@ -60,7 +60,7 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         "1001011011010"
     ]
     
-    func encode(characterString:String) -> String {
+    func encodeCharacterString(characterString:String) -> String {
         let location = CODE39_ALPHABET_STRING.location(characterString)
         return CODE39_CHARACTER_ENCODINGS[location]
     }
@@ -82,17 +82,17 @@ class RSCode39Generator: RSAbstractCodeGenerator {
     }
     
     override func initiator() -> String {
-        return self.encode("*")
+        return self.encodeCharacterString("*")
     }
     
     override func terminator() -> String {
-        return self.encode("*")
+        return self.encodeCharacterString("*")
     }
     
     override func barcode(contents: String) -> String {
         var barcode = ""
         for character in contents {
-            barcode += self.encode(String(character))
+            barcode += self.encodeCharacterString(String(character))
         }
         return barcode
     }

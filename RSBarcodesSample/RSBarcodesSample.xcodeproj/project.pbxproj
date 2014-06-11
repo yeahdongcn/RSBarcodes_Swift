@@ -17,6 +17,7 @@
 		D0739932194690F9003F0E14 /* RSCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0739931194690F9003F0E14 /* RSCodeGenerator.swift */; };
 		D07399341946BC27003F0E14 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07399331946BC27003F0E14 /* StringExtension.swift */; };
 		D0A5DDCF1946BF3200313B81 /* RSUnifiedCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A5DDCE1946BF3200313B81 /* RSUnifiedCodeGenerator.swift */; };
+		D0DB5E491947E9CC0050452F /* RSExtendedCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DB5E481947E9CC0050452F /* RSExtendedCode39Generator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		D0739931194690F9003F0E14 /* RSCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCodeGenerator.swift; sourceTree = "<group>"; };
 		D07399331946BC27003F0E14 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D0A5DDCE1946BF3200313B81 /* RSUnifiedCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSUnifiedCodeGenerator.swift; sourceTree = "<group>"; };
+		D0DB5E481947E9CC0050452F /* RSExtendedCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSExtendedCode39Generator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				D0A5DDCE1946BF3200313B81 /* RSUnifiedCodeGenerator.swift */,
 				D0106F711946CBAF00463F91 /* RSCode39Generator.swift */,
 				D015DEF31946F053001A7243 /* RSCode39Mod43Generator.swift */,
+				D0DB5E481947E9CC0050452F /* RSExtendedCode39Generator.swift */,
 			);
 			name = Classes;
 			path = ../../Classes;
@@ -238,6 +241,7 @@
 				D0A5DDCF1946BF3200313B81 /* RSUnifiedCodeGenerator.swift in Sources */,
 				D0106F721946CBAF00463F91 /* RSCode39Generator.swift in Sources */,
 				D073991419468EED003F0E14 /* AppDelegate.swift in Sources */,
+				D0DB5E491947E9CC0050452F /* RSExtendedCode39Generator.swift in Sources */,
 				D0739932194690F9003F0E14 /* RSCodeGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
