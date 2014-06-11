@@ -8,7 +8,7 @@
 
 import UIKit
 
-let RSMetadataObjectTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
+let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml

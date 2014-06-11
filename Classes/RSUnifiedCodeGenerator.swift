@@ -22,26 +22,30 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode:
             return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
-        case AVMetadataObjectTypeCode39Mod43Code:
+        case AVMetadataObjectTypeCode39Code:
             codeGenerator = RSCode39Generator()
         case AVMetadataObjectTypeCode39Mod43Code:
             codeGenerator = RSCode39Mod43Generator()
-        case RSMetadataObjectTypeExtendedCode39Code:
-            codeGenerator = RSExtendedCode39Generator()
         case AVMetadataObjectTypeEAN8Code:
             codeGenerator = RSEAN8Generator()
         case AVMetadataObjectTypeEAN13Code:
             codeGenerator = RSEAN13Generator()
-        case RSMetadataObjectTypeISBN13Code:
-            codeGenerator = RSISBN13Generator()
-        case RSMetadataObjectTypeISSN13Code:
-            codeGenerator = RSISSN13Generator()
         case AVMetadataObjectTypeITF14Code:
             codeGenerator = RSITF14Generator()
         case AVMetadataObjectTypeUPCECode:
             codeGenerator = RSUPCEGenerator()
         case AVMetadataObjectTypeCode93Code:
             codeGenerator = RSCode93Generator()
+        case AVMetadataObjectTypeCode128Code:
+            codeGenerator = RSCode128Generator()
+            
+        case RSBarcodesTypeISBN13Code:
+            codeGenerator = RSISBN13Generator()
+        case RSBarcodesTypeISSN13Code:
+            codeGenerator = RSISSN13Generator()
+        case RSBarcodesTypeExtendedCode39Code:
+            codeGenerator = RSExtendedCode39Generator()
+            
         default:
             return nil
         }

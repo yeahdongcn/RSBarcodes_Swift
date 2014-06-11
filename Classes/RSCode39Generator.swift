@@ -73,12 +73,12 @@ class RSCode39Generator: RSAbstractCodeGenerator {
             for character in contents {
                 let location = CODE39_ALPHABET_STRING.location(String(character))
                 if (location == NSNotFound) {
-                    return false;
+                    return false
                 }
             }
-            return true;
+            return true
         }
-        return false;
+        return false
     }
     
     override func initiator() -> String {

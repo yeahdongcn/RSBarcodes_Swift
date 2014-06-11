@@ -8,8 +8,8 @@
 
 import UIKit
 
-let RSMetadataObjectTypeISBN13Code = "com.pdq.rsbarcodes.isbn13"
-let RSMetadataObjectTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
+let RSBarcodesTypeISBN13Code = "com.pdq.rsbarcodes.isbn13"
+let RSBarcodesTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
 
 // http://blog.sina.com.cn/s/blog_4015406e0100bsqk.html
 class RSEANGenerator: RSAbstractCodeGenerator {
@@ -51,7 +51,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
             var sum_even = 0
             
             for i in 0..(self.length - 1) {
-                let digit = contents.substring(i, length: 1).toInt()!
+                let digit = contents[i]!.toInt()!
                 if i % 2 == (self.length == 13 ? 0 : 1) {
                     sum_even += digit
                 } else {
@@ -59,7 +59,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
                 }
             }
             let checkDigit = (10 - (sum_even + sum_odd * 3) % 10) % 10
-            return contents.substring(contents.length() - 1, length: 1).toInt() == checkDigit
+            return contents[contents.length() - 1]!.toInt() == checkDigit
         }
         return false
     }
@@ -80,15 +80,15 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         var lefthandParity = "OOOO"
         var newContents = contents
         if self.length == 13 {
-            lefthandParity = self.lefthandParities[contents.substring(0, length: 1).toInt()!]
+            lefthandParity = self.lefthandParities[contents[0]!.toInt()!]
             newContents = contents.substring(1, length: contents.length() - 1)
         }
         
         var barcode = ""
         for i in 0..newContents.length() {
-            let digit = newContents.substring(i, length: 1).toInt()!
+            let digit = newContents[i]!.toInt()!
             if i < lefthandParity.length() {
-                barcode += self.parityEncodingTable[digit][lefthandParity.substring(i, length: 1)]!
+                barcode += self.parityEncodingTable[digit][lefthandParity[i]!]!
                 if i == lefthandParity.length() - 1 {
                     barcode += self.centerGuardPattern()
                 }

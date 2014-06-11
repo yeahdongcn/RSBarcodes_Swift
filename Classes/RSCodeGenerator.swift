@@ -32,7 +32,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     func isValid(contents:String) -> Bool {
         let length = contents.length()
         if length > 0 {
-            for var i:Int = 0; i < length; i++ {
+            for i in 0..length {
                 let character = contents[i]
                 if (!DIGITS_STRING.contains(character!)) {
                     return false
@@ -88,7 +88,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height))
         CGContextSetLineWidth(context, 1)
         
-        for var i:Int = 0; i < length; i++ {
+        for i in 0..length {
             let character = completeBarcode[i]
             if character == "1" {
                 let x = i + (2 + 1)
@@ -105,12 +105,12 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     // RSCodeGenerator
     
     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type);
+        return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type)
     }
     
     func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage? {
         if self.isValid(contents) {
-            return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)));
+            return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)))
         }
         return nil
     }
@@ -155,7 +155,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         CGContextSetInterpolationQuality(context, kCGInterpolationNone)
         source.drawInRect(CGRectMake(0, 0, width, height))
         let target = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
+        UIGraphicsEndImageContext()
         return target
     }
 }
