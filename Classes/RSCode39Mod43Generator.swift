@@ -17,7 +17,7 @@ class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     override func barcode(contents: String) -> String {
         return super.barcode(contents + self.checkDigit(contents.uppercaseString))
     }
-   
+    
     // RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {

@@ -40,7 +40,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         ["O" : "0110111", "E" : "0001001", "R" : "1001000"],
         ["O" : "0001011", "E" : "0010111", "R" : "1110100"]
     ]
-
+    
     init(length:Int) {
         self.length = length
     }

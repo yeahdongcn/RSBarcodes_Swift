@@ -101,7 +101,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         UIGraphicsEndImageContext()
         return barcode
     }
-
+    
     // RSCodeGenerator
     
     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {

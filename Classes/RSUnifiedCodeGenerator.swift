@@ -12,7 +12,7 @@ import AVFoundation
 
 class RSUnifiedCodeGenerator: RSCodeGenerator {
     class var shared: RSUnifiedCodeGenerator {
-        return UnifiedCodeGeneratorSharedInstance
+    return UnifiedCodeGeneratorSharedInstance
     }
     
     // RSCodeGenerator
@@ -38,6 +38,8 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSISSN13Generator()
         case AVMetadataObjectTypeITF14Code:
             codeGenerator = RSITF14Generator()
+        case AVMetadataObjectTypeUPCECode:
+            codeGenerator = RSUPCEGenerator()
         default:
             return nil
         }
