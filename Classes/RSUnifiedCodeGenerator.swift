@@ -28,6 +28,14 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSCode39Mod43Generator()
         case RSMetadataObjectTypeExtendedCode39Code:
             codeGenerator = RSExtendedCode39Generator()
+        case AVMetadataObjectTypeEAN8Code:
+            codeGenerator = RSEAN8Generator()
+        case AVMetadataObjectTypeEAN13Code:
+            codeGenerator = RSEAN13Generator()
+        case RSMetadataObjectTypeISBN13Code:
+            codeGenerator = RSISBN13Generator()
+        case RSMetadataObjectTypeISSN13Code:
+            codeGenerator = RSISSN13Generator()
         default:
             return nil
         }
