@@ -13,7 +13,90 @@ let RSMetadataObjectTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
 
 // http://blog.sina.com.cn/s/blog_4015406e0100bsqk.html
 class RSEANGenerator: RSAbstractCodeGenerator {
+    var length = 0
+    // 'O' for odd and 'E' for even
+    let lefthandParities = [
+        "OOOOOO",
+        "OOEOEE",
+        "OOEEOE",
+        "OOEEEO",
+        "OEOOEE",
+        "OEEOOE",
+        "OEEEOO",
+        "OEOEOE",
+        "OEOEEO",
+        "OEEOEO"
+    ]
+    // 'R' for right-hand
+    let parityEncodingTable = [
+        ["O" : "0001101", "E" : "0100111", "R" : "1110010"],
+        ["O" : "0011001", "E" : "0110011", "R" : "1100110"],
+        ["O" : "0010011", "E" : "0011011", "R" : "1101100"],
+        ["O" : "0111101", "E" : "0100001", "R" : "1000010"],
+        ["O" : "0100011", "E" : "0011101", "R" : "1011100"],
+        ["O" : "0110001", "E" : "0111001", "R" : "1001110"],
+        ["O" : "0101111", "E" : "0000101", "R" : "1010000"],
+        ["O" : "0111011", "E" : "0010001", "R" : "1000100"],
+        ["O" : "0110111", "E" : "0001001", "R" : "1001000"],
+        ["O" : "0001011", "E" : "0010111", "R" : "1110100"]
+    ]
+
     init(length:Int) {
+        self.length = length
+    }
+    
+    override func isValid(contents: String) -> Bool {
+        if super.isValid(contents) && self.length == contents.length() {
+            var sum_odd = 0
+            var sum_even = 0
+            
+            for i in 0..(self.length - 1) {
+                let digit = contents.substring(i, length: 1).toInt()!
+                if i % 2 == (self.length == 13 ? 0 : 1) {
+                    sum_even += digit
+                } else {
+                    sum_odd += digit
+                }
+            }
+            let checkDigit = (10 - (sum_even + sum_odd * 3) % 10) % 10
+            return contents.substring(contents.length() - 1, length: 1).toInt() == checkDigit
+        }
+        return false
+    }
+    
+    override func initiator() -> String {
+        return "101"
+    }
+    
+    override func terminator() -> String {
+        return "101"
+    }
+    
+    func centerGuardPattern() -> String {
+        return "01010"
+    }
+    
+    override func barcode(contents: String) -> String {
+        var lefthandParity = "OOOO"
+        var newContents = contents
+        if self.length == 13 {
+            lefthandParity = self.lefthandParities[contents.substring(0, length: 1).toInt()!]
+            newContents = contents.substring(1, length: contents.length() - 1)
+        }
+        
+        var barcode = ""
+        for i in 0..newContents.length() {
+            let digit = newContents.substring(i, length: 1).toInt()!
+            if i < lefthandParity.length() {
+                barcode += self.parityEncodingTable[digit][lefthandParity.substring(i, length: 1)]!
+                if i == lefthandParity.length() - 1 {
+                    barcode += self.centerGuardPattern()
+                }
+            } else {
+                barcode += self.parityEncodingTable[digit]["R"]!
+            }
+        }
+        return barcode
     }
 }
 
