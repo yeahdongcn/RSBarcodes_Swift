@@ -15,6 +15,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        println(AVMetadataObjectTypeInterleaved2of5Code)
+        println(AVMetadataObjectTypeDataMatrixCode)
+        
         let g = RSUnifiedCodeGenerator.shared
         
         let c39r = g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
@@ -30,6 +33,8 @@ class ViewController: UIViewController {
         let isbn13r = g.generateCode("9789504200857", machineReadableCodeObjectType: RSMetadataObjectTypeISBN13Code)
         
         let issn13r = g.generateCode("9771234567003", machineReadableCodeObjectType: RSMetadataObjectTypeISSN13Code)
+        
+        let itf14r = g.generateCode("15400141288763", machineReadableCodeObjectType: AVMetadataObjectTypeITF14Code)
         
         println()
     }

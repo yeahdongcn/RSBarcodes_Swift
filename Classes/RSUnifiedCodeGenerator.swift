@@ -36,6 +36,8 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSISBN13Generator()
         case RSMetadataObjectTypeISSN13Code:
             codeGenerator = RSISSN13Generator()
+        case AVMetadataObjectTypeITF14Code:
+            codeGenerator = RSITF14Generator()
         default:
             return nil
         }
