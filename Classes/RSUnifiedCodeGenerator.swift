@@ -40,6 +40,8 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSITF14Generator()
         case AVMetadataObjectTypeUPCECode:
             codeGenerator = RSUPCEGenerator()
+        case AVMetadataObjectTypeCode93Code:
+            codeGenerator = RSCode93Generator()
         default:
             return nil
         }

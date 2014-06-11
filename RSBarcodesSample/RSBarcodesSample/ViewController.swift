@@ -35,6 +35,8 @@ class ViewController: UIViewController {
         
         let upcer = g.generateCode("04252614", machineReadableCodeObjectType: AVMetadataObjectTypeUPCECode)
         
+        let c93r = g.generateCode("TEST93", machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
+        
         println()
     }
 
