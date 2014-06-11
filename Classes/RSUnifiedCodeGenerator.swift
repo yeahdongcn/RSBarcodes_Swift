@@ -37,7 +37,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         case AVMetadataObjectTypeCode93Code:
             codeGenerator = RSCode93Generator()
         case AVMetadataObjectTypeCode128Code:
-            codeGenerator = RSCode128Generator()
+            codeGenerator = RSCode128Generator(contents: contents)
             
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()

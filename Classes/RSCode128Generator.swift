@@ -8,7 +8,68 @@
 
 import UIKit
 
+
+
+// http://www.barcodeisland.com/code128.phtml
+// http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
 class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
+    enum RSCode128GeneratorCodeTable: Int {
+        case Auto = 0
+        case A, B, C
+    }
+    
+
+    class RSCode128GeneratorAutoCodeTable {
+        var startCodeTable = RSCode128GeneratorCodeTable.Auto
+        var sequence = []
+    }
+    
+    
+    
+    var codeTable: RSCode128GeneratorCodeTable
+    var codeTableSize: Int
+    var autoCodeTable: RSCode128GeneratorAutoCodeTable
+    
+    init(contents:String, codeTable:RSCode128GeneratorCodeTable) {
+        self.codeTable = codeTable
+        self.codeTableSize = CODE128_CHARACTER_ENCODINGS.count
+        self.autoCodeTable = RSCode128GeneratorAutoCodeTable()
+    }
+    
+    convenience init(contents:String) {
+        self.init(contents: contents, codeTable: RSCode128GeneratorCodeTable.Auto)
+    }
+    
+    func startCodeTableValue(startCodeTable: RSCode128GeneratorCodeTable) -> Int {
+        var codeTableValue = 0
+        switch self.autoCodeTable.startCodeTable {
+        case .A:
+            return self.codeTableSize - 4
+        case .B:
+            return self.codeTableSize - 3
+        case .C:
+            return self.codeTableSize - 2
+        default:
+            return 0
+        }
+    }
+    
+    func encodeCharacterString(characterString:String) -> String {
+        return CODE128_CHARACTER_ENCODINGS[CODE128_ALPHABET_STRING.location(characterString)]
+    }
+    
+    override func initiator() -> String {
+        switch self.codeTable {
+        case .Auto:
+            return CODE128_CHARACTER_ENCODINGS[self.startCodeTableValue(self.autoCodeTable.startCodeTable)]
+        default:
+            return CODE128_CHARACTER_ENCODINGS[self.startCodeTableValue(self.codeTable)]
+        }
+    }
+    
+    override func terminator() -> String {
+        return CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1] + "11"
+    }
     
     // RSCheckDigitGenerator
     
