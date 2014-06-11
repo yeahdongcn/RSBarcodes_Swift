@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 // http://www.barcodeisland.com/code128.phtml
 // http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
 class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
@@ -182,10 +180,68 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1] + "11"
     }
     
+    override func isValid(contents: String) -> Bool {
+        self.calculateAutoCodeTable(contents)
+        return true
+    }
+    
+    override func barcode(contents: String) -> String {
+        var barcode = ""
+        switch self.codeTable {
+        case .Auto:
+            for i in 0..self.autoCodeTable.sequence.count {
+                barcode += CODE128_CHARACTER_ENCODINGS[self.autoCodeTable.sequence[i]]
+            }
+        case .A, .B:
+            for i in 0..contents.length() {
+                barcode += self.encodeCharacterString(contents[i]!)
+            }
+        case .C:
+            for i in 0..contents.length() {
+                if i % 2 == 1 {
+                    continue
+                } else {
+                    let value = contents.substring(i, length: 2).toInt()!
+                    barcode += CODE128_CHARACTER_ENCODINGS[value]
+                }
+            }
+        }
+        
+        barcode += self.checkDigit(contents)
+        return barcode
+    }
+    
     // RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {
-        return ""
+        var sum = 0
+        switch self.codeTable {
+        case .Auto:
+            sum += self.startCodeTableValue(self.autoCodeTable.startCodeTable)
+            for i in 0..self.autoCodeTable.sequence.count {
+                sum += self.autoCodeTable.sequence[i] * (i + 1)
+            }
+        case .A:
+            sum = -1 // START A = self.codeTableSize - 4 = START B - 1
+            fallthrough
+        case .B:
+            sum += self.codeTableSize - 3 // START B
+            for i in 0..contents.length() {
+                let characterValue = CODE128_ALPHABET_STRING.location(contents[i]!)
+                sum += characterValue * (i + 1)
+            }
+        case .C:
+            sum += self.codeTableSize - 2 // START C
+            for i in 0..contents.length() {
+                if i % 2 == 1 {
+                    continue
+                } else {
+                    let value = contents.substring(i, length: 2).toInt()!
+                    sum += value * (i / 2 + 1)
+                }
+            }
+        }
+        return CODE128_CHARACTER_ENCODINGS[sum % 103]
     }
     
     let CODE128_ALPHABET_STRING = " !\"#$%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~"
