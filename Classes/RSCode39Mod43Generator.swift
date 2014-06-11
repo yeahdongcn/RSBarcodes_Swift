@@ -37,6 +37,6 @@ class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
             sum += CODE39_ALPHABET_STRING.location(String(character))
         }
         // 43 = CODE39_ALPHABET_STRING's length - 1 -- excludes asterisk
-        return CODE39_ALPHABET_STRING.substring(sum % (CODE39_ALPHABET_STRING.utf16count - 1), length: 1)
+        return CODE39_ALPHABET_STRING.substring(sum % (CODE39_ALPHABET_STRING.length() - 1), length: 1)
     }
 }

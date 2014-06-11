@@ -30,7 +30,7 @@ protocol RSCodeGenerator {
 class RSAbstractCodeGenerator : RSCodeGenerator {
     // Check whether the given contents are valid.
     func isValid(contents:String) -> Bool {
-        let length = contents.utf16count
+        let length = contents.length()
         if length > 0 {
             for var i:Int = 0; i < length; i++ {
                 let character = contents[i]
@@ -65,7 +65,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Drawer for completed barcode.
     func drawCompleteBarcode(completeBarcode:String) -> UIImage? {
-        let length:Int = completeBarcode.utf16count
+        let length:Int = completeBarcode.length()
         if length <= 0 {
             return nil
         }

@@ -68,7 +68,7 @@ class RSCode39Generator: RSAbstractCodeGenerator {
     // RSAbstractCodeGenerator
     
     override func isValid(contents: String) -> Bool {
-        let length = contents.utf16count
+        let length = contents.length()
         if length > 0 && contents == contents.uppercaseString {
             for character in contents {
                 let location = CODE39_ALPHABET_STRING.location(String(character))

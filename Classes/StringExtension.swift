@@ -9,6 +9,10 @@
 import UIKit
 
 extension String {
+    func length() -> Int {
+        return countElements(self)
+    }
+    
     func trim() -> String {
         return self.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
     }
