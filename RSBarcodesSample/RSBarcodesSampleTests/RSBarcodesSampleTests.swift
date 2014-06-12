@@ -80,11 +80,18 @@ class RSBarcodesSampleTests: XCTestCase {
         XCTAssert(aztecr != nil, "Pass Aztec")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    func testCICode128() {
         self.measureBlock() {
-            // Put the code you want to measure the time of here.
+            let r = RSUnifiedCodeGenerator.shared.generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
+    }
+    
+    func testRSBarcodesCode128() {
+        self.measureBlock() {
+            let r = RSCode128Generator().generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        }
+        
+
     }
     
 }

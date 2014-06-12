@@ -11,6 +11,7 @@ import UIKit
 import AVFoundation
 
 class RSUnifiedCodeGenerator: RSCodeGenerator {
+    var useBuiltInCode128Generator = true
     class var shared: RSUnifiedCodeGenerator {
     return UnifiedCodeGeneratorSharedInstance
     }
@@ -37,8 +38,14 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSUPCEGenerator()
         case AVMetadataObjectTypeCode93Code:
             codeGenerator = RSCode93Generator()
+            
+        // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObjectTypeCode128Code:
-            codeGenerator = RSCode128Generator()
+            if self.useBuiltInCode128Generator {
+                return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+            } else {
+                codeGenerator = RSCode128Generator()
+            }
             
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()

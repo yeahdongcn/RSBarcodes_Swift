@@ -126,6 +126,8 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
             return "CIPDF417BarcodeGenerator"
         } else if machineReadableCodeObjectType == AVMetadataObjectTypeAztecCode {
             return "CIAztecCodeGenerator"
+        } else if machineReadableCodeObjectType == AVMetadataObjectTypeCode128Code {
+            return "CICode128BarcodeGenerator"
         } else {
             return ""
         }
