@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
 
+import Foundation
+import UIKit
+import AVFoundation
 import XCTest
 
 class RSBarcodesSampleTests: XCTestCase {
@@ -21,8 +24,60 @@ class RSBarcodesSampleTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        let g = RSUnifiedCodeGenerator.shared
+        XCTAssert(g != nil, "Pass shared unified code generator")
+        
+        let c39r = g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+        XCTAssert(c39r != nil, "Pass code 39")
+        
+        let c39m43r = g.generateCode("CODE 39", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Mod43Code)
+        XCTAssert(c39m43r != nil, "Pass code 39 mod 43")
+        
+        let ce39r = g.generateCode("R0ckStar", machineReadableCodeObjectType: RSBarcodesTypeExtendedCode39Code)
+        XCTAssert(ce39r != nil, "Pass extended code 39")
+        
+        let ean8r = g.generateCode("47112346", machineReadableCodeObjectType: AVMetadataObjectTypeEAN8Code)
+        XCTAssert(ean8r != nil, "Pass EAN8")
+        
+        let ean13r = g.generateCode("6902890884910", machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
+        XCTAssert(ean13r != nil, "Pass EAN13")
+        
+        let isbn13r = g.generateCode("9789504200857", machineReadableCodeObjectType: RSBarcodesTypeISBN13Code)
+        XCTAssert(isbn13r != nil, "Pass ISBN13")
+        
+        let issn13r = g.generateCode("9771234567003", machineReadableCodeObjectType: RSBarcodesTypeISSN13Code)
+        XCTAssert(issn13r != nil, "Pass ISSN13")
+        
+        let itf14r = g.generateCode("15400141288763", machineReadableCodeObjectType: AVMetadataObjectTypeITF14Code)
+        XCTAssert(itf14r != nil, "Pass ITF14")
+        
+        let upcer = g.generateCode("04252614", machineReadableCodeObjectType: AVMetadataObjectTypeUPCECode)
+        XCTAssert(upcer != nil, "Pass UPCE")
+        
+        let c93r = g.generateCode("TEST93", machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
+        XCTAssert(c93r != nil, "Pass code 93")
+        
+        let c128r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        XCTAssert(c128r != nil, "Pass code 128 auto table")
+        
+        // Using custom code table for code 128.
+        let c128ar = RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        XCTAssert(c128ar != nil, "Pass code 128 A table")
+        
+        let c128br = RSCode128Generator(codeTable: .B).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        XCTAssert(c128br != nil, "Pass code 128 B table")
+        
+        let c128cr = RSCode128Generator(codeTable: .C).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        XCTAssert(c128cr != nil, "Pass code 128 C table")
+
+        let pdf417r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypePDF417Code)
+        XCTAssert(pdf417r != nil, "Pass PDF417")
+        
+        let qrr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObjectTypeQRCode)
+        XCTAssert(qrr != nil, "Pass QR")
+        
+        let aztecr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObjectTypeAztecCode)
+        XCTAssert(aztecr != nil, "Pass Aztec")
     }
     
     func testPerformanceExample() {
