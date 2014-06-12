@@ -13,6 +13,10 @@ class ViewController: RSCodeReaderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tapHandler = { point in
+            println(point)
+        }
     }
 }
 

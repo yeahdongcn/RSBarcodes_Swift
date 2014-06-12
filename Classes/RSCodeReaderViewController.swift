@@ -13,8 +13,8 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
     
-    var tapHandler: (CGPoint) -> Void = nil
-    var codesHandler: (Array<AVMetadataMachineReadableCodeObject>) -> Void = nil
+    var tapHandler: ((CGPoint) -> Void)?
+    var codesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
     
     func tap(gesture: UITapGestureRecognizer) {
         let tapPoint = gesture.locationInView(self.view)
@@ -31,7 +31,9 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             device.focusMode = .AutoFocus
             device.unlockForConfiguration()
             
-            println(tapPoint)
+            if tapHandler {
+                tapHandler!(tapPoint)
+            }
         }
     }
     
