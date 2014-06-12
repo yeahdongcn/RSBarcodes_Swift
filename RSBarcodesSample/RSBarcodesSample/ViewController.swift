@@ -36,7 +36,13 @@ class ViewController: UIViewController {
         
         let c93r = g.generateCode("TEST93", machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
         
-        let c128r = g.generateCode("HI345678", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let c128r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        
+        let pdf417r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypePDF417Code)
+        
+        let qrr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObjectTypeQRCode)
+        
+        let aztecr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObjectTypeAztecCode)
         
         println()
     }

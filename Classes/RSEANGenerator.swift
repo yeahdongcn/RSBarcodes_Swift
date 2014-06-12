@@ -51,7 +51,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
             var sum_even = 0
             
             for i in 0..(self.length - 1) {
-                let digit = contents[i]!.toInt()!
+                let digit = contents[i].toInt()!
                 if i % 2 == (self.length == 13 ? 0 : 1) {
                     sum_even += digit
                 } else {
@@ -59,7 +59,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
                 }
             }
             let checkDigit = (10 - (sum_even + sum_odd * 3) % 10) % 10
-            return contents[contents.length() - 1]!.toInt() == checkDigit
+            return contents[contents.length() - 1].toInt() == checkDigit
         }
         return false
     }
@@ -80,15 +80,15 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         var lefthandParity = "OOOO"
         var newContents = contents
         if self.length == 13 {
-            lefthandParity = self.lefthandParities[contents[0]!.toInt()!]
+            lefthandParity = self.lefthandParities[contents[0].toInt()!]
             newContents = contents.substring(1, length: contents.length() - 1)
         }
         
         var barcode = ""
         for i in 0..newContents.length() {
-            let digit = newContents[i]!.toInt()!
+            let digit = newContents[i].toInt()!
             if i < lefthandParity.length() {
-                barcode += self.parityEncodingTable[digit][lefthandParity[i]!]!
+                barcode += self.parityEncodingTable[digit][lefthandParity[i]]!
                 if i == lefthandParity.length() - 1 {
                     barcode += self.centerGuardPattern()
                 }

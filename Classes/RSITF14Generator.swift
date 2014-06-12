@@ -40,19 +40,19 @@ class RSITF14Generator: RSAbstractCodeGenerator {
         var barcode = ""
         for i in 0..contents.length() / 2 {
             let pair = contents.substring(i * 2, length: 2)
-            let bars = ITF14_CHARACTER_ENCODINGS[pair[0]!.toInt()!]
-            let spaces = ITF14_CHARACTER_ENCODINGS[pair[1]!.toInt()!]
+            let bars = ITF14_CHARACTER_ENCODINGS[pair[0].toInt()!]
+            let spaces = ITF14_CHARACTER_ENCODINGS[pair[1].toInt()!]
             
             for j in 0..10 {
                 if j % 2 == 0 {
-                    let bar = bars[j / 2]!.toInt()
+                    let bar = bars[j / 2].toInt()
                     if bar == 1 {
                         barcode += "11"
                     } else {
                         barcode += "1"
                     }
                 } else {
-                    let space = spaces[j / 2]!.toInt()
+                    let space = spaces[j / 2].toInt()
                     if space == 1 {
                         barcode += "00"
                     } else {

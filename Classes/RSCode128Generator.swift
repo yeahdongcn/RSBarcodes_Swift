@@ -8,34 +8,31 @@
 
 import UIKit
 
+enum RSCode128GeneratorCodeTable: Int {
+    case Auto = 0
+    case A, B, C
+}
+
 // http://www.barcodeisland.com/code128.phtml
 // http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
 class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
-    enum RSCode128GeneratorCodeTable: Int {
-        case Auto = 0
-        case A, B, C
-    }
-    
-    
     class RSCode128GeneratorAutoCodeTable {
         var startCodeTable = RSCode128GeneratorCodeTable.Auto
         var sequence:Array<Int> = []
     }
     
-    
-    
     var codeTable: RSCode128GeneratorCodeTable
     var codeTableSize: Int
     var autoCodeTable: RSCode128GeneratorAutoCodeTable
     
-    init(contents:String, codeTable:RSCode128GeneratorCodeTable) {
+    init(codeTable:RSCode128GeneratorCodeTable) {
         self.codeTable = codeTable
         self.codeTableSize = CODE128_CHARACTER_ENCODINGS.count
         self.autoCodeTable = RSCode128GeneratorAutoCodeTable()
     }
     
-    convenience init(contents:String) {
-        self.init(contents: contents, codeTable: RSCode128GeneratorCodeTable.Auto)
+    convenience init() {
+        self.init(codeTable: .Auto)
     }
     
     func startCodeTableValue(startCodeTable: RSCode128GeneratorCodeTable) -> Int {
@@ -79,7 +76,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
                     self.autoCodeTable.startCodeTable = .C
                 } else {
                     if length % 2 == 1 {
-                        let digitValue = CODE128_ALPHABET_STRING.location(contents[range.startIndex]!)
+                        let digitValue = CODE128_ALPHABET_STRING.location(contents[range.startIndex])
                         self.autoCodeTable.sequence += digitValue
                         isOrphanDigitUsed = true
                     }
@@ -98,17 +95,17 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
                 }
                 
                 if length % 2 == 1 && !isOrphanDigitUsed {
-                    let digitValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex - 1]!)
+                    let digitValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex - 1])
                     self.autoCodeTable.sequence += digitValue
                 }
                 
                 if (!isFinished) {
-                    let characterValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex]!)
+                    let characterValue = CODE128_ALPHABET_STRING.location(contents[range.endIndex])
                     self.autoCodeTable.sequence += characterValue
                 }
         } else {
             for i in range.startIndex...(isFinished ? range.endIndex - 1 : range.endIndex) {
-                let characterValue = CODE128_ALPHABET_STRING.location(contents[i]!)
+                let characterValue = CODE128_ALPHABET_STRING.location(contents[i])
                 self.autoCodeTable.sequence += characterValue
             }
         }
@@ -123,7 +120,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING.substring(0, length: 64)
             
             for i in 0..contents.length() {
-                if CODE128_ALPHABET_STRING_A.location(contents[i]!) == NSNotFound
+                if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound
                     && defaultCodeTable == .A {
                         defaultCodeTable = .B
                         break
@@ -132,14 +129,14 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             
             var continousDigitsStartIndex:Int = NSNotFound
             for i in 0..contents.length() {
-                let character = contents[i]!
+                let character = contents[i]
                 var continousDigitsRange:Range<Int> = Range<Int>(start: 0, end: 0)
                 if DIGITS_STRING.location(character) == NSNotFound {
                     // Non digit found
                     if (continousDigitsStartIndex != NSNotFound) {
                         continousDigitsRange = Range<Int>(start: continousDigitsStartIndex, end: i)
                     } else {
-                        let characterValue = CODE128_ALPHABET_STRING_A.location(character)
+                        let characterValue = CODE128_ALPHABET_STRING.location(character)
                         self.autoCodeTable.sequence += characterValue
                     }
                 } else {
@@ -181,8 +178,35 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     }
     
     override func isValid(contents: String) -> Bool {
-        self.calculateAutoCodeTable(contents)
-        return true
+        if contents.length() > 0 {
+            for i in 0..contents.length() {
+                if CODE128_ALPHABET_STRING.location(contents[i]) == NSNotFound {
+                    return false
+                }
+            }
+            
+            switch self.codeTable {
+            case .Auto:
+                self.calculateAutoCodeTable(contents)
+                fallthrough
+            case .B:
+                return true
+            case .A:
+                let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING.substring(0, length: 64)
+                for i in 0..contents.length() {
+                    if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound {
+                        return false
+                    }
+                }
+                return true
+            case .C:
+                if contents.length() % 2 == 0 && contents.isNumeric() {
+                    return true
+                }
+                return false
+            }
+        }
+        return false
     }
     
     override func barcode(contents: String) -> String {
@@ -194,7 +218,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             }
         case .A, .B:
             for i in 0..contents.length() {
-                barcode += self.encodeCharacterString(contents[i]!)
+                barcode += self.encodeCharacterString(contents[i])
             }
         case .C:
             for i in 0..contents.length() {
@@ -227,7 +251,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         case .B:
             sum += self.codeTableSize - 3 // START B
             for i in 0..contents.length() {
-                let characterValue = CODE128_ALPHABET_STRING.location(contents[i]!)
+                let characterValue = CODE128_ALPHABET_STRING.location(contents[i])
                 sum += characterValue * (i + 1)
             }
         case .C:
@@ -244,7 +268,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return CODE128_CHARACTER_ENCODINGS[sum % 103]
     }
     
-    let CODE128_ALPHABET_STRING = " !\"#$%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~"
+    let CODE128_ALPHABET_STRING = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_'abcdefghijklmnopqrstuvwxyz{|}~"
     
     let CODE128_CHARACTER_ENCODINGS = [
         "11011001100",

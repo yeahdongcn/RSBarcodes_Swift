@@ -54,7 +54,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     func convert2UPC_A(contents:String) -> String {
         let code = contents.substring(1, length: contents.length() - 2)
-        let lastDigit = code[code.length() - 1]!.toInt()!
+        let lastDigit = code[code.length() - 1].toInt()!
         var insertDigits = "0000"
         var upc_a = ""
         switch lastDigit {
@@ -75,7 +75,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     override func isValid(contents: String) -> Bool {
         return super.isValid(contents)
             && contents.length() == 8
-            && contents[0]!.toInt()! == 0
+            && contents[0].toInt()! == 0
             && contents[contents.length() - 1] == self.checkDigit(contents)
     }
     
@@ -88,12 +88,12 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     }
     
     override func barcode(contents: String) -> String {
-        let checkValue = contents[contents.length() - 1]!.toInt()!
+        let checkValue = contents[contents.length() - 1].toInt()!
         let sequence = UPCE_SEQUENCES[checkValue]
         var barcode = ""
         for i in 1..contents.length() - 1 {
-            let digit = contents[i]!.toInt()!
-            if sequence[i - 1]!.toInt()! % 2 == 0 {
+            let digit = contents[i].toInt()!
+            if sequence[i - 1].toInt()! % 2 == 0 {
                 barcode += UPCE_EVEN_ENCODINGS[digit]
             } else {
                 barcode += UPCE_ODD_ENCODINGS[digit]
@@ -118,7 +118,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         var sum_odd = 0
         var sum_even = 0
         for i in 0..upc_a.length() {
-            let digit = upc_a[i]!.toInt()!
+            let digit = upc_a[i].toInt()!
             if i % 2 == 0 {
                 sum_even += digit
             } else {
