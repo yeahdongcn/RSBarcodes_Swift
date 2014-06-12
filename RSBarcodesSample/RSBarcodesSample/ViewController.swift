@@ -9,14 +9,10 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: RSCodeReaderViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let r = RSUnifiedCodeGenerator.shared.generateCode("123456789", machineReadableCodeObjectType: AVMetadataObjectTypeDataMatrixCode)
-        
-        println()
     }
 }
 
