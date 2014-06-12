@@ -44,7 +44,16 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         case .C:
             return self.codeTableSize - 2
         default:
-            return 0
+            switch startCodeTable {
+            case .A:
+                return self.codeTableSize - 4
+            case .B:
+                return self.codeTableSize - 3
+            case .C:
+                return self.codeTableSize - 2
+            default:
+                return 0
+            }
         }
     }
     

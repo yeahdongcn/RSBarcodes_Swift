@@ -38,6 +38,13 @@ class ViewController: UIViewController {
         
         let c128r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         
+        // Using custom code table for code 128.
+        let c128ar = RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        
+        let c128br = RSCode128Generator(codeTable: .B).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        
+        let c128cr = RSCode128Generator(codeTable: .C).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        
         let pdf417r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypePDF417Code)
         
         let qrr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObjectTypeQRCode)
