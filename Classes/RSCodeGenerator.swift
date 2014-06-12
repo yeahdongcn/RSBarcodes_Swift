@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import CoreImage
 
 let DIGITS_STRING = "0123456789"
 
@@ -117,13 +118,13 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Class funcs
     
-    // Get CIFilter name by code object type
-    class func filterName(codeObjectType:String) -> String! {
-        if codeObjectType == AVMetadataObjectTypeQRCode {
+    // Get CIFilter name by machine readable code object type
+    class func filterName(machineReadableCodeObjectType:String) -> String! {
+        if machineReadableCodeObjectType == AVMetadataObjectTypeQRCode {
             return "CIQRCodeGenerator"
-        } else if codeObjectType == AVMetadataObjectTypePDF417Code {
+        } else if machineReadableCodeObjectType == AVMetadataObjectTypePDF417Code {
             return "CIPDF417BarcodeGenerator"
-        } else if codeObjectType == AVMetadataObjectTypeAztecCode {
+        } else if machineReadableCodeObjectType == AVMetadataObjectTypeAztecCode {
             return "CIAztecCodeGenerator"
         } else {
             return ""
@@ -132,6 +133,10 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Generate CI related code image
     class func generateCode(contents:String, filterName:String) -> UIImage {
+        if filterName == "" {
+            return UIImage()
+        }
+        
         let filter = CIFilter(name: filterName)
         filter.setDefaults()
         let inputMessage = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -140,9 +145,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         let outputImage = filter.outputImage
         let context = CIContext(options: nil)
         let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent())
-        let image = UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)
-        CGImageRelease(cgImage)
-        return image
+        return UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)
     }
     
     // Resize image

@@ -20,8 +20,9 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
     func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
         var codeGenerator:RSCodeGenerator? = nil
         switch machineReadableCodeObjectType {
-        case AVMetadataObjectTypeQRCode, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode:
+        case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
             return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+            
         case AVMetadataObjectTypeCode39Code:
             codeGenerator = RSCode39Generator()
         case AVMetadataObjectTypeCode39Mod43Code:

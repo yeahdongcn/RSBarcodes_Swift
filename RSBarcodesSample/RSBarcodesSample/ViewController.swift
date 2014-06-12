@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let r = RSUnifiedCodeGenerator.shared.generateCode("123456789", machineReadableCodeObjectType: AVMetadataObjectTypeDataMatrixCode)
+        println()
     }
 }
 
