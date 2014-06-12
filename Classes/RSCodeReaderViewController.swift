@@ -10,12 +10,42 @@ import UIKit
 import AVFoundation
 
 class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
+    
+    var tapHandler: (CGPoint) -> Void = nil
+    var codesHandler: (Array<AVMetadataMachineReadableCodeObject>) -> Void = nil
+    
+    func tap(gesture: UITapGestureRecognizer) {
+        let tapPoint = gesture.locationInView(self.view)
+        let focusPoint = CGPointMake(
+            tapPoint.x / self.view.bounds.size.width,
+            tapPoint.y / self.view.bounds.size.height)
+        
+        if !device
+            && !device.focusPointOfInterestSupported
+            && !device.isFocusModeSupported(.AutoFocus) {
+            return
+        } else if device.lockForConfiguration(nil) {
+            device.focusPointOfInterest = focusPoint
+            device.focusMode = .AutoFocus
+            device.unlockForConfiguration()
+            
+            println(tapPoint)
+        }
+    }
+    
+    func appWillEnterForeground() {
+        session.startRunning()
+    }
+    
+    func appDidEnterBackground() {
+        session.stopRunning()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         var error : NSError?
         let input = AVCaptureDeviceInput(device: device, error: &error)
         if error {
@@ -39,7 +69,27 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             session.addOutput(output)
             output.metadataObjectTypes = output.availableMetadataObjectTypes
         }
+        
+        let gesture = UITapGestureRecognizer(target: self, action: "tap:")
+        self.view.addGestureRecognizer(gesture)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
         session.startRunning()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
+        session.stopRunning()
     }
     
     // AVCaptureMetadataOutputObjectsDelegate
