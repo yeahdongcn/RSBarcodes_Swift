@@ -23,6 +23,10 @@ class RSITFGenerator: RSAbstractCodeGenerator {
         "01010",
     ]
     
+    override func isValid(contents: String) -> Bool {
+        return super.isValid(contents) && contents.length() % 2 == 0
+    }
+    
     override func initiator() -> String {
         return "1010"
     }

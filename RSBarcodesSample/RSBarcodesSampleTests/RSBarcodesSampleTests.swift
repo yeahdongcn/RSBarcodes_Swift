@@ -48,6 +48,9 @@ class RSBarcodesSampleTests: XCTestCase {
         let issn13r = g.generateCode("9771234567003", machineReadableCodeObjectType: RSBarcodesTypeISSN13Code)
         XCTAssert(issn13r != nil, "Pass ISSN13")
         
+        let itfr = g.generateCode("1234", machineReadableCodeObjectType: AVMetadataObjectTypeInterleaved2of5Code)
+        XCTAssert(itfr != nil, "Pass ITF")
+        
         let itf14r = g.generateCode("15400141288763", machineReadableCodeObjectType: AVMetadataObjectTypeITF14Code)
         XCTAssert(itf14r != nil, "Pass ITF14")
         
@@ -61,6 +64,9 @@ class RSBarcodesSampleTests: XCTestCase {
         XCTAssert(c128r != nil, "Pass code 128 auto table")
         
         // Using custom code table for code 128.
+        let c128autor = RSCode128Generator().generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        XCTAssert(c128autor != nil, "Pass code 128 Auto table")
+        
         let c128ar = RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128ar != nil, "Pass code 128 A table")
         

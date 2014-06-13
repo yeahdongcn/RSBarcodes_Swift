@@ -51,6 +51,13 @@
 			remoteGlobalIDString = D073990D19468EED003F0E14;
 			remoteInfo = RSBarcodesSample;
 		};
+		D04F2A90194B3CA600CD90E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D073990619468EED003F0E14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D073990D19468EED003F0E14;
+			remoteInfo = RSBarcodesSample;
+		};
 		D073992119468EED003F0E14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D073990619468EED003F0E14 /* Project object */;
@@ -239,6 +246,7 @@
 			dependencies = (
 				D073992219468EED003F0E14 /* PBXTargetDependency */,
 				D017AFC019495F2000F332B3 /* PBXTargetDependency */,
+				D04F2A91194B3CA600CD90E9 /* PBXTargetDependency */,
 			);
 			name = RSBarcodesSampleTests;
 			productName = RSBarcodesSampleTests;
@@ -355,6 +363,11 @@
 			isa = PBXTargetDependency;
 			target = D073990D19468EED003F0E14 /* RSBarcodesSample */;
 			targetProxy = D017AFBF19495F2000F332B3 /* PBXContainerItemProxy */;
+		};
+		D04F2A91194B3CA600CD90E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D073990D19468EED003F0E14 /* RSBarcodesSample */;
+			targetProxy = D04F2A90194B3CA600CD90E9 /* PBXContainerItemProxy */;
 		};
 		D073992219468EED003F0E14 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
