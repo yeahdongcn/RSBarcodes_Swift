@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/grant/swift-cheat-sheet/gh-pages/img/swift-hero.png">
+</p>
+
 RSBarcodes_Swift
 ==========
 [![Total views](https://sourcegraph.com/api/repos/github.com/yeahdongcn/RSBarcodes_Swift/counters/views.png)](https://sourcegraph.com/github.com/yeahdongcn/RSBarcodes_Swift)
