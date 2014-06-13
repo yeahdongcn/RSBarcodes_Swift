@@ -38,6 +38,7 @@
 		D0D2ED64194AAA330053484C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2ED63194AAA330053484C /* UIColorExtension.swift */; };
 		D0DB5E491947E9CC0050452F /* RSExtendedCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DB5E481947E9CC0050452F /* RSExtendedCode39Generator.swift */; };
 		D0DB5E4B1947F5CA0050452F /* RSEANGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DB5E4A1947F5CA0050452F /* RSEANGenerator.swift */; };
+		D0EFF8AB194AEBB700607BE8 /* RSCodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFF8AA194AEBB700607BE8 /* RSCodeLayer.swift */; };
 		D0FD9C6B1948233B00F61594 /* RSITF14Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD9C6A1948233B00F61594 /* RSITF14Generator.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		D0D2ED63194AAA330053484C /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		D0DB5E481947E9CC0050452F /* RSExtendedCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSExtendedCode39Generator.swift; sourceTree = "<group>"; };
 		D0DB5E4A1947F5CA0050452F /* RSEANGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSEANGenerator.swift; sourceTree = "<group>"; };
+		D0EFF8AA194AEBB700607BE8 /* RSCodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSCodeLayer.swift; sourceTree = "<group>"; };
 		D0FD9C6A1948233B00F61594 /* RSITF14Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSITF14Generator.swift; sourceTree = "<group>"; };
 		D0FD9C6C194829FF00F61594 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 				D095411719482D6800DDB375 /* RSUPCEGenerator.swift */,
 				D0DB5E4A1947F5CA0050452F /* RSEANGenerator.swift */,
 				D0FD9C6A1948233B00F61594 /* RSITF14Generator.swift */,
+				D0EFF8AA194AEBB700607BE8 /* RSCodeLayer.swift */,
 			);
 			name = Generators;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				D015DEF41946F053001A7243 /* RSCode39Mod43Generator.swift in Sources */,
 				D095411819482D6800DDB375 /* RSUPCEGenerator.swift in Sources */,
 				D0A41F81194A915100EDA7B5 /* RSFocusMarkLayer.swift in Sources */,
+				D0EFF8AB194AEBB700607BE8 /* RSCodeLayer.swift in Sources */,
 				D0B2C900194837F900BFC852 /* RSCode93Generator.swift in Sources */,
 				D05D7EEC194AC12A00485E5B /* RSCornersLayer.swift in Sources */,
 				D0FD9C6B1948233B00F61594 /* RSITF14Generator.swift in Sources */,
