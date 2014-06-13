@@ -24,6 +24,10 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 * ~~ITF14~~
 * ~~Interleaved2of5~~
 * DataMatrix
+* ~~PDF417~~
+* ~~QR~~
+* ~~Aztec~~
+
 * ~~Views~~
 
 ###Reader
