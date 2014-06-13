@@ -14,6 +14,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     let session = AVCaptureSession()
     
     var layer: AVCaptureVideoPreviewLayer?
+    let focusMark = RSFocusMarkLayer()
     
     var tapHandler: ((CGPoint) -> Void)?
     var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
@@ -32,6 +33,8 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             device.focusPointOfInterest = focusPoint
             device.focusMode = .AutoFocus
             device.unlockForConfiguration()
+            
+            focusMark.point = tapPoint
             
             if tapHandler {
                 tapHandler!(tapPoint)
@@ -76,6 +79,9 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         
         let gesture = UITapGestureRecognizer(target: self, action: "tap:")
         self.view.addGestureRecognizer(gesture)
+        
+        focusMark.frame = self.view.bounds
+        self.view.layer.addSublayer(focusMark)
     }
     
     override func viewWillAppear(animated: Bool) {
