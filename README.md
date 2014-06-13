@@ -20,7 +20,8 @@ RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabil
 * ~~ITF14~~
 * Interleaved2of5
 * DataMatrix
+* Views
 
 ###Reader
-* Views
-* ReaderController
+* ~~Views~~
+* ~~ReaderController~~
