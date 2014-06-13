@@ -11,9 +11,10 @@ import QuartzCore
 
 class RSFocusMarkLayer: CALayer {
     var size = CGSizeMake(76, 76) // Use camera.app's focus mark size
+    var sight: CGFloat = 6 // Use camera.app's focus mark sight
     var strokeColor = UIColor(rgba: "#ffcc00").CGColor // Use camera.app's focus mark color
-    var strokeWidth: CGFloat = 1.0
-    var delay: CFTimeInterval = 1.0
+    var strokeWidth: CGFloat = 1
+    var delay: CFTimeInterval = 1
     var canDraw = false
     
     var point : CGPoint = CGPointMake(0, 0) {
@@ -45,22 +46,22 @@ class RSFocusMarkLayer: CALayer {
         // Rect
         CGContextStrokeRect(ctx, CGRectMake(point.x - size.width / 2.0, point.y - size.height / 2.0, size.width, size.height))
         
-        //
+        // Focus
         for i in 0..4 {
             var endPoint: CGPoint
             switch i {
             case 0:
                 CGContextMoveToPoint(ctx, point.x, point.y - size.height / 2.0)
-                endPoint = CGPointMake(point.x, point.y - size.height / 2.0 + 6)
+                endPoint = CGPointMake(point.x, point.y - size.height / 2.0 + sight)
             case 1:
                 CGContextMoveToPoint(ctx, point.x, point.y + size.height / 2.0);
-                endPoint = CGPointMake(point.x, point.y + size.height / 2.0 - 6);
+                endPoint = CGPointMake(point.x, point.y + size.height / 2.0 - sight);
             case 2:
                 CGContextMoveToPoint(ctx, point.x - size.width / 2.0, point.y);
-                endPoint = CGPointMake(point.x - size.width / 2.0 + 6, point.y);
+                endPoint = CGPointMake(point.x - size.width / 2.0 + sight, point.y);
             case 3:
                 CGContextMoveToPoint(ctx, point.x + size.width / 2.0, point.y);
-                endPoint = CGPointMake(point.x + size.width / 2.0 - 6, point.y);
+                endPoint = CGPointMake(point.x + size.width / 2.0 - sight, point.y);
             default:
                 endPoint = CGPointMake(0, 0)
             }

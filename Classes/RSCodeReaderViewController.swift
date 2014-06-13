@@ -111,13 +111,18 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: AnyObject[]!, fromConnection connection: AVCaptureConnection!) {
         var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
+        var cornersArray : Array<AnyObject[]> = []
         for metadataObject : AnyObject in metadataObjects {
             let transformedMetadataObject = layer!.transformedMetadataObjectForMetadataObject(metadataObject as AVMetadataObject)
             if transformedMetadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject.self) {
                 let barcodeObject = transformedMetadataObject as AVMetadataMachineReadableCodeObject
                 barcodeObjects += barcodeObject
+                cornersArray += barcodeObject.corners
             }
         }
+        
+        cornersLayer.cornersArray = cornersArray
+        
         if barcodeObjects.count > 0 && barcodesHandler {
             barcodesHandler!(barcodeObjects)
         }

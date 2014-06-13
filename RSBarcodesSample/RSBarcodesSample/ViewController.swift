@@ -17,6 +17,12 @@ class ViewController: RSCodeReaderViewController {
         self.tapHandler = { point in
             println(point)
         }
+        
+        self.barcodesHandler = { barcodes in
+            for barcode in barcodes {
+                println(barcode)
+            }
+        }
     }
 }
 
