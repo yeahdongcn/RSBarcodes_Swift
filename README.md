@@ -18,7 +18,7 @@ RSBarcodes allows you to scan 1D and 2D barcodes using metadata scanning capabil
 * ~~UPCE~~
 * ~~EAN FAMILIY (EAN8 EAN13 ISBN13 ISSN13)~~
 * ~~ITF14~~
-* Interleaved2of5
+* ~~Interleaved2of5~~
 * DataMatrix
 * ~~Views~~
 

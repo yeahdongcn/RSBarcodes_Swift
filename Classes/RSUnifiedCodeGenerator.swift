@@ -32,6 +32,8 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSEAN8Generator()
         case AVMetadataObjectTypeEAN13Code:
             codeGenerator = RSEAN13Generator()
+        case AVMetadataObjectTypeInterleaved2of5Code:
+            codeGenerator = RSITFGenerator()
         case AVMetadataObjectTypeITF14Code:
             codeGenerator = RSITF14Generator()
         case AVMetadataObjectTypeUPCECode:
