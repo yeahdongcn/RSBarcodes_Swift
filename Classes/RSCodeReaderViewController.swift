@@ -13,8 +13,10 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
     
+    var layer: AVCaptureVideoPreviewLayer?
+    
     var tapHandler: ((CGPoint) -> Void)?
-    var codesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
+    var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
     
     func tap(gesture: UITapGestureRecognizer) {
         let tapPoint = gesture.locationInView(self.view)
@@ -52,20 +54,20 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         let input = AVCaptureDeviceInput(device: device, error: &error)
         if error {
             println(error.description)
-            exit(0)
+            return
         }
         
         if session.canAddInput(input) {
             session.addInput(input)
         }
         
-        let layer = AVCaptureVideoPreviewLayer(session: session)
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        layer.frame = self.view.bounds
-        self.view.layer.addSublayer(layer)
+        layer = AVCaptureVideoPreviewLayer(session: session)
+        layer!.videoGravity = AVLayerVideoGravityResizeAspectFill
+        layer!.frame = self.view.bounds
+        self.view.layer.addSublayer(layer!)
         
         let output = AVCaptureMetadataOutput()
-        let queue = dispatch_queue_create("com.pdq.rsbarcodes.metadata", DISPATCH_QUEUE_SERIAL);
+        let queue = dispatch_queue_create("com.pdq.rsbarcodes.metadata", DISPATCH_QUEUE_CONCURRENT)
         output.setMetadataObjectsDelegate(self, queue: queue)
         if session.canAddOutput(output) {
             session.addOutput(output)
@@ -97,6 +99,16 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     // AVCaptureMetadataOutputObjectsDelegate
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: AnyObject[]!, fromConnection connection: AVCaptureConnection!) {
-        
+        var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
+        for metadataObject : AnyObject in metadataObjects {
+            let transformedMetadataObject = layer!.transformedMetadataObjectForMetadataObject(metadataObject as AVMetadataObject)
+            if transformedMetadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject.self) {
+                let barcodeObject = transformedMetadataObject as AVMetadataMachineReadableCodeObject
+                barcodeObjects += barcodeObject
+            }
+        }
+        if barcodeObjects.count > 0 && barcodesHandler {
+            barcodesHandler!(barcodeObjects)
+        }
     }
 }
