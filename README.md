@@ -33,4 +33,8 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 * ~~Views~~
 * ~~ReaderController~~
 
+##Installation
+
+~~[CocoaPods](http://cocoapods.org/) is the recommended method of installing RSBarcodes.~~
+
 ##Miscellaneous
