@@ -35,9 +35,53 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 
 ##Installation
 
-~~[CocoaPods](http://cocoapods.org/) is the recommended method of installing RSBarcodes.~~
+~~[CocoaPods](http://cocoapods.org/) is the recommended method of installing RSBarcodes_Swift.~~
+
+~~Simply add the following line to your `Podfile`:~~
+
+    pod 'RSBarcodes_Swift', '~> 0.0.2'
+
+For now, directly add `*.swift` under `Classes` folder into the project created using Swift language.
+
+##Usage
+
+###Generators
+
+The simplest way to use the generators is:
+
+    RSUnifiedCodeGenerator.shared.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+
+It will generate an UIImage instance if the `2166529V` is a valid code39 string. For AVMetadataObjectTypeCode128Code, you can change `useBuiltInCode128Generator` to `false` to use my implementation (AutoTable for code128).
+
+P.S. There are 4 table for encoding a string to code128, `TableA`, `TableB`, `TableC` and `TableAuto`, the `TableAuto` is always the best choice, but if one has certain requirement, try this:
+
+    RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+
+These calling simples can be found in the test project.
+
+###Reader
+
+Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` based class as its custom class and it almost there, focus mark layer and corners layer is already there working for you. There are to handlers, one for the single tap on the screen along with the focus mark and the other is detected objects handler, which all detected will come to you. Set them up in `viewDidLoad()` or some place more suitable:
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.tapHandler = { point in
+            println(point)
+        }
+        
+        self.barcodesHandler = { barcodes in
+            for barcode in barcodes {
+                println(barcode)
+            }
+        }
+    }
 
 ##Miscellaneous
+
+[The Swift Programming Language 中文版](https://github.com/numbbbbb/the-swift-programming-language-in-chinese/)
+
+[Online version](http://numbbbbb.github.io/the-swift-programming-language-in-chinese/) generated using [GitBook](https://www.gitbook.io/)
 
 ##License
 
