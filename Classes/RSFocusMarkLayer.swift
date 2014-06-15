@@ -39,6 +39,8 @@ class RSFocusMarkLayer: CALayer {
         
         CGContextSaveGState(ctx)
         
+        CGContextSetShouldAntialias(ctx, true)
+        CGContextSetAllowsAntialiasing(ctx, true)
         CGContextSetFillColorWithColor(ctx, UIColor.clearColor().CGColor)
         CGContextSetStrokeColorWithColor(ctx, strokeColor)
         CGContextSetLineWidth(ctx, strokeWidth)
