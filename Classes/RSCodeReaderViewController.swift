@@ -28,8 +28,8 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             tapPoint.y / self.view.bounds.size.height)
         
         if !device
-            && !device.focusPointOfInterestSupported
-            && !device.isFocusModeSupported(.AutoFocus) {
+            || !device.focusPointOfInterestSupported
+            || !device.isFocusModeSupported(.AutoFocus) {
             return
         } else if device.lockForConfiguration(nil) {
             device.focusPointOfInterest = focusPoint
