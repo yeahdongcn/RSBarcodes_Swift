@@ -13,7 +13,7 @@ class RSCornersLayer: CALayer {
     var strokeColor = UIColor.greenColor().CGColor
     var strokeWidth: CGFloat = 2
     var drawingCornersArray: Array<Array<CGPoint>> = []
-    var cornersArray: Array<AnyObject[]> = [] {
+    var cornersArray: Array<[AnyObject]> = [] {
     willSet {
         dispatch_async(dispatch_get_main_queue(), {
             self.setNeedsDisplay()

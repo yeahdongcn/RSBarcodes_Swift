@@ -91,7 +91,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         let checkValue = contents[contents.length() - 1].toInt()!
         let sequence = UPCE_SEQUENCES[checkValue]
         var barcode = ""
-        for i in 1..contents.length() - 1 {
+        for i in 1...contents.length() - 1 {
             let digit = contents[i].toInt()!
             if sequence[i - 1].toInt()! % 2 == 0 {
                 barcode += UPCE_EVEN_ENCODINGS[digit]
@@ -117,7 +117,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         let upc_a = self.convert2UPC_A(contents)
         var sum_odd = 0
         var sum_even = 0
-        for i in 0..upc_a.length() {
+        for i in 0...upc_a.length() {
             let digit = upc_a[i].toInt()!
             if i % 2 == 0 {
                 sum_even += digit

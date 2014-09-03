@@ -27,9 +27,9 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             tapPoint.x / self.view.bounds.size.width,
             tapPoint.y / self.view.bounds.size.height)
         
-        if !device
+        if (!(device != nil)
             || !device.focusPointOfInterestSupported
-            || !device.isFocusModeSupported(.AutoFocus) {
+            || !device.isFocusModeSupported(.AutoFocus)) {
             return
         } else if device.lockForConfiguration(nil) {
             device.focusPointOfInterest = focusPoint
@@ -38,7 +38,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
             
             focusMarkLayer.point = tapPoint
             
-            if tapHandler {
+            if (tapHandler != nil) {
                 tapHandler!(tapPoint)
             }
         }
@@ -57,8 +57,8 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         
         var error : NSError?
         let input = AVCaptureDeviceInput(device: device, error: &error)
-        if error {
-            println(error.description)
+        if (error != nil) {
+            println(error?.description)
             return
         }
         
@@ -109,21 +109,21 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     // AVCaptureMetadataOutputObjectsDelegate
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: AnyObject[]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
-        var cornersArray : Array<AnyObject[]> = []
+        var cornersArray : Array<[AnyObject]> = []
         for metadataObject : AnyObject in metadataObjects {
             let transformedMetadataObject = layer!.transformedMetadataObjectForMetadataObject(metadataObject as AVMetadataObject)
             if transformedMetadataObject.isKindOfClass(AVMetadataMachineReadableCodeObject.self) {
                 let barcodeObject = transformedMetadataObject as AVMetadataMachineReadableCodeObject
-                barcodeObjects += barcodeObject
-                cornersArray += barcodeObject.corners
+                barcodeObjects.append(barcodeObject)
+                cornersArray.append(barcodeObject.corners)
             }
         }
         
         cornersLayer.cornersArray = cornersArray
         
-        if barcodeObjects.count > 0 && barcodesHandler {
+        if (barcodeObjects.count > 0 && barcodesHandler != nil) {
             barcodesHandler!(barcodeObjects)
         }
     }
