@@ -13,7 +13,7 @@ class RSCodeLayer: CALayer {
     var code: UIImage?
     
     override func drawInContext(ctx: CGContext!) {
-        if !code {
+        if !(code != nil) {
             return
         }
         

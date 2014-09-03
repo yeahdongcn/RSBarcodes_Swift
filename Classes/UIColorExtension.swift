@@ -16,7 +16,7 @@ extension UIColor {
         var alpha: CGFloat = 1.0
         
         if rgba.hasPrefix("#") {
-            let hex = rgba.substringFromIndex(1)
+            let hex = rgba.substring(1, length: rgba.length()-1)
             let scanner = NSScanner.scannerWithString(hex)
             var hexValue: CUnsignedLongLong = 0
             if scanner.scanHexLongLong(&hexValue) {

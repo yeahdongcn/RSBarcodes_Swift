@@ -49,7 +49,7 @@ class RSFocusMarkLayer: CALayer {
         CGContextStrokeRect(ctx, CGRectMake(point.x - size.width / 2.0, point.y - size.height / 2.0, size.width, size.height))
         
         // Focus
-        for i in 0..4 {
+        for i in 0...4 {
             var endPoint: CGPoint
             switch i {
             case 0:
