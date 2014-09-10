@@ -33,9 +33,9 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     func isValid(contents:String) -> Bool {
         let length = contents.length()
         if length > 0 {
-            for i in 0..length {
+            for i in 0..<length {
                 let character = contents[i]
-                if (!DIGITS_STRING.contains(character!)) {
+                if !DIGITS_STRING.contains(character!) {
                     return false
                 }
             }
@@ -89,7 +89,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height))
         CGContextSetLineWidth(context, 1)
         
-        for i in 0..length {
+        for i in 0..<length {
             let character = completeBarcode[i]
             if character == "1" {
                 let x = i + (2 + 1)

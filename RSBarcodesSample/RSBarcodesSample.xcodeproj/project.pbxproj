@@ -28,7 +28,6 @@
 		D04F2A97194B3CB100CD90E9 /* RSITF14Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFF8AC194AEE5900607BE8 /* RSITF14Generator.swift */; };
 		D04F2A98194B3CB100CD90E9 /* RSCodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EFF8AA194AEBB700607BE8 /* RSCodeLayer.swift */; };
 		D04F2A9A194B3F3400CD90E9 /* RSBarcodes_Swift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D04F2A99194B3F3400CD90E9 /* RSBarcodes_Swift.podspec */; };
-		D04F2A9C194B409D00CD90E9 /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = D04F2A9B194B409D00CD90E9 /* LICENSE.md */; };
 		D05D7EEC194AC12A00485E5B /* RSCornersLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7EEB194AC12A00485E5B /* RSCornersLayer.swift */; };
 		D073991419468EED003F0E14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991319468EED003F0E14 /* AppDelegate.swift */; };
 		D073991619468EED003F0E14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991519468EED003F0E14 /* ViewController.swift */; };
@@ -334,7 +333,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D04F2A9C194B409D00CD90E9 /* LICENSE.md in Sources */,
 				D015DEF41946F053001A7243 /* RSCode39Mod43Generator.swift in Sources */,
 				D095411819482D6800DDB375 /* RSUPCEGenerator.swift in Sources */,
 				D0A41F81194A915100EDA7B5 /* RSFocusMarkLayer.swift in Sources */,

@@ -13,17 +13,17 @@ class RSCornersLayer: CALayer {
     var strokeColor = UIColor.greenColor().CGColor
     var strokeWidth: CGFloat = 2
     var drawingCornersArray: Array<Array<CGPoint>> = []
-    var cornersArray: Array<AnyObject[]> = [] {
-    willSet {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.setNeedsDisplay()
+    var cornersArray: Array<[AnyObject]> = [] {
+        willSet {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.setNeedsDisplay()
             })
+        }
     }
-    }
-
+    
     override func drawInContext(ctx: CGContext!) {
         objc_sync_enter(self)
-
+        
         CGContextSaveGState(ctx)
         
         CGContextSetShouldAntialias(ctx, true)
@@ -42,7 +42,7 @@ class RSCornersLayer: CALayer {
                 
                 let x = CGFloat((dict.objectForKey("X") as NSNumber).floatValue)
                 let y = CGFloat((dict.objectForKey("Y") as NSNumber).floatValue)
-                if (i == 0) {
+                if i == 0 {
                     CGContextMoveToPoint(ctx, x, y)
                 } else {
                     CGContextAddLineToPoint(ctx, x, y)

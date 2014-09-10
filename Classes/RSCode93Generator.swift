@@ -66,7 +66,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     override func isValid(contents: String) -> Bool {
         if contents.length() > 0 && contents == contents.uppercaseString {
-            for i in 0..contents.length() {
+            for i in 0..<contents.length() {
                 if CODE93_ALPHABET_STRING.location(contents[i]) == NSNotFound {
                     return false
                 }
@@ -105,7 +105,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         
         // The first character
         var sum = 0
-        for i in 0..contents.length() {
+        for i in 0..<contents.length() {
             let character = contents[i]
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (contents.length() - i)
@@ -116,7 +116,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         // The second character
         sum = 0
         let newContents = contents + checkDigits
-        for i in 0..newContents.length() {
+        for i in 0..<newContents.length() {
             let character = newContents[i]
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (newContents.length() - i)

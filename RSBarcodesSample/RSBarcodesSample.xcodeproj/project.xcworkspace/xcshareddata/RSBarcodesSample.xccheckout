@@ -10,29 +10,29 @@
 	<string>RSBarcodesSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F21A4F48-322F-430C-BCA9-17DBD19A9E50</key>
+		<key>0C67662E2A10F70EBE4DA3BBC4540BD51EFE1E1B</key>
 		<string>https://github.com/yeahdongcn/RSBarcodes_Swift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RSBarcodesSample/RSBarcodesSample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F21A4F48-322F-430C-BCA9-17DBD19A9E50</key>
+		<key>0C67662E2A10F70EBE4DA3BBC4540BD51EFE1E1B</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/yeahdongcn/RSBarcodes_Swift.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F21A4F48-322F-430C-BCA9-17DBD19A9E50</string>
+	<string>0C67662E2A10F70EBE4DA3BBC4540BD51EFE1E1B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F21A4F48-322F-430C-BCA9-17DBD19A9E50</string>
+			<string>0C67662E2A10F70EBE4DA3BBC4540BD51EFE1E1B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RSBarcodes_Swift</string>
 		</dict>

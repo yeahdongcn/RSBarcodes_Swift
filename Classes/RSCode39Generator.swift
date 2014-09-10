@@ -72,7 +72,7 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         if length > 0 && contents == contents.uppercaseString {
             for character in contents {
                 let location = CODE39_ALPHABET_STRING.location(String(character))
-                if (location == NSNotFound) {
+                if location == NSNotFound {
                     return false
                 }
             }

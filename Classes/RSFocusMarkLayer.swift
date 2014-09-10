@@ -18,18 +18,18 @@ class RSFocusMarkLayer: CALayer {
     var canDraw = false
     
     var point : CGPoint = CGPointMake(0, 0) {
-    didSet {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.canDraw = true
-            self.setNeedsDisplay()
+        didSet {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.canDraw = true
+                self.setNeedsDisplay()
             })
-        
-        let when = dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay * Double(NSEC_PER_SEC)))
-        dispatch_after(when, dispatch_get_main_queue(), {
-            self.canDraw = false
-            self.setNeedsDisplay()
+            
+            let when = dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay * Double(NSEC_PER_SEC)))
+            dispatch_after(when, dispatch_get_main_queue(), {
+                self.canDraw = false
+                self.setNeedsDisplay()
             })
-    }
+        }
     }
     
     override func drawInContext(ctx: CGContext!) {
@@ -49,7 +49,7 @@ class RSFocusMarkLayer: CALayer {
         CGContextStrokeRect(ctx, CGRectMake(point.x - size.width / 2.0, point.y - size.height / 2.0, size.width, size.height))
         
         // Focus
-        for i in 0..4 {
+        for i in 0..<4 {
             var endPoint: CGPoint
             switch i {
             case 0:

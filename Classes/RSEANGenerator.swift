@@ -50,7 +50,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
             var sum_odd = 0
             var sum_even = 0
             
-            for i in 0..(self.length - 1) {
+            for i in 0..<(self.length - 1) {
                 let digit = contents[i].toInt()!
                 if i % 2 == (self.length == 13 ? 0 : 1) {
                     sum_even += digit
@@ -85,7 +85,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         }
         
         var barcode = ""
-        for i in 0..newContents.length() {
+        for i in 0..<newContents.length() {
             let digit = newContents[i].toInt()!
             if i < lefthandParity.length() {
                 barcode += self.parityEncodingTable[digit][lefthandParity[i]]!

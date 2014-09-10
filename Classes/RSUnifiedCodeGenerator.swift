@@ -41,7 +41,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         case AVMetadataObjectTypeCode93Code:
             codeGenerator = RSCode93Generator()
             
-        // iOS 8 included, but my implementation's performance is better :)
+            // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObjectTypeCode128Code:
             if self.useBuiltInCode128Generator {
                 return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))

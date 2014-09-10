@@ -25,7 +25,6 @@ class RSBarcodesSampleTests: XCTestCase {
     
     func testExample() {
         let g = RSUnifiedCodeGenerator.shared
-        XCTAssert(g != nil, "Pass shared unified code generator")
         
         let c39r = g.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
         XCTAssert(c39r != nil, "Pass code 39")
@@ -96,8 +95,5 @@ class RSBarcodesSampleTests: XCTestCase {
         self.measureBlock() {
             let r = RSCode128Generator().generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
-        
-
     }
-    
 }
