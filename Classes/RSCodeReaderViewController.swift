@@ -18,8 +18,19 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     var layer: AVCaptureVideoPreviewLayer?
     
+    var validator: NSTimer?
+    
     var tapHandler: ((CGPoint) -> Void)?
     var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
+    
+    func tick() {
+        validator!.invalidate()
+        validator = nil
+        
+        cornersLayer.cornersArray = []
+        
+        println("tick")
+    }
     
     func tap(gesture: UITapGestureRecognizer) {
         let tapPoint = gesture.locationInView(self.view)
@@ -51,6 +62,8 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     func appDidEnterBackground() {
         session.stopRunning()
     }
+    
+    // View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,5 +139,13 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         if barcodeObjects.count > 0 && barcodesHandler != nil {
             barcodesHandler!(barcodeObjects)
         }
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if (self.validator != nil) {
+                self.validator!.invalidate()
+                self.validator = nil
+            }
+            self.validator = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "tick", userInfo: nil, repeats: true);
+        })
     }
 }
