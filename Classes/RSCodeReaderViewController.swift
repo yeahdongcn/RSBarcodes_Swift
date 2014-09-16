@@ -83,7 +83,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     func onApplicationDidChangeStatusBarOrientation() {
         if videoPreviewLayer != nil
-            && videoPreviewLayer!.connection.supportsVideoOrientation{
+            && videoPreviewLayer!.connection.supportsVideoOrientation {
                 videoPreviewLayer!.connection.videoOrientation = RSCodeReaderViewController.InterfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
         }
     }
@@ -92,7 +92,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator
+        
         if videoPreviewLayer != nil {
             videoPreviewLayer!.frame = CGRectMake(0, 0, size.width, size.height)
         }
