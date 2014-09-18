@@ -81,14 +81,18 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         session.stopRunning()
     }
     
-    func onApplicationDidChangeStatusBarOrientation() {
+    // MARK: View lifecycle
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let videoOrientation = RSCodeReaderViewController.InterfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
         if videoPreviewLayer != nil
-            && videoPreviewLayer!.connection.supportsVideoOrientation {
-                videoPreviewLayer!.connection.videoOrientation = RSCodeReaderViewController.InterfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
+            && videoPreviewLayer!.connection.supportsVideoOrientation
+            && videoPreviewLayer!.connection.videoOrientation != videoOrientation {
+                videoPreviewLayer!.connection.videoOrientation = videoOrientation
         }
     }
-    
-    // MARK: View lifecycle
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -144,7 +148,6 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationDidEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationDidChangeStatusBarOrientation", name: UIApplicationDidChangeStatusBarOrientationNotification, object: nil)
         
         session.startRunning()
     }
@@ -154,7 +157,6 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidChangeStatusBarOrientationNotification, object: nil)
         
         session.stopRunning()
     }
