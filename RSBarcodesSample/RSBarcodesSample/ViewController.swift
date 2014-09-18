@@ -14,6 +14,10 @@ class ViewController: RSCodeReaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+        
+        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+        
         self.tapHandler = { point in
             println(point)
         }
