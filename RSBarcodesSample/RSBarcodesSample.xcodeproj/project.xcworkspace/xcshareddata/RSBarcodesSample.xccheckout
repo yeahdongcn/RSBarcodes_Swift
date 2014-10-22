@@ -14,7 +14,7 @@
 		<string>https://github.com/yeahdongcn/RSBarcodes_Swift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>RSBarcodesSample/RSBarcodesSample.xcodeproj/project.xcworkspace</string>
+	<string>RSBarcodesSample/RSBarcodesSample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0C67662E2A10F70EBE4DA3BBC4540BD51EFE1E1B</key>

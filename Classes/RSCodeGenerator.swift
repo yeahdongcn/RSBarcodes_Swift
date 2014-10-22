@@ -147,7 +147,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
         let outputImage = filter.outputImage
         let context = CIContext(options: nil)
         let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent())
-        return UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)
+        return UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)!
     }
     
     // Resize image
