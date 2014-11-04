@@ -16,7 +16,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
     return UnifiedCodeGeneratorSharedInstance
     }
     
-    // RSCodeGenerator
+    // MARK: RSCodeGenerator
     
     func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
         var codeGenerator:RSCodeGenerator? = nil

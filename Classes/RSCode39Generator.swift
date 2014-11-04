@@ -65,7 +65,7 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         return CODE39_CHARACTER_ENCODINGS[location]
     }
     
-    // RSAbstractCodeGenerator
+    // MAKR: RSAbstractCodeGenerator
     
     override func isValid(contents: String) -> Bool {
         let length = contents.length()

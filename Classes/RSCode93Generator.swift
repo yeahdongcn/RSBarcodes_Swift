@@ -98,7 +98,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return barcode
     }
     
-    // RSCheckDigitGenerator
+    // MARK: RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {
         // Weighted sum += value * weight

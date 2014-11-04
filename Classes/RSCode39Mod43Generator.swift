@@ -12,13 +12,13 @@ import UIKit
 // http://www.barcodeisland.com/code39.phtml
 class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     
-    // RSAbstractCodeGenerator
+    // MARK: RSAbstractCodeGenerator
     
     override func barcode(contents: String) -> String {
         return super.barcode(contents + self.checkDigit(contents.uppercaseString))
     }
     
-    // RSCheckDigitGenerator
+    // MARK: RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {
         /*

@@ -244,7 +244,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return barcode
     }
     
-    // RSCheckDigitGenerator
+    // MARK: RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {
         var sum = 0

@@ -102,7 +102,7 @@ class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return barcode
     }
     
-    // RSCheckDigitGenerator
+    // MARK: RSCheckDigitGenerator
     
     func checkDigit(contents: String) -> String {
         /*
