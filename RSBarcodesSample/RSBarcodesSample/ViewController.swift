@@ -11,6 +11,10 @@ import AVFoundation
 
 class ViewController: RSCodeReaderViewController {
     
+    func click(sender: AnyObject?) {
+        println("Close")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +31,11 @@ class ViewController: RSCodeReaderViewController {
                 println(barcode)
             }
         }
+        
+        let button = UIButton(frame: CGRectMake(0, 0, 100, 100))
+        button.setTitle("Close", forState: UIControlState.Normal)
+        button.addTarget(self, action: "click:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(button)
     }
 }
 

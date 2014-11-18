@@ -141,10 +141,6 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         
         cornersLayer.frame = self.view.bounds
         self.view.layer.addSublayer(cornersLayer)
-        
-        let button = UIButton(frame: CGRectMake(0, 0, 100, 100))
-        button.setTitle("Close", forState: UIControlState.Normal)
-        self.view.addSubview(button)
     }
     
     override func viewWillAppear(animated: Bool) {
