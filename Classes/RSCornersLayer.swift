@@ -9,11 +9,11 @@
 import UIKit
 import QuartzCore
 
-class RSCornersLayer: CALayer {
-    var strokeColor = UIColor.greenColor().CGColor
-    var strokeWidth: CGFloat = 2
-    var drawingCornersArray: Array<Array<CGPoint>> = []
-    var cornersArray: Array<[AnyObject]> = [] {
+public class RSCornersLayer: CALayer {
+    public var strokeColor = UIColor.greenColor().CGColor
+    public var strokeWidth: CGFloat = 2
+    public var drawingCornersArray: Array<Array<CGPoint>> = []
+    public var cornersArray: Array<[AnyObject]> = [] {
         willSet {
             dispatch_async(dispatch_get_main_queue(), {
                 self.setNeedsDisplay()
@@ -21,7 +21,7 @@ class RSCornersLayer: CALayer {
         }
     }
     
-    override func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext!) {
         objc_sync_enter(self)
         
         CGContextSaveGState(ctx)

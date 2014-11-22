@@ -8,11 +8,11 @@
 
 import UIKit
 
-let RSBarcodesTypeISBN13Code = "com.pdq.rsbarcodes.isbn13"
-let RSBarcodesTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
+public let RSBarcodesTypeISBN13Code = "com.pdq.rsbarcodes.isbn13"
+public let RSBarcodesTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
 
 // http://blog.sina.com.cn/s/blog_4015406e0100bsqk.html
-class RSEANGenerator: RSAbstractCodeGenerator {
+public class RSEANGenerator: RSAbstractCodeGenerator {
     var length = 0
     // 'O' for odd and 'E' for even
     let lefthandParities = [
@@ -45,7 +45,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         self.length = length
     }
     
-    override func isValid(contents: String) -> Bool {
+    override public func isValid(contents: String) -> Bool {
         if super.isValid(contents) && self.length == contents.length() {
             var sum_odd = 0
             var sum_even = 0
@@ -64,11 +64,11 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         return false
     }
     
-    override func initiator() -> String {
+    override public func initiator() -> String {
         return "101"
     }
     
-    override func terminator() -> String {
+    override public func terminator() -> String {
         return "101"
     }
     
@@ -76,7 +76,7 @@ class RSEANGenerator: RSAbstractCodeGenerator {
         return "01010"
     }
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         var lefthandParity = "OOOO"
         var newContents = contents
         if self.length == 13 {

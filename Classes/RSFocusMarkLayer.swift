@@ -9,15 +9,15 @@
 import UIKit
 import QuartzCore
 
-class RSFocusMarkLayer: CALayer {
-    var size = CGSizeMake(76, 76) // Use camera.app's focus mark size
-    var sight: CGFloat = 6 // Use camera.app's focus mark sight
-    var strokeColor = UIColor(rgba: "#ffcc00").CGColor // Use camera.app's focus mark color
-    var strokeWidth: CGFloat = 1
-    var delay: CFTimeInterval = 1
-    var canDraw = false
+public class RSFocusMarkLayer: CALayer {
+    public var size = CGSizeMake(76, 76) // Use camera.app's focus mark size
+    public var sight: CGFloat = 6 // Use camera.app's focus mark sight
+    public var strokeColor = UIColor(rgba: "#ffcc00").CGColor // Use camera.app's focus mark color
+    public var strokeWidth: CGFloat = 1
+    public var delay: CFTimeInterval = 1
+    public var canDraw = false
     
-    var point : CGPoint = CGPointMake(0, 0) {
+    public var point : CGPoint = CGPointMake(0, 0) {
         didSet {
             dispatch_async(dispatch_get_main_queue(), {
                 self.canDraw = true
@@ -32,7 +32,7 @@ class RSFocusMarkLayer: CALayer {
         }
     }
     
-    override func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext!) {
         if !canDraw {
             return
         }

@@ -9,17 +9,17 @@
 import UIKit
 import AVFoundation
 
-class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
     
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    let focusMarkLayer = RSFocusMarkLayer()
-    let cornersLayer = RSCornersLayer()
+    public let focusMarkLayer = RSFocusMarkLayer()
+    public let cornersLayer = RSCornersLayer()
     
-    var tapHandler: ((CGPoint) -> Void)?
-    var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
+    public var tapHandler: ((CGPoint) -> Void)?
+    public var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
     
     var validator: NSTimer?
     
@@ -83,7 +83,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     // MARK: View lifecycle
     
-    override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         let videoOrientation = RSCodeReaderViewController.InterfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
@@ -94,7 +94,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         }
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
         if videoPreviewLayer != nil {
@@ -102,7 +102,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         }
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clearColor()
@@ -143,7 +143,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         self.view.layer.addSublayer(cornersLayer)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
@@ -152,7 +152,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
         session.startRunning()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override public func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationWillEnterForegroundNotification, object: nil)
@@ -163,7 +163,7 @@ class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjec
     
     // MARK: AVCaptureMetadataOutputObjectsDelegate
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    public func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
         var cornersArray : Array<[AnyObject]> = []
         for metadataObject : AnyObject in metadataObjects {

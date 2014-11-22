@@ -8,14 +8,14 @@
 
 import UIKit
 
-enum RSCode128GeneratorCodeTable: Int {
+public enum RSCode128GeneratorCodeTable: Int {
     case Auto = 0
     case A, B, C
 }
 
 // http://www.barcodeisland.com/code128.phtml
 // http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
-class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
+public class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     class RSCode128GeneratorAutoCodeTable {
         var startCodeTable = RSCode128GeneratorCodeTable.Auto
         var sequence:Array<Int> = []
@@ -25,13 +25,13 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     var codeTableSize: Int
     var autoCodeTable: RSCode128GeneratorAutoCodeTable
     
-    init(codeTable:RSCode128GeneratorCodeTable) {
+    public init(codeTable:RSCode128GeneratorCodeTable) {
         self.codeTable = codeTable
         self.codeTableSize = CODE128_CHARACTER_ENCODINGS.count
         self.autoCodeTable = RSCode128GeneratorAutoCodeTable()
     }
     
-    convenience override init() {
+    public convenience override init() {
         self.init(codeTable: .Auto)
     }
     
@@ -173,7 +173,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return CODE128_CHARACTER_ENCODINGS[CODE128_ALPHABET_STRING.location(characterString)]
     }
     
-    override func initiator() -> String {
+    override public func initiator() -> String {
         switch self.codeTable {
         case .Auto:
             return CODE128_CHARACTER_ENCODINGS[self.startCodeTableValue(self.autoCodeTable.startCodeTable)]
@@ -182,11 +182,11 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         }
     }
     
-    override func terminator() -> String {
+    override public func terminator() -> String {
         return CODE128_CHARACTER_ENCODINGS[self.codeTableSize - 1] + "11"
     }
     
-    override func isValid(contents: String) -> Bool {
+    override public func isValid(contents: String) -> Bool {
         if contents.length() > 0 {
             for i in 0..<contents.length() {
                 if CODE128_ALPHABET_STRING.location(contents[i]) == NSNotFound {
@@ -218,7 +218,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return false
     }
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         var barcode = ""
         switch self.codeTable {
         case .Auto:
@@ -246,7 +246,7 @@ class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     // MARK: RSCheckDigitGenerator
     
-    func checkDigit(contents: String) -> String {
+    public func checkDigit(contents: String) -> String {
         var sum = 0
         switch self.codeTable {
         case .Auto:

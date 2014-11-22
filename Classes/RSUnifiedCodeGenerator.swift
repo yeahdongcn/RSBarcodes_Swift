@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class RSUnifiedCodeGenerator: RSCodeGenerator {
-    var useBuiltInCode128Generator = true
-    class var shared: RSUnifiedCodeGenerator {
+public class RSUnifiedCodeGenerator: RSCodeGenerator {
+    public var useBuiltInCode128Generator = true
+    public class var shared: RSUnifiedCodeGenerator {
     return UnifiedCodeGeneratorSharedInstance
     }
     
     // MARK: RSCodeGenerator
     
-    func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
+    public func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
         var codeGenerator:RSCodeGenerator? = nil
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
@@ -62,7 +62,7 @@ class RSUnifiedCodeGenerator: RSCodeGenerator {
         return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
     }
     
-    func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {
+    public func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {
         return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type)
     }
 }

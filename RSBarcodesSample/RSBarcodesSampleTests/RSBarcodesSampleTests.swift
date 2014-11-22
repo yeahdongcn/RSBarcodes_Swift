@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import XCTest
+import RSBarcodes
 
 class RSBarcodesSampleTests: XCTestCase {
     

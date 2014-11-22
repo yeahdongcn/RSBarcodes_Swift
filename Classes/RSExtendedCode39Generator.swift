@@ -8,11 +8,11 @@
 
 import UIKit
 
-let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
+public let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
-class RSExtendedCode39Generator: RSCode39Generator {
+public class RSExtendedCode39Generator: RSCode39Generator {
     func encodeContents(contents: String) -> String {
         var encodedContents = ""
         for character in contents {
@@ -134,11 +134,11 @@ class RSExtendedCode39Generator: RSCode39Generator {
         return encodedContents
     }
     
-    override func isValid(contents: String) -> Bool {
+    override public func isValid(contents: String) -> Bool {
         return contents.length() > 0
     }
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         return super.barcode(self.encodeContents(contents))
     }
 }

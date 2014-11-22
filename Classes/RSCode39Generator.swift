@@ -12,7 +12,7 @@ let CODE39_ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
-class RSCode39Generator: RSAbstractCodeGenerator {
+public class RSCode39Generator: RSAbstractCodeGenerator {
     let CODE39_CHARACTER_ENCODINGS = [
         "1010011011010",
         "1101001010110",
@@ -67,7 +67,7 @@ class RSCode39Generator: RSAbstractCodeGenerator {
     
     // MAKR: RSAbstractCodeGenerator
     
-    override func isValid(contents: String) -> Bool {
+    override public func isValid(contents: String) -> Bool {
         let length = contents.length()
         if length > 0 && contents == contents.uppercaseString {
             for character in contents {
@@ -81,15 +81,15 @@ class RSCode39Generator: RSAbstractCodeGenerator {
         return false
     }
     
-    override func initiator() -> String {
+    override public func initiator() -> String {
         return self.encodeCharacterString("*")
     }
     
-    override func terminator() -> String {
+    override public func terminator() -> String {
         return self.encodeCharacterString("*")
     }
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         var barcode = ""
         for character in contents {
             barcode += self.encodeCharacterString(String(character))

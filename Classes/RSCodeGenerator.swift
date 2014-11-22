@@ -14,23 +14,23 @@ import CoreImage
 let DIGITS_STRING = "0123456789"
 
 // Code generators are required to provide these two functions.
-protocol RSCodeGenerator {
-    func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
+public protocol RSCodeGenerator {
+     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
     
-    func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage?
+     func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage?
 }
 
 // Check digit are not required for all code generators.
 // UPC-E is using check digit to valid the contents to be encoded.
 // Code39Mod43, Code93 and Code128 is using check digit to encode barcode.
-@objc protocol RSCheckDigitGenerator {
+public protocol RSCheckDigitGenerator {
     func checkDigit(contents:String) -> String
 }
 
 // Abstract code generator, provides default functions for validations and generations.
-class RSAbstractCodeGenerator : RSCodeGenerator {
+public class RSAbstractCodeGenerator : RSCodeGenerator {
     // Check whether the given contents are valid.
-    func isValid(contents:String) -> Bool {
+    public func isValid(contents:String) -> Bool {
         let length = contents.length()
         if length > 0 {
             for i in 0..<length {
@@ -45,17 +45,17 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Barcode initiator, subclass should return its own value.
-    func initiator() -> String {
+    public func initiator() -> String {
         return ""
     }
     
     // Barcode terminator, subclass should return its own value.
-    func terminator() -> String {
+    public func terminator() -> String {
         return ""
     }
     
     // Barcode content, subclass should return its own value.
-    func barcode(contents:String) -> String {
+    public func barcode(contents:String) -> String {
         return ""
     }
     
@@ -105,11 +105,11 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // RSCodeGenerator
     
-    func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
+    public func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
         return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type)
     }
     
-    func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage? {
+    public func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage? {
         if self.isValid(contents) {
             return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)))
         }
@@ -119,7 +119,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     // Class funcs
     
     // Get CIFilter name by machine readable code object type
-    class func filterName(machineReadableCodeObjectType:String) -> String! {
+    public class func filterName(machineReadableCodeObjectType:String) -> String! {
         if machineReadableCodeObjectType == AVMetadataObjectTypeQRCode {
             return "CIQRCodeGenerator"
         } else if machineReadableCodeObjectType == AVMetadataObjectTypePDF417Code {
@@ -134,7 +134,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Generate CI related code image
-    class func generateCode(contents:String, filterName:String) -> UIImage {
+    public class func generateCode(contents:String, filterName:String) -> UIImage {
         if filterName == "" {
             return UIImage()
         }
@@ -151,7 +151,7 @@ class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Resize image
-    class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage {
+    public class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage {
         let width = source.size.width * scale
         let height = source.size.height * scale
         

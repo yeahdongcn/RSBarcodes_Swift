@@ -24,7 +24,6 @@
 		D08336961A20313F004EE128 /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336851A20313F004EE128 /* RSUPCEGenerator.swift */; };
 		D08336971A20313F004EE128 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336861A20313F004EE128 /* StringExtension.swift */; };
 		D08336981A20313F004EE128 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336871A20313F004EE128 /* UIColorExtension.swift */; };
-		D083369A1A2032B4004EE128 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D08336991A2032B4004EE128 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,7 +128,6 @@
 				D08336321A202E81004EE128 /* Sources */,
 				D08336331A202E81004EE128 /* Frameworks */,
 				D08336341A202E81004EE128 /* Headers */,
-				D08336351A202E81004EE128 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -170,17 +168,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		D08336351A202E81004EE128 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D083369A1A2032B4004EE128 /* Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D08336321A202E81004EE128 /* Sources */ = {

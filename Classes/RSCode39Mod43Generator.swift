@@ -10,17 +10,17 @@ import UIKit
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
-class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
+public class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     
     // MARK: RSAbstractCodeGenerator
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         return super.barcode(contents + self.checkDigit(contents.uppercaseString))
     }
     
     // MARK: RSCheckDigitGenerator
     
-    func checkDigit(contents: String) -> String {
+    public func checkDigit(contents: String) -> String {
         /*
         Step 1: From the table below, find the values of each character.
         C    O    D    E        3    9    <--Message characters

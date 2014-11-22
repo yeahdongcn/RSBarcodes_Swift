@@ -9,7 +9,7 @@
 import UIKit
 
 // http://www.barcodeisland.com/code93.phtml
-class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
+public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     let CODE93_ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
     
     let CODE93_CHARACTER_ENCODINGS = [
@@ -64,7 +64,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return CODE93_CHARACTER_ENCODINGS[CODE93_ALPHABET_STRING.location(characterString)]
     }
     
-    override func isValid(contents: String) -> Bool {
+    override public func isValid(contents: String) -> Bool {
         if contents.length() > 0 && contents == contents.uppercaseString {
             for i in 0..<contents.length() {
                 if CODE93_ALPHABET_STRING.location(contents[i]) == NSNotFound {
@@ -76,16 +76,16 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return false
     }
     
-    override func initiator() -> String {
+    override public func initiator() -> String {
         return self.encodeCharacterString("*")
     }
     
-    override func terminator() -> String {
+    override public func terminator() -> String {
         // With the termination bar: 1
         return self.encodeCharacterString("*") + "1"
     }
     
-    override func barcode(contents: String) -> String {
+    override public func barcode(contents: String) -> String {
         var barcode = ""
         for character in contents {
             barcode += self.encodeCharacterString(String(character))
@@ -100,7 +100,7 @@ class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     // MARK: RSCheckDigitGenerator
     
-    func checkDigit(contents: String) -> String {
+    public func checkDigit(contents: String) -> String {
         // Weighted sum += value * weight
         
         // The first character

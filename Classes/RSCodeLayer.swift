@@ -9,10 +9,10 @@
 import UIKit
 import QuartzCore
 
-class RSCodeLayer: CALayer {
+public class RSCodeLayer: CALayer {
     var code: UIImage?
     
-    override func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext!) {
         if code == nil {
             return
         }
