@@ -14,24 +14,24 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 ##TODO
 
 ###Generators
-* ~~Code39~~
-* ~~Code39Mod43~~
-* ~~ExtendedCode39~~
-* ~~Code93~~
-* ~~Code128~~
-* ~~UPCE~~
-* ~~EAN FAMILIY (EAN8 EAN13 ISBN13 ISSN13)~~
-* ~~ITF14~~
-* ~~Interleaved2of5~~
-* DataMatrix
-* ~~PDF417~~
-* ~~QR~~
-* ~~Aztec~~
-* ~~Views~~
+- [x] Code39
+- [x] Code39Mod43
+- [x] ExtendedCode39
+- [x] Code93
+- [x] Code128
+- [x] UPCE
+- [x] EAN FAMILIY (EAN8 EAN13 ISBN13 ISSN13)
+- [x] ITF14
+- [x] Interleaved2of5
+- [ ] DataMatrix
+- [x] PDF417
+- [x] QR
+- [x] Aztec
+- [x] Views
 
 ###Reader
-* ~~Views~~
-* ~~ReaderController~~
+- [x] Views
+- [x] ReaderController
 
 ##Installation
 
