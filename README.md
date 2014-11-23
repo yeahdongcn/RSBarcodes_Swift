@@ -35,13 +35,13 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 
 ##Installation
 
-~~[CocoaPods](http://cocoapods.org/) is the recommended method of installing RSBarcodes_Swift.~~
-
-~~Simply add the following line to your `Podfile`:~~
-
-    pod 'RSBarcodes_Swift', '~> 0.0.2'
-
-For now, directly add `*.swift` under `Classes` folder into the project created using Swift language.
+1. Add RSBarcodes_Swift as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/yeahdongcn/RSBarcodes_Swift.git`
+2. Open the `RSBarcodes_Swift` folder, and drag `RSBarcodes.xcodeproj` into the file navigator of your app project.
+3. In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
+4. Ensure that the deployment target of RSBarcodes.framework matches that of the application target.
+5. In the tab bar at the top of that window, open the "Build Phases" panel.
+6. Expand the "Target Dependencies" group, and add `RSBarcodes.framework`.
+7. Click on the `+` button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add `RSBarcodes.framework`.
 
 ##Usage
 
