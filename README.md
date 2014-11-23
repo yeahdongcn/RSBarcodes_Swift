@@ -9,7 +9,7 @@ RSBarcodes, now Swift.
 
 RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabilities introduced with iOS 7 and generate the same set of barcode images for displaying and sharing. Now Swift.
 
-* Objc version. [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
+* Objective-C version. [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
 
 ##TODO
 
@@ -80,6 +80,10 @@ Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` b
             }
         }
     }
+    
+###Helper
+
+Try `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
 
 ##Miscellaneous
 
