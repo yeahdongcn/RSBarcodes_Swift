@@ -81,6 +81,12 @@ Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` b
         }
     }
     
+If you want to ignore some code types, you'd better add following lines
+
+    let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
+    types.removeObject(AVMetadataObjectTypeQRCode)
+    self.output.metadataObjectTypes = NSArray(array: types)
+    
 ###Helper
 
 Try `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
