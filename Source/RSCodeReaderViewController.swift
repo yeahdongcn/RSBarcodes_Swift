@@ -11,12 +11,13 @@ import AVFoundation
 
 public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    let session = AVCaptureSession()
-    
+    lazy var device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    lazy var session = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    public let focusMarkLayer = RSFocusMarkLayer()
-    public let cornersLayer = RSCornersLayer()
+    public lazy var output = AVCaptureMetadataOutput()
+    
+    public lazy var focusMarkLayer = RSFocusMarkLayer()
+    public lazy var cornersLayer = RSCornersLayer()
     
     public var tapHandler: ((CGPoint) -> Void)?
     public var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
@@ -125,7 +126,6 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             self.view.layer.addSublayer(videoPreviewLayer!)
         }
         
-        let output = AVCaptureMetadataOutput()
         let queue = dispatch_queue_create("com.pdq.rsbarcodes.metadata", DISPATCH_QUEUE_CONCURRENT)
         output.setMetadataObjectsDelegate(self, queue: queue)
         if session.canAddOutput(output) {

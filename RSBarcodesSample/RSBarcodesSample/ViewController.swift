@@ -37,6 +37,10 @@ class ViewController: RSCodeReaderViewController {
         button.setTitle("Close", forState: UIControlState.Normal)
         button.addTarget(self, action: "click:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(button)
+        
+        let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
+        types.removeObject(AVMetadataObjectTypeQRCode)
+        self.output.metadataObjectTypes = NSArray(array: types)
     }
 }
 
