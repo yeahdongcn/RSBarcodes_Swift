@@ -23,7 +23,6 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="RSBarcodesSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
@@ -75,7 +74,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="close:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="IDn-Sf-9Lf"/>
                                     <action selector="toggle:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WMm-ts-S8m"/>
                                 </connections>
                             </button>
@@ -95,6 +93,7 @@
                         <outlet property="toggle" destination="J7U-nj-ahi" id="zPG-LG-jnV"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="61" y="222"/>
         </scene>
