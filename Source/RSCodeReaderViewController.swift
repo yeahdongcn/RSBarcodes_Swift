@@ -11,10 +11,10 @@ import AVFoundation
 
 public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    lazy var device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    lazy var session = AVCaptureSession()
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    public lazy var device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     public lazy var output = AVCaptureMetadataOutput()
+    public lazy var session = AVCaptureSession()
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     public lazy var focusMarkLayer = RSFocusMarkLayer()
     public lazy var cornersLayer = RSCornersLayer()

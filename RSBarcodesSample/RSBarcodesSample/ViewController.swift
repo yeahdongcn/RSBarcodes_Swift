@@ -12,35 +12,64 @@ import RSBarcodes
 
 class ViewController: RSCodeReaderViewController {
     
-    func click(sender: AnyObject?) {
-        println("Close")
+    @IBOutlet var toggle: UIButton!
+    
+    @IBAction func close(sender: AnyObject?) {
+        println("close called.")
+    }
+    
+    @IBAction func toggle(sender: AnyObject?) {
+        session.beginConfiguration()
+        device.lockForConfiguration(nil)
+        
+        if device.torchMode == AVCaptureTorchMode.Off {
+            device.torchMode = AVCaptureTorchMode.On
+        } else if device.torchMode == AVCaptureTorchMode.On {
+            device.torchMode = AVCaptureTorchMode.Off
+        }
+        
+        device.unlockForConfiguration()
+        session.commitConfiguration()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+        focusMarkLayer.strokeColor = UIColor.redColor().CGColor
         
-        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+        cornersLayer.strokeColor = UIColor.yellowColor().CGColor
         
-        self.tapHandler = { point in
+        tapHandler = { point in
             println(point)
         }
         
-        self.barcodesHandler = { barcodes in
+        barcodesHandler = { barcodes in
             for barcode in barcodes {
                 println(barcode)
             }
         }
         
-        let button = UIButton(frame: CGRectMake(0, 0, 100, 100))
-        button.setTitle("Close", forState: UIControlState.Normal)
-        button.addTarget(self, action: "click:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(button)
-        
-        let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
+        let types = NSMutableArray(array: output.availableMetadataObjectTypes)
         types.removeObject(AVMetadataObjectTypeQRCode)
-        self.output.metadataObjectTypes = NSArray(array: types)
+        output.metadataObjectTypes = NSArray(array: types)
+        
+        // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
+        for subview in self.view.subviews {
+            self.view.bringSubviewToFront(subview as UIView)
+        }
+        
+        if !device.hasTorch {
+            toggle.enabled = false
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBarHidden = true
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        self.navigationController?.navigationBarHidden = false
     }
 }
-
