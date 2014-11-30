@@ -17,10 +17,10 @@ public class RSCodeLayer: CALayer {
             return
         }
         
-        CGContextSaveGState(ctx);
+        CGContextSaveGState(ctx)
         
-        CGContextDrawImage(ctx, self.bounds, code!.CGImage);
+        CGContextDrawImage(ctx, self.bounds, code!.CGImage)
         
-        CGContextRestoreGState(ctx);
+        CGContextRestoreGState(ctx)
     }
 }

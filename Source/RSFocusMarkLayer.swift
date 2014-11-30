@@ -56,22 +56,22 @@ public class RSFocusMarkLayer: CALayer {
                 CGContextMoveToPoint(ctx, point.x, point.y - size.height / 2.0)
                 endPoint = CGPointMake(point.x, point.y - size.height / 2.0 + sight)
             case 1:
-                CGContextMoveToPoint(ctx, point.x, point.y + size.height / 2.0);
-                endPoint = CGPointMake(point.x, point.y + size.height / 2.0 - sight);
+                CGContextMoveToPoint(ctx, point.x, point.y + size.height / 2.0)
+                endPoint = CGPointMake(point.x, point.y + size.height / 2.0 - sight)
             case 2:
-                CGContextMoveToPoint(ctx, point.x - size.width / 2.0, point.y);
-                endPoint = CGPointMake(point.x - size.width / 2.0 + sight, point.y);
+                CGContextMoveToPoint(ctx, point.x - size.width / 2.0, point.y)
+                endPoint = CGPointMake(point.x - size.width / 2.0 + sight, point.y)
             case 3:
-                CGContextMoveToPoint(ctx, point.x + size.width / 2.0, point.y);
-                endPoint = CGPointMake(point.x + size.width / 2.0 - sight, point.y);
+                CGContextMoveToPoint(ctx, point.x + size.width / 2.0, point.y)
+                endPoint = CGPointMake(point.x + size.width / 2.0 - sight, point.y)
             default:
                 endPoint = CGPointMake(0, 0)
             }
-            CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y);
+            CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y)
         }
         
-        CGContextDrawPath(ctx, kCGPathFillStroke);
+        CGContextDrawPath(ctx, kCGPathFillStroke)
         
-        CGContextRestoreGState(ctx);
+        CGContextRestoreGState(ctx)
     }
 }

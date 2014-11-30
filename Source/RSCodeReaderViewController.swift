@@ -188,7 +188,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
                 self.validator!.invalidate()
                 self.validator = nil
             }
-            self.validator = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "onTick", userInfo: nil, repeats: true);
+            self.validator = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "onTick", userInfo: nil, repeats: true)
         })
     }
 }
