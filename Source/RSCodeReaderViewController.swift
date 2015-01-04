@@ -31,13 +31,10 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         switch (orientation) {
         case .PortraitUpsideDown:
             videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
-            break
         case .LandscapeLeft:
             videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
-            break
         case .LandscapeRight:
             videoOrientation = AVCaptureVideoOrientation.LandscapeRight
-            break
         default:
             break
         }
