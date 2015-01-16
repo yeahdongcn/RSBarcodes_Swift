@@ -10,66 +10,12 @@ import UIKit
 import AVFoundation
 import RSBarcodes
 
-class ViewController: RSCodeReaderViewController {
-    
-    @IBOutlet var toggle: UIButton!
-    
-    @IBAction func close(sender: AnyObject?) {
-        println("close called.")
-    }
-    
-    @IBAction func toggle(sender: AnyObject?) {
-        session.beginConfiguration()
-        device.lockForConfiguration(nil)
-        
-        if device.torchMode == AVCaptureTorchMode.Off {
-            device.torchMode = AVCaptureTorchMode.On
-        } else if device.torchMode == AVCaptureTorchMode.On {
-            device.torchMode = AVCaptureTorchMode.Off
-        }
-        
-        device.unlockForConfiguration()
-        session.commitConfiguration()
-    }
+class ViewController: UIViewController {
+    @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        focusMarkLayer.strokeColor = UIColor.redColor().CGColor
-        
-        cornersLayer.strokeColor = UIColor.yellowColor().CGColor
-        
-        tapHandler = { point in
-            println(point)
-        }
-        
-        barcodesHandler = { barcodes in
-            for barcode in barcodes {
-                println(barcode)
-            }
-        }
-        
-        let types = NSMutableArray(array: output.availableMetadataObjectTypes)
-        types.removeObject(AVMetadataObjectTypeQRCode)
-        output.metadataObjectTypes = NSArray(array: types)
-        
-        // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
-        for subview in self.view.subviews {
-            self.view.bringSubviewToFront(subview as UIView)
-        }
-        
-        if !device.hasTorch {
-            toggle.enabled = false
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.navigationBarHidden = true
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.navigationController?.navigationBarHidden = false
+        self.imageView.image = RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
     }
 }
