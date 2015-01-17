@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  BarcodeReaderViewController.swift
 //  RSBarcodesSample
 //
 //  Created by R0CKSTAR on 6/10/14.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import RSBarcodes
 
-class ViewController: RSCodeReaderViewController {
+class BarcodeReaderViewController: RSCodeReaderViewController {
     
     @IBOutlet var toggle: UIButton!
     

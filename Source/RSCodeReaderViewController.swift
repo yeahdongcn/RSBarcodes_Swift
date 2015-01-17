@@ -97,6 +97,8 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         
         if videoPreviewLayer != nil {
             videoPreviewLayer!.frame = CGRectMake(0, 0, size.width, size.height)
+            focusMarkLayer!.frame = CGRectMake(0, 0, size.width, size.height)
+            cornersLayer!.frame = CGRectMake(0, 0, size.width, size.height)
         }
     }
     

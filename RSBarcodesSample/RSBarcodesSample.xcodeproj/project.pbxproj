@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D073991419468EED003F0E14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991319468EED003F0E14 /* AppDelegate.swift */; };
-		D073991619468EED003F0E14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991519468EED003F0E14 /* ViewController.swift */; };
+		D073991619468EED003F0E14 /* BarcodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073991519468EED003F0E14 /* BarcodeReaderViewController.swift */; };
 		D073991919468EED003F0E14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D073991719468EED003F0E14 /* Main.storyboard */; };
 		D073991B19468EED003F0E14 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D073991A19468EED003F0E14 /* Images.xcassets */; };
 		D073992719468EED003F0E14 /* RSBarcodesSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */; };
 		D08336B61A208FC6004EE128 /* RSBarcodes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D08336B21A208FA7004EE128 /* RSBarcodes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D0B951891A6A92B900E70B44 /* BarcodeDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,13 +78,14 @@
 		D073990E19468EED003F0E14 /* RSBarcodesSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSBarcodesSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D073991219468EED003F0E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D073991319468EED003F0E14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D073991519468EED003F0E14 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D073991519468EED003F0E14 /* BarcodeReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeReaderViewController.swift; sourceTree = "<group>"; };
 		D073991819468EED003F0E14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D073991A19468EED003F0E14 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D073992019468EED003F0E14 /* RSBarcodesSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSBarcodesSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D073992519468EED003F0E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSBarcodesSampleTests.swift; sourceTree = "<group>"; };
 		D08336AD1A208FA7004EE128 /* RSBarcodes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RSBarcodes.xcodeproj; path = ../../RSBarcodes.xcodeproj; sourceTree = "<group>"; };
+		D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeDisplayViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				D073991319468EED003F0E14 /* AppDelegate.swift */,
-				D073991519468EED003F0E14 /* ViewController.swift */,
+				D073991519468EED003F0E14 /* BarcodeReaderViewController.swift */,
+				D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */,
 				D073991719468EED003F0E14 /* Main.storyboard */,
 				D073991A19468EED003F0E14 /* Images.xcassets */,
 				D073991119468EED003F0E14 /* Supporting Files */,
@@ -288,7 +291,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D073991619468EED003F0E14 /* ViewController.swift in Sources */,
+				D0B951891A6A92B900E70B44 /* BarcodeDisplayViewController.swift in Sources */,
+				D073991619468EED003F0E14 /* BarcodeReaderViewController.swift in Sources */,
 				D073991419468EED003F0E14 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

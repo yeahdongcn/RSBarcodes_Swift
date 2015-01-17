@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14C68k" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jho-ea-TZv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C99d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jho-ea-TZv">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -20,10 +20,10 @@
             </objects>
             <point key="canvasLocation" x="-685" y="222"/>
         </scene>
-        <!--View Controller-->
+        <!--Barcode Reader View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="RSBarcodesSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="BarcodeReaderViewController" customModule="RSBarcodesSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -97,10 +97,10 @@
             </objects>
             <point key="canvasLocation" x="61" y="222"/>
         </scene>
-        <!--View Controller-->
+        <!--Barcode Display View Controller-->
         <scene sceneID="d7V-Tz-Nfv">
             <objects>
-                <viewController id="rLF-0l-4AA" sceneMemberID="viewController">
+                <viewController id="rLF-0l-4AA" customClass="BarcodeDisplayViewController" customModule="RSBarcodesSample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MNP-zQ-Jub"/>
                         <viewControllerLayoutGuide type="bottom" id="vgL-k5-esu"/>
@@ -109,21 +109,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LuU-oX-zvN">
-                                <rect key="frame" x="250" y="250" width="100" height="100"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="7Sp-1H-5JR"/>
-                                    <constraint firstAttribute="height" constant="100" id="gyq-nu-u6k"/>
-                                </constraints>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hdE-c8-1js">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="LuU-oX-zvN" secondAttribute="centerX" id="Zwa-hc-Gkd"/>
-                            <constraint firstAttribute="centerY" secondItem="LuU-oX-zvN" secondAttribute="centerY" id="weh-FF-U7f"/>
+                            <constraint firstItem="hdE-c8-1js" firstAttribute="top" secondItem="MNP-zQ-Jub" secondAttribute="bottom" id="5K2-xc-bdb"/>
+                            <constraint firstItem="hdE-c8-1js" firstAttribute="leading" secondItem="i2i-UM-QRj" secondAttribute="leading" id="HgS-EK-kKs"/>
+                            <constraint firstAttribute="trailing" secondItem="hdE-c8-1js" secondAttribute="trailing" id="SuN-vL-SSo"/>
+                            <constraint firstItem="vgL-k5-esu" firstAttribute="top" secondItem="hdE-c8-1js" secondAttribute="bottom" id="acN-T6-pRB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="barcodeView" destination="hdE-c8-1js" id="P4H-7F-rC3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAw-8N-EQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
