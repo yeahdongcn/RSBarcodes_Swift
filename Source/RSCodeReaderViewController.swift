@@ -68,7 +68,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         case .LandscapeRight:
             videoOrientation = AVCaptureVideoOrientation.LandscapeRight
         default:
-            println("Unsupported video orientation.")
+            println("AVCaptureVideoOrientation.Portrait.")
         }
         return videoOrientation
     }
