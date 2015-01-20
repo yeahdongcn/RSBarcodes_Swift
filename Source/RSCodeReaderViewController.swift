@@ -26,6 +26,13 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     // MARK: Public methods
     
+    public func hasFlash() -> Bool {
+        if let d = self.device {
+            return d.hasFlash
+        }
+        return false
+    }
+    
     public func hasTorch() -> Bool {
         if let d = self.device {
             return d.hasTorch
@@ -34,17 +41,19 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     }
     
     public func toggleTorch() {
-        self.session.beginConfiguration()
-        self.device.lockForConfiguration(nil)
-        
-        if self.device.torchMode == AVCaptureTorchMode.Off {
-            self.device.torchMode = AVCaptureTorchMode.On
-        } else if self.device.torchMode == AVCaptureTorchMode.On {
-            self.device.torchMode = AVCaptureTorchMode.Off
+        if self.hasTorch() {
+            self.session.beginConfiguration()
+            self.device.lockForConfiguration(nil)
+            
+            if self.device.torchMode == AVCaptureTorchMode.Off {
+                self.device.torchMode = AVCaptureTorchMode.On
+            } else if self.device.torchMode == AVCaptureTorchMode.On {
+                self.device.torchMode = AVCaptureTorchMode.Off
+            }
+            
+            self.device.unlockForConfiguration()
+            self.session.commitConfiguration()
         }
-        
-        self.device.unlockForConfiguration()
-        self.session.commitConfiguration()
     }
     
     // MARK: Private methods
