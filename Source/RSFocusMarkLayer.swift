@@ -10,9 +10,12 @@ import UIKit
 import QuartzCore
 
 public class RSFocusMarkLayer: CALayer {
-    public var size = CGSizeMake(76, 76) // Use camera.app's focus mark size
-    public var sight: CGFloat = 6 // Use camera.app's focus mark sight
-    public var strokeColor = UIColor(rgba: "#ffcc00").CGColor // Use camera.app's focus mark color
+    // Use camera.app's focus mark size as default
+    public var size = CGSizeMake(76, 76)
+    // Use camera.app's focus mark sight as default
+    public var sight: CGFloat = 6
+    // Use camera.app's focus mark color as default
+    public var strokeColor = UIColor(rgba: "#ffcc00").CGColor
     public var strokeWidth: CGFloat = 1
     public var delay: CFTimeInterval = 1
     public var canDraw = false
@@ -33,7 +36,7 @@ public class RSFocusMarkLayer: CALayer {
     }
     
     override public func drawInContext(ctx: CGContext!) {
-        if !canDraw {
+        if !self.canDraw {
             return
         }
         
@@ -42,28 +45,28 @@ public class RSFocusMarkLayer: CALayer {
         CGContextSetShouldAntialias(ctx, true)
         CGContextSetAllowsAntialiasing(ctx, true)
         CGContextSetFillColorWithColor(ctx, UIColor.clearColor().CGColor)
-        CGContextSetStrokeColorWithColor(ctx, strokeColor)
-        CGContextSetLineWidth(ctx, strokeWidth)
+        CGContextSetStrokeColorWithColor(ctx, self.strokeColor)
+        CGContextSetLineWidth(ctx, self.strokeWidth)
         
         // Rect
-        CGContextStrokeRect(ctx, CGRectMake(point.x - size.width / 2.0, point.y - size.height / 2.0, size.width, size.height))
+        CGContextStrokeRect(ctx, CGRectMake(self.point.x - self.size.width / 2.0, self.point.y - self.size.height / 2.0, self.size.width, self.size.height))
         
         // Focus
         for i in 0..<4 {
             var endPoint: CGPoint
             switch i {
             case 0:
-                CGContextMoveToPoint(ctx, point.x, point.y - size.height / 2.0)
-                endPoint = CGPointMake(point.x, point.y - size.height / 2.0 + sight)
+                CGContextMoveToPoint(ctx, self.point.x, self.point.y - self.size.height / 2.0)
+                endPoint = CGPointMake(self.point.x, self.point.y - self.size.height / 2.0 + self.sight)
             case 1:
-                CGContextMoveToPoint(ctx, point.x, point.y + size.height / 2.0)
-                endPoint = CGPointMake(point.x, point.y + size.height / 2.0 - sight)
+                CGContextMoveToPoint(ctx, self.point.x, self.point.y + self.size.height / 2.0)
+                endPoint = CGPointMake(self.point.x, self.point.y + self.size.height / 2.0 - self.sight)
             case 2:
-                CGContextMoveToPoint(ctx, point.x - size.width / 2.0, point.y)
-                endPoint = CGPointMake(point.x - size.width / 2.0 + sight, point.y)
+                CGContextMoveToPoint(ctx, self.point.x - self.size.width / 2.0, self.point.y)
+                endPoint = CGPointMake(self.point.x - self.size.width / 2.0 + self.sight, self.point.y)
             case 3:
-                CGContextMoveToPoint(ctx, point.x + size.width / 2.0, point.y)
-                endPoint = CGPointMake(point.x + size.width / 2.0 - sight, point.y)
+                CGContextMoveToPoint(ctx, self.point.x + self.size.width / 2.0, self.point.y)
+                endPoint = CGPointMake(self.point.x + self.size.width / 2.0 - self.sight, self.point.y)
             default:
                 endPoint = CGPointMake(0, 0)
             }

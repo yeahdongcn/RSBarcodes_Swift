@@ -14,9 +14,16 @@ class BarcodeDisplayViewController: UIViewController {
 
     @IBOutlet var barcodeView: UIImageView!
     
+    let contents = "123456"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.barcodeView.image = RSCode128Generator(codeTable: .Auto).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        self.navigationItem.title = contents
+        
+        var image: UIImage? = RSCode128Generator(codeTable: .Auto).generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        if let i = image {
+            self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(i, scale: 3.0)
+        }
     }
 }

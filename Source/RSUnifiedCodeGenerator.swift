@@ -13,17 +13,16 @@ import AVFoundation
 public class RSUnifiedCodeGenerator: RSCodeGenerator {
     public var useBuiltInCode128Generator = true
     public class var shared: RSUnifiedCodeGenerator {
-    return UnifiedCodeGeneratorSharedInstance
+        return UnifiedCodeGeneratorSharedInstance
     }
     
     // MARK: RSCodeGenerator
     
     public func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
-        var codeGenerator:RSCodeGenerator? = nil
+        var codeGenerator:RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
             return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
-            
         case AVMetadataObjectTypeCode39Code:
             codeGenerator = RSCode39Generator()
         case AVMetadataObjectTypeCode39Mod43Code:
@@ -40,7 +39,6 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSUPCEGenerator()
         case AVMetadataObjectTypeCode93Code:
             codeGenerator = RSCode93Generator()
-            
             // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObjectTypeCode128Code:
             if self.useBuiltInCode128Generator {
@@ -48,18 +46,21 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             } else {
                 codeGenerator = RSCode128Generator()
             }
-            
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
         case RSBarcodesTypeISSN13Code:
             codeGenerator = RSISSN13Generator()
         case RSBarcodesTypeExtendedCode39Code:
             codeGenerator = RSExtendedCode39Generator()
-            
         default:
+            println("No code generator selected.")
+        }
+        
+        if let g = codeGenerator {
+            return g.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
+        } else {
             return nil
         }
-        return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
     }
     
     public func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {

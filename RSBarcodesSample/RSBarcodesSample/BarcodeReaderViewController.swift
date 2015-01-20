@@ -19,47 +19,37 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     }
     
     @IBAction func toggle(sender: AnyObject?) {
-        session.beginConfiguration()
-        device.lockForConfiguration(nil)
-        
-        if device.torchMode == AVCaptureTorchMode.Off {
-            device.torchMode = AVCaptureTorchMode.On
-        } else if device.torchMode == AVCaptureTorchMode.On {
-            device.torchMode = AVCaptureTorchMode.Off
-        }
-        
-        device.unlockForConfiguration()
-        session.commitConfiguration()
+        self.toggleTorch()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
         
-        cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
         
-        tapHandler = { point in
+        self.tapHandler = { point in
             println(point)
         }
         
-        barcodesHandler = { barcodes in
+        self.barcodesHandler = { barcodes in
             for barcode in barcodes {
                 println(barcode)
             }
         }
         
-        let types = NSMutableArray(array: output.availableMetadataObjectTypes)
+        let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
         types.removeObject(AVMetadataObjectTypeQRCode)
-        output.metadataObjectTypes = NSArray(array: types)
+        self.output.metadataObjectTypes = NSArray(array: types)
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
             self.view.bringSubviewToFront(subview as UIView)
         }
         
-        if !device.hasTorch {
-            toggle.enabled = false
+        if !self.hasTorch() {
+            self.toggle.enabled = false
         }
     }
     

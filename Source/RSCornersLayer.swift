@@ -29,10 +29,10 @@ public class RSCornersLayer: CALayer {
         CGContextSetShouldAntialias(ctx, true)
         CGContextSetAllowsAntialiasing(ctx, true)
         CGContextSetFillColorWithColor(ctx, UIColor.clearColor().CGColor)
-        CGContextSetStrokeColorWithColor(ctx, strokeColor)
-        CGContextSetLineWidth(ctx, strokeWidth)
+        CGContextSetStrokeColorWithColor(ctx, self.strokeColor)
+        CGContextSetLineWidth(ctx, self.strokeWidth)
         
-        for corners in cornersArray {
+        for corners in self.cornersArray {
             for i in 0...corners.count {
                 var idx = i
                 if i == corners.count {
