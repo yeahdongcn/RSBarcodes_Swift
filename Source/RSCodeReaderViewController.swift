@@ -59,18 +59,18 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     // MARK: Private methods
     
     class func InterfaceOrientationToVideoOrientation(orientation : UIInterfaceOrientation) -> AVCaptureVideoOrientation {
-        var videoOrientation = AVCaptureVideoOrientation.Portrait
         switch (orientation) {
+        case .Unknown:
+            fallthrough
+        case .Portrait:
+            return AVCaptureVideoOrientation.Portrait
         case .PortraitUpsideDown:
-            videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+            return AVCaptureVideoOrientation.PortraitUpsideDown
         case .LandscapeLeft:
-            videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+            return AVCaptureVideoOrientation.LandscapeLeft
         case .LandscapeRight:
-            videoOrientation = AVCaptureVideoOrientation.LandscapeRight
-        default:
-            println("AVCaptureVideoOrientation.Portrait.")
+            return AVCaptureVideoOrientation.LandscapeRight
         }
-        return videoOrientation
     }
     
     func onTick() {
