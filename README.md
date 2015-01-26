@@ -45,7 +45,7 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 
 ##Usage
 
-[HOW TO USE GENERATOR](https://github.com/yeahdongcn/RSBarcodes_Swift/tree/CB)
+[HOW TO USE GENERATOR](https://github.com/yeahdongcn/RSBarcodes_Swift/tree/CB) and 
 [HOW TO USE READER](https://github.com/yeahdongcn/RSBarcodes_Swift/tree/Vicky)
 
 ###Generators
