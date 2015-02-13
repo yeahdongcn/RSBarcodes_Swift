@@ -24,6 +24,10 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     var ticker: NSTimer?
     
+    public var isCrazyMode = true
+    var isCrazyModeStarted = false
+    var lensPosition: Float = 0
+    
     // MARK: Public methods
     
     public func hasFlash() -> Bool {
@@ -58,7 +62,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     // MARK: Private methods
     
-    class func InterfaceOrientationToVideoOrientation(orientation : UIInterfaceOrientation) -> AVCaptureVideoOrientation {
+    class func interfaceOrientationToVideoOrientation(orientation : UIInterfaceOrientation) -> AVCaptureVideoOrientation {
         switch (orientation) {
         case .Unknown:
             fallthrough
@@ -70,6 +74,23 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             return AVCaptureVideoOrientation.LandscapeLeft
         case .LandscapeRight:
             return AVCaptureVideoOrientation.LandscapeRight
+        }
+    }
+    
+    func autoUpdateLensPosition() {
+        self.lensPosition += 0.01
+        if self.lensPosition > 1 {
+            self.lensPosition = 0
+        }
+        if device.lockForConfiguration(nil) {
+            self.device.setFocusModeLockedWithLensPosition(self.lensPosition, completionHandler: nil)
+            device.unlockForConfiguration()
+        }
+        if session.running {
+            let when = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(USEC_PER_SEC)))
+            dispatch_after(when, dispatch_get_main_queue(), {
+                self.autoUpdateLensPosition()
+            })
         }
     }
     
@@ -86,21 +107,46 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             tapPoint.x / self.view.bounds.size.width,
             tapPoint.y / self.view.bounds.size.height)
         
-        if self.device == nil
-            || !self.device.focusPointOfInterestSupported
-            || !self.device.isFocusModeSupported(.AutoFocus) {
-                println("Focus point of interest not supported or auto focus not supported.")
-                return
-        } else if self.device.lockForConfiguration(nil) {
-            self.device.focusPointOfInterest = focusPoint
-            self.device.focusMode = .AutoFocus
-            self.device.unlockForConfiguration()
-            
-            self.focusMarkLayer.point = tapPoint
-            
-            if let h = self.tapHandler {
-                h(tapPoint)
+        if let d = self.device {
+            if d.lockForConfiguration(nil) {
+                if d.focusPointOfInterestSupported {
+                    d.focusPointOfInterest = focusPoint
+                } else {
+                    println("Focus point of interest not supported.")
+                }
+                if self.isCrazyMode {
+                    if d.isFocusModeSupported(.Locked) {
+                        d.focusMode = .Locked
+                    } else {
+                        println("Locked focus not supported.")
+                    }
+                    if !self.isCrazyModeStarted {
+                        self.isCrazyModeStarted = true
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.autoUpdateLensPosition()
+                        })
+                    }
+                } else {
+                    if d.isFocusModeSupported(.ContinuousAutoFocus) {
+                        d.focusMode = .ContinuousAutoFocus
+                    } else if d.isFocusModeSupported(.AutoFocus) {
+                        d.focusMode = .AutoFocus
+                    } else {
+                        println("Auto focus not supported.")
+                    }
+                }
+                if d.autoFocusRangeRestrictionSupported {
+                    d.autoFocusRangeRestriction = .None
+                } else {
+                    println("Auto focus range restriction not supported.")
+                }
+                d.unlockForConfiguration()
+                self.focusMarkLayer.point = tapPoint
             }
+        }
+        
+        if let h = self.tapHandler {
+            h(tapPoint)
         }
     }
     
@@ -112,13 +158,19 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         self.session.stopRunning()
     }
     
+    // MARK: Deinitialization
+    
+    deinit {
+        println("RSCodeReaderViewController deinit")
+    }
+    
     // MARK: View lifecycle
     
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if let l = self.videoPreviewLayer {
-            let videoOrientation = RSCodeReaderViewController.InterfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
+            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(UIApplication.sharedApplication().statusBarOrientation)
             if l.connection.supportsVideoOrientation
                 && l.connection.videoOrientation != videoOrientation {
                     l.connection.videoOrientation = videoOrientation
@@ -151,6 +203,18 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         if let e = error {
             println(e.description)
             return
+        }
+        
+        if let d = self.device {
+            if d.lockForConfiguration(nil) {
+                if self.device.isFocusModeSupported(.ContinuousAutoFocus) {
+                    self.device.focusMode = .ContinuousAutoFocus
+                }
+                if self.device.autoFocusRangeRestrictionSupported {
+                    self.device.autoFocusRangeRestriction = .Near
+                }
+                self.device.unlockForConfiguration()
+            }
         }
         
         if self.session.canAddInput(input) {
