@@ -29,6 +29,13 @@ public protocol RSCheckDigitGenerator {
 
 // Abstract code generator, provides default functions for validations and generations.
 public class RSAbstractCodeGenerator : RSCodeGenerator {
+    
+    /** The fill (background) color of the generated barcode. */
+    public lazy var fillColor: UIColor = UIColor.whiteColor()
+    
+    /** The stroke color of the generated barcode. */
+    public lazy var strokeColor: UIColor = UIColor.blackColor()
+    
     // Check whether the given contents are valid.
     public func isValid(contents:String) -> Bool {
         let length = contents.length()
@@ -78,13 +85,13 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
         // Height               = 28
         let width = length + 4
         let size = CGSizeMake(CGFloat(width), 28)
-        UIGraphicsBeginImageContextWithOptions(size, true, 0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         let context = UIGraphicsGetCurrentContext()
         
         CGContextSetShouldAntialias(context, false)
         
-        UIColor.whiteColor().setFill()
-        UIColor.blackColor().setStroke()
+        self.fillColor.setFill()
+        self.strokeColor.setStroke()
         
         CGContextFillRect(context, CGRectMake(0, 0, size.width, size.height))
         CGContextSetLineWidth(context, 1)

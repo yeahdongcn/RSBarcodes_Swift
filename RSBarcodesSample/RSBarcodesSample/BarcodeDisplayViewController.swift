@@ -21,7 +21,10 @@ class BarcodeDisplayViewController: UIViewController {
         
         self.navigationItem.title = contents
         
-        var image: UIImage? = RSCode128Generator(codeTable: .Auto).generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let gen = RSCode128Generator(codeTable: .Auto)
+        gen.fillColor = UIColor.redColor()
+        gen.strokeColor = UIColor.yellowColor()
+        var image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         if let i = image {
             self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(i, scale: 3.0)
         }
