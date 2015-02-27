@@ -21,15 +21,18 @@ public class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     // MARK: RSCheckDigitGenerator
     
     public func checkDigit(contents: String) -> String {
-        /*
+        /**
         Step 1: From the table below, find the values of each character.
         C    O    D    E        3    9    <--Message characters
         12   24   13   14  38   3    9    <--Character values
+        
         Step 2: Sum the character values.
         12 + 24 + 13 + 14 + 38 + 3 + 9 = 113
+        
         Step 3: Divide the result by 43.
         113 / 43 = 11  with remainder of 27.
-        Step 4: From the table, find the character with this value
+        
+        Step 4: From the table, find the character with this value.
         27 = R = Check Character
         */
         var sum = 0

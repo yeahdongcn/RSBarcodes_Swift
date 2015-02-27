@@ -11,7 +11,11 @@ import UIKit
 import AVFoundation
 
 public class RSUnifiedCodeGenerator: RSCodeGenerator {
-    public var useBuiltInCode128Generator = true
+    
+    public var isBuiltInCode128GeneratorSelected = false
+    public var fillColor: UIColor = UIColor.whiteColor()
+    public var strokeColor: UIColor = UIColor.blackColor()
+    
     public class var shared: RSUnifiedCodeGenerator {
         return UnifiedCodeGeneratorSharedInstance
     }
@@ -19,7 +23,7 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
     // MARK: RSCodeGenerator
     
     public func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
-        var codeGenerator:RSCodeGenerator?
+        var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
             return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
@@ -41,7 +45,7 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             codeGenerator = RSCode93Generator()
             // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObjectTypeCode128Code:
-            if self.useBuiltInCode128Generator {
+            if self.isBuiltInCode128GeneratorSelected {
                 return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
             } else {
                 codeGenerator = RSCode128Generator()
@@ -56,8 +60,10 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             println("No code generator selected.")
         }
         
-        if let g = codeGenerator {
-            return g.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
+        if codeGenerator != nil {
+            codeGenerator!.fillColor = self.fillColor
+            codeGenerator!.strokeColor = self.strokeColor
+            return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
         } else {
             return nil
         }

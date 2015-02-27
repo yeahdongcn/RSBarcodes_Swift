@@ -15,9 +15,17 @@ let DIGITS_STRING = "0123456789"
 
 // Code generators are required to provide these two functions.
 public protocol RSCodeGenerator {
-     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
+    /** The fill (background) color of the generated barcode. */
+    var fillColor: UIColor {get set}
     
-     func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage?
+    /** The stroke color of the generated barcode. */
+    var strokeColor: UIColor {get set}
+    
+    /** Generate code image using the given machine readable code object. */
+    func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
+    
+    /** Generate code image using the given machine readable code object type and contents. */
+    func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage?
 }
 
 // Check digit are not required for all code generators.
@@ -30,11 +38,8 @@ public protocol RSCheckDigitGenerator {
 // Abstract code generator, provides default functions for validations and generations.
 public class RSAbstractCodeGenerator : RSCodeGenerator {
     
-    /** The fill (background) color of the generated barcode. */
-    public lazy var fillColor: UIColor = UIColor.whiteColor()
-    
-    /** The stroke color of the generated barcode. */
-    public lazy var strokeColor: UIColor = UIColor.blackColor()
+    public var fillColor: UIColor = UIColor.whiteColor()
+    public var strokeColor: UIColor = UIColor.blackColor()
     
     // Check whether the given contents are valid.
     public func isValid(contents:String) -> Bool {
