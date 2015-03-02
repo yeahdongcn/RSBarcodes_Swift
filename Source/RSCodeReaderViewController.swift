@@ -24,7 +24,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     var ticker: NSTimer?
     
-    public var isCrazyMode = true
+    public var isCrazyMode = false
     var isCrazyModeStarted = false
     var lensPosition: Float = 0
     
