@@ -35,7 +35,7 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         self.barcodesHandler = { barcodes in
             for barcode in barcodes {
-                println(barcode)
+                println("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
             }
         }
         
