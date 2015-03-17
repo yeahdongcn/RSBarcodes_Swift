@@ -46,7 +46,7 @@ Simply add the following line to your `Podfile`:
 
 ###Carthage
 
-<a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a> is the recommended method of installing RSBarcodes_Swift.
+<a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a> is also a recommended method of installing RSBarcodes_Swift.
 
 Simply add the following line to your `Cartfile`:
 
