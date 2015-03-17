@@ -98,7 +98,7 @@ Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` b
         
         self.barcodesHandler = { barcodes in
             for barcode in barcodes {
-                println(barcode)
+                println("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
             }
         }
     }
