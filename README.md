@@ -36,21 +36,25 @@ RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabil
 
 ##Installation
 
-###CocoaPods
-
-<a href="http://cocoapods.org/" target="_blank">CocoaPods</a> is the recommended method of installing RSBarcodes_Swift.
+###[CocoaPods](http://cocoapods.org)
 
 Simply add the following line to your `Podfile`:
+```ruby
+# required by Cocoapods 0.36.0.rc.1 for Swift Pods
+use_frameworks! 
 
-    pod 'RSBarcodes_Swift', '~> 0.0.5'
+pod 'RSBarcodes_Swift', '~> 0.0.5'
+```
 
-###Carthage
+*(CocoaPods v0.36 or later required. See [this blog post](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) for details.)*
 
-<a href="https://github.com/Carthage/Carthage" target="_blank">Carthage</a> is also a recommended method of installing RSBarcodes_Swift.
+###[Carthage](http://github.com/Carthage/Carthage)
 
 Simply add the following line to your `Cartfile`:
 
-    github "yeahdongcn/RSBarcodes_Swift" >= 0.0.5
+```ruby
+github "yeahdongcn/RSBarcodes_Swift" >= 0.0.5
+```
 
 ###Manual
 
