@@ -41,11 +41,11 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
         types.removeObject(AVMetadataObjectTypeQRCode)
-        self.output.metadataObjectTypes = NSArray(array: types)
+        self.output.metadataObjectTypes = NSArray(array: types) as [AnyObject]
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
-            self.view.bringSubviewToFront(subview as UIView)
+            self.view.bringSubviewToFront(subview as! UIView)
         }
         
         if !self.hasTorch() {
