@@ -8,7 +8,7 @@ RSBarcodes, now Swift.
 [![Total views](https://sourcegraph.com/api/repos/github.com/yeahdongcn/RSBarcodes_Swift/counters/views.png)](https://sourcegraph.com/github.com/yeahdongcn/RSBarcodes_Swift)
 [![Views in the last 24 hours](https://sourcegraph.com/api/repos/github.com/yeahdongcn/RSBarcodes_Swift/counters/views-24h.png)](https://sourcegraph.com/github.com/yeahdongcn/RSBarcodes_Swift)
 
-RSBarcodes allows you to read 1D and 2D barcodes using metadata scanning capabilities introduced with iOS 7 and generate the same set of barcode images for displaying and sharing. Now Swift.
+RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning capabilities introduced with iOS 7 and generate the same set of barcode images for displaying and sharing. Now implemented in Swift.
 
 * Objective-C version. [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
 
@@ -60,7 +60,7 @@ github "yeahdongcn/RSBarcodes_Swift" >= 0.0.6
 
 1. Add RSBarcodes_Swift as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/yeahdongcn/RSBarcodes_Swift.git`
 2. Open the `RSBarcodes_Swift` folder, and drag `RSBarcodes.xcodeproj` into the file navigator of your app project.
-3. In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
+3. In Xcode, navigate to the target configuration window by clicking on the blue project icon, and select the application target under the "Targets" heading in the sidebar.
 4. Ensure that the deployment target of RSBarcodes.framework matches that of the application target.
 5. In the tab bar at the top of that window, open the "Build Phases" panel.
 6. Expand the "Target Dependencies" group, and add `RSBarcodes.framework`.
@@ -87,7 +87,7 @@ These calling simples can be found in the test project.
 
 ###Reader
 
-Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` based class as its custom class and it almost there, focus mark layer and corners layer is already there working for you. There are to handlers, one for the single tap on the screen along with the focus mark and the other is detected objects handler, which all detected will come to you. Set them up in `viewDidLoad()` or some place more suitable:
+Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` based class as its custom class and you're almost there. The focus mark layer and corners layer are already there working for you. There are two handlers: one for the single tap on the screen along with the focus mark and one detected objects handler, which all detected will come to you. Set them up in `viewDidLoad()` or some place more suitable:
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +107,7 @@ Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` b
         }
     }
     
-If you want to ignore some code types, you'd better add following lines
+If you want to ignore some code types, simply add following lines
 
     let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
     types.removeObject(AVMetadataObjectTypeQRCode)
@@ -115,7 +115,7 @@ If you want to ignore some code types, you'd better add following lines
     
 ###Helper
 
-Try `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
+Use `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
 
 ##Miscellaneous
 
