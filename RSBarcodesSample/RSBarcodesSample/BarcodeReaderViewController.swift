@@ -19,7 +19,8 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     }
     
     @IBAction func toggle(sender: AnyObject?) {
-        self.toggleTorch()
+        let isTorchOn = self.toggleTorch()
+        println(isTorchOn)
     }
     
     override func viewDidLoad() {

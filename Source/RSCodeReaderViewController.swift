@@ -46,23 +46,19 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     public func toggleTorch() -> Bool {
         if self.hasTorch() {
-            var torchOn: Bool = false
-            
             self.session.beginConfiguration()
             self.device.lockForConfiguration(nil)
             
             if self.device.torchMode == .Off {
                 self.device.torchMode = .On
-                torchOn = true
             } else if self.device.torchMode == .On {
                 self.device.torchMode = .Off
-                torchOn = false
             }
             
             self.device.unlockForConfiguration()
             self.session.commitConfiguration()
             
-            return torchOn
+            return self.device.torchMode == .On
         }
         return false
     }

@@ -21,7 +21,6 @@ class BarcodeDisplayViewController: UIViewController {
         
         self.navigationItem.title = contents
         
-//        let gen = RSCode128Generator(codeTable: .Auto)
         let gen = RSUnifiedCodeGenerator.shared
         gen.fillColor = UIColor.redColor()
         gen.strokeColor = UIColor.yellowColor()
