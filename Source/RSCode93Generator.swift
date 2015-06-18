@@ -10,8 +10,10 @@ import UIKit
 
 // http://www.barcodeisland.com/code93.phtml
 public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
-    let CODE93_ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
+    let CODE93_ALPHABET_STRING    = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%abcd*"
     
+    let CODE93_PLACEHOLDER_STRING = "abcd";
+
     let CODE93_CHARACTER_ENCODINGS = [
         "100010100",
         "101001000",
@@ -56,6 +58,10 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         "101101110",
         "101110110",
         "110101110",
+        "100100110",
+        "111011010",
+        "111010110",
+        "100110010",
         "101011110"
     ]
     
@@ -68,6 +74,9 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         if contents.length() > 0 && contents == contents.uppercaseString {
             for i in 0..<contents.length() {
                 if CODE93_ALPHABET_STRING.location(contents[i]) == NSNotFound {
+                    return false
+                }
+                if CODE93_PLACEHOLDER_STRING.location(contents[i]) != NSNotFound {
                     return false
                 }
             }
