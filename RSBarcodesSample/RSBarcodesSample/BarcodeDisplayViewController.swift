@@ -14,7 +14,7 @@ class BarcodeDisplayViewController: UIViewController {
 
     @IBOutlet var barcodeView: UIImageView!
     
-    let contents = "0123456789"
+    let contents = "9990200298142071051"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class BarcodeDisplayViewController: UIViewController {
         gen.strokeColor = UIColor.blackColor()
         var image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
         if let i = image {
-            self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(i, scale: 3.0)
+            self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(i, scale: 1.0)
         }
     }
 }
