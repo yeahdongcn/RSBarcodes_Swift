@@ -21,7 +21,7 @@ public class RSFocusMarkLayer: CALayer {
     public var canDraw = false
     
     deinit {
-        println("RSFocusMarkLayer deinit")
+        print("RSFocusMarkLayer deinit")
     }
     
     public var point : CGPoint = CGPointMake(0, 0) {
@@ -39,7 +39,7 @@ public class RSFocusMarkLayer: CALayer {
         }
     }
     
-    override public func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext) {
         if !self.canDraw {
             return
         }
@@ -77,7 +77,7 @@ public class RSFocusMarkLayer: CALayer {
             CGContextAddLineToPoint(ctx, endPoint.x, endPoint.y)
         }
         
-        CGContextDrawPath(ctx, kCGPathFillStroke)
+        CGContextDrawPath(ctx, CGPathDrawingMode.FillStroke)
         
         CGContextRestoreGState(ctx)
     }

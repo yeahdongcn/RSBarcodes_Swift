@@ -24,7 +24,7 @@ class BarcodeDisplayViewController: UIViewController {
         let gen = RSUnifiedCodeGenerator.shared
         gen.fillColor = UIColor.whiteColor()
         gen.strokeColor = UIColor.blackColor()
-        var image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
+        let image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
         if let image = image {
             self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(image, scale: 1.0)
         }

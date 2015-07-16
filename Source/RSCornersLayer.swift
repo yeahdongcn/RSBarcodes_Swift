@@ -21,7 +21,7 @@ public class RSCornersLayer: CALayer {
         }
     }
     
-    override public func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext) {
         objc_sync_enter(self)
         
         CGContextSaveGState(ctx)
@@ -38,7 +38,7 @@ public class RSCornersLayer: CALayer {
                 if i == corners.count {
                     idx = 0
                 }
-                var dict = corners[idx] as! NSDictionary
+                let dict = corners[idx] as! NSDictionary
                 
                 let x = CGFloat((dict.objectForKey("X") as! NSNumber).floatValue)
                 let y = CGFloat((dict.objectForKey("Y") as! NSNumber).floatValue)
@@ -50,7 +50,7 @@ public class RSCornersLayer: CALayer {
             }
         }
         
-        CGContextDrawPath(ctx, kCGPathFillStroke)
+        CGContextDrawPath(ctx, CGPathDrawingMode.FillStroke)
         
         CGContextRestoreGState(ctx)
         

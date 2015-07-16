@@ -57,7 +57,7 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
         case RSBarcodesTypeExtendedCode39Code:
             codeGenerator = RSExtendedCode39Generator()
         default:
-            println("No code generator selected.")
+            print("No code generator selected.")
         }
         
         if codeGenerator != nil {

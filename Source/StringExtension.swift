@@ -10,7 +10,7 @@ import UIKit
 
 extension String {
     func length() -> Int {
-        return count(self)
+        return self.characters.count
     }
     
     func trim() -> String {

@@ -95,7 +95,7 @@ public class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator 
                 // Insert all xx combinations
                 for i in 0..<length / 2 {
                     let startIndex = range.startIndex + i * 2
-                    let digitValue = contents.substring(isOrphanDigitUsed ? startIndex + 1 : startIndex, length: 2).toInt()!
+                    let digitValue = Int(contents.substring(isOrphanDigitUsed ? startIndex + 1 : startIndex, length: 2))!
                     self.autoCodeTable.sequence.append(digitValue)
                 }
                 
@@ -234,7 +234,7 @@ public class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator 
                 if i % 2 == 1 {
                     continue
                 } else {
-                    let value = contents.substring(i, length: 2).toInt()!
+                    let value = Int(contents.substring(i, length: 2))!
                     barcode += CODE128_CHARACTER_ENCODINGS[value]
                 }
             }
@@ -269,7 +269,7 @@ public class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator 
                 if i % 2 == 1 {
                     continue
                 } else {
-                    let value = contents.substring(i, length: 2).toInt()!
+                    let value = Int(contents.substring(i, length: 2))!
                     sum += value * (i / 2 + 1)
                 }
             }
