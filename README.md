@@ -87,7 +87,15 @@ These calling simples can be found in the test project.
 
 ###Reader
 
-Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` based class as its custom class and you're almost there. The focus mark layer and corners layer are already there working for you. There are two handlers: one for the single tap on the screen along with the focus mark and one detected objects handler, which all detected will come to you. Set them up in `viewDidLoad()` or some place more suitable:
+The following are steps to get the barcode reader working:
+
+1. `File` -> `New` -> `File`
+2. Under `iOS` click `source` and make sure `Cocoa Touch Class` is selected and hit `Next`.
+3. Call the name of the class whatever you want but I will refer to it as `ScanViewController` from now on.
+4. Make it a subclass of `RSCodeReaderViewController` and ensure the language is `Swift` and hit `Next` and then `Create`
+5. Open your storyboard and drag a `UIViewController` onto it.
+6. Show the identity inspect and under custom class select `ScanViewController`
+7. The focus mark layer and corners layer are already there working for you. There are two handlers: one for the single tap on the screen along with the focus mark and one detected objects handler, which all detected will come to you. Now in the `ScanViewController.swift` file add the following code into the `viewDidLoad()` or some place more suitable for you:
 
     override func viewDidLoad() {
         super.viewDidLoad()
