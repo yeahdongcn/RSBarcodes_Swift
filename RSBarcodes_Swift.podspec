@@ -6,6 +6,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { "R0CKSTAR" => "yeahdongcn@gmail.com" }
   s.platform     = :ios, '8.0'
+  s.source       = { :git => 'https://github.com/yeahdongcn/RSBarcodes_Swift.git', :tag => "#{s.version}" }
   s.source_files = 'Source/*.swift'
   s.frameworks   = ['CoreImage', 'AVFoundation', 'QuartzCore']
   s.requires_arc = true
