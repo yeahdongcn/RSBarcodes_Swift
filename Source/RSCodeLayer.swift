@@ -12,7 +12,7 @@ import QuartzCore
 public class RSCodeLayer: CALayer {
     var code: UIImage?
     
-    override public func drawInContext(ctx: CGContext!) {
+    override public func drawInContext(ctx: CGContext) {
         if let code = self.code {
             CGContextSaveGState(ctx)
             

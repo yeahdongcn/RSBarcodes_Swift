@@ -15,12 +15,12 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     @IBOutlet var toggle: UIButton!
     
     @IBAction func close(sender: AnyObject?) {
-        println("close called.")
+        print("close called.")
     }
     
     @IBAction func toggle(sender: AnyObject?) {
         let isTorchOn = self.toggleTorch()
-        println(isTorchOn)
+        print(isTorchOn)
     }
     
     override func viewDidLoad() {
@@ -31,12 +31,12 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
         
         self.tapHandler = { point in
-            println(point)
+            print(point)
         }
         
         self.barcodesHandler = { barcodes in
             for barcode in barcodes {
-                println("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
+                print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     // MARK: NOTE: Perform UI related actions here.
                 })
@@ -49,7 +49,7 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
-            self.view.bringSubviewToFront(subview as! UIView)
+            self.view.bringSubviewToFront(subview)
         }
         
         if !self.hasTorch() {

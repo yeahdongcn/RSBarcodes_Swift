@@ -47,7 +47,10 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     public func toggleTorch() -> Bool {
         if self.hasTorch() {
             self.session.beginConfiguration()
-            self.device.lockForConfiguration(nil)
+            do {
+                try self.device.lockForConfiguration()
+            } catch _ {
+            }
             
             if self.device.torchMode == .Off {
                 self.device.torchMode = .On
@@ -85,9 +88,11 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         if self.lensPosition > 1 {
             self.lensPosition = 0
         }
-        if device.lockForConfiguration(nil) {
+        do {
+            try device.lockForConfiguration()
             self.device.setFocusModeLockedWithLensPosition(self.lensPosition, completionHandler: nil)
             device.unlockForConfiguration()
+        } catch _ {
         }
         if session.running {
             let when = dispatch_time(DISPATCH_TIME_NOW, Int64(10 * Double(USEC_PER_SEC)))
@@ -111,17 +116,18 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             tapPoint.y / self.view.bounds.size.height)
         
         if let device = self.device {
-            if device.lockForConfiguration(nil) {
+            do {
+                try device.lockForConfiguration()
                 if device.focusPointOfInterestSupported {
                     device.focusPointOfInterest = focusPoint
                 } else {
-                    println("Focus point of interest not supported.")
+                    print("Focus point of interest not supported.")
                 }
                 if self.isCrazyMode {
                     if device.isFocusModeSupported(.Locked) {
                         device.focusMode = .Locked
                     } else {
-                        println("Locked focus not supported.")
+                        print("Locked focus not supported.")
                     }
                     if !self.isCrazyModeStarted {
                         self.isCrazyModeStarted = true
@@ -135,16 +141,17 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
                     } else if device.isFocusModeSupported(.AutoFocus) {
                         device.focusMode = .AutoFocus
                     } else {
-                        println("Auto focus not supported.")
+                        print("Auto focus not supported.")
                     }
                 }
                 if device.autoFocusRangeRestrictionSupported {
                     device.autoFocusRangeRestriction = .None
                 } else {
-                    println("Auto focus range restriction not supported.")
+                    print("Auto focus range restriction not supported.")
                 }
                 device.unlockForConfiguration()
                 self.focusMarkLayer.point = tapPoint
+            } catch _ {
             }
         }
         
@@ -164,7 +171,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     // MARK: Deinitialization
     
     deinit {
-        println("RSCodeReaderViewController deinit")
+        print("RSCodeReaderViewController deinit")
     }
     
     // MARK: View lifecycle
@@ -188,12 +195,8 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         if let videoPreviewLayer = self.videoPreviewLayer {
             videoPreviewLayer.frame = frame
         }
-        if let focusMarkLayer = self.focusMarkLayer {
-            focusMarkLayer.frame = frame
-        }
-        if let cornersLayer = self.cornersLayer {
-            cornersLayer.frame = frame
-        }
+        self.focusMarkLayer.frame = frame
+        self.cornersLayer.frame = frame
     }
     
     override public func viewDidLoad() {
@@ -202,14 +205,21 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         self.view.backgroundColor = UIColor.clearColor()
         
         var error : NSError?
-        let input = AVCaptureDeviceInput(device: self.device, error: &error)
+        let input: AVCaptureDeviceInput!
+        do {
+            input = try AVCaptureDeviceInput(device: self.device)
+        } catch let error1 as NSError {
+            error = error1
+            input = nil
+        }
         if let error = error {
-            println(error.description)
+            print(error.description)
             return
         }
         
         if let device = self.device {
-            if device.lockForConfiguration(nil) {
+            do {
+                try device.lockForConfiguration()
                 if self.device.isFocusModeSupported(.ContinuousAutoFocus) {
                     self.device.focusMode = .ContinuousAutoFocus
                 }
@@ -217,6 +227,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
                     self.device.autoFocusRangeRestriction = .Near
                 }
                 self.device.unlockForConfiguration()
+            } catch _ {
             }
         }
         
