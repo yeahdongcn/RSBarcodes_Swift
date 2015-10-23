@@ -153,7 +153,7 @@ public class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator 
                     if continousDigitsStartIndex == NSNotFound {
                         continousDigitsStartIndex = i
                     }
-                    if i == contents.length() - 1 {
+                    if continousDigitsStartIndex != NSNotFound && i == contents.length() - 1 {
                         continousDigitsRange = Range<Int>(start: continousDigitsStartIndex, end: i + 1)
                     }
                 }
