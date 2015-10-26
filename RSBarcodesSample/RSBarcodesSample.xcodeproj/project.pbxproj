@@ -14,6 +14,7 @@
 		D073992719468EED003F0E14 /* RSBarcodesSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */; };
 		D08336B61A208FC6004EE128 /* RSBarcodes.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D08336B21A208FA7004EE128 /* RSBarcodes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0B951891A6A92B900E70B44 /* BarcodeDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */; };
+		D0E8793C1BDE0A5B00D1A577 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E8793B1BDE0A5B00D1A577 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		D073992619468EED003F0E14 /* RSBarcodesSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSBarcodesSampleTests.swift; sourceTree = "<group>"; };
 		D08336AD1A208FA7004EE128 /* RSBarcodes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RSBarcodes.xcodeproj; path = ../../RSBarcodes.xcodeproj; sourceTree = "<group>"; };
 		D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeDisplayViewController.swift; sourceTree = "<group>"; };
+		D0E8793B1BDE0A5B00D1A577 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				D073991519468EED003F0E14 /* BarcodeReaderViewController.swift */,
 				D0B951881A6A92B900E70B44 /* BarcodeDisplayViewController.swift */,
 				D073991719468EED003F0E14 /* Main.storyboard */,
+				D0E8793B1BDE0A5B00D1A577 /* Launch Screen.storyboard */,
 				D073991A19468EED003F0E14 /* Images.xcassets */,
 				D073991119468EED003F0E14 /* Supporting Files */,
 			);
@@ -274,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E8793C1BDE0A5B00D1A577 /* Launch Screen.storyboard in Resources */,
 				D073991919468EED003F0E14 /* Main.storyboard in Resources */,
 				D073991B19468EED003F0E14 /* Images.xcassets in Resources */,
 			);
