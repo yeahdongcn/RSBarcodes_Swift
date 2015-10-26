@@ -50,6 +50,8 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             } else {
                 codeGenerator = RSCode128Generator()
             }
+        case AVMetadataObjectTypeDataMatrixCode:
+            codeGenerator = RSCodeDataMatrixGenerator()
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
         case RSBarcodesTypeISSN13Code:

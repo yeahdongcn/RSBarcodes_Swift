@@ -24,6 +24,7 @@
 		D08336D81A209AAB004EE128 /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336C71A209AAB004EE128 /* RSUPCEGenerator.swift */; };
 		D08336D91A209AAB004EE128 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336C81A209AAB004EE128 /* StringExtension.swift */; };
 		D08336DA1A209AAB004EE128 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336C91A209AAB004EE128 /* UIColorExtension.swift */; };
+		D0E879421BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E879411BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		D08336C71A209AAB004EE128 /* RSUPCEGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUPCEGenerator.swift; path = Source/RSUPCEGenerator.swift; sourceTree = SOURCE_ROOT; };
 		D08336C81A209AAB004EE128 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = Source/StringExtension.swift; sourceTree = SOURCE_ROOT; };
 		D08336C91A209AAB004EE128 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExtension.swift; path = Source/UIColorExtension.swift; sourceTree = SOURCE_ROOT; };
+		D0E879411BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCodeDataMatrixGenerator.swift; path = Source/RSCodeDataMatrixGenerator.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,21 +80,22 @@
 		D08336391A202E81004EE128 /* RSBarcodes */ = {
 			isa = PBXGroup;
 			children = (
+				D08336BD1A209AAB004EE128 /* RSCodeGenerator.swift */,
+				D08336C61A209AAB004EE128 /* RSUnifiedCodeGenerator.swift */,
 				D08336B91A209AAB004EE128 /* RSCode39Generator.swift */,
 				D08336BA1A209AAB004EE128 /* RSCode39Mod43Generator.swift */,
+				D08336C21A209AAB004EE128 /* RSExtendedCode39Generator.swift */,
 				D08336BB1A209AAB004EE128 /* RSCode93Generator.swift */,
 				D08336BC1A209AAB004EE128 /* RSCode128Generator.swift */,
-				D08336BD1A209AAB004EE128 /* RSCodeGenerator.swift */,
-				D08336BE1A209AAB004EE128 /* RSCodeLayer.swift */,
-				D08336BF1A209AAB004EE128 /* RSCodeReaderViewController.swift */,
-				D08336C01A209AAB004EE128 /* RSCornersLayer.swift */,
-				D08336C11A209AAB004EE128 /* RSEANGenerator.swift */,
-				D08336C21A209AAB004EE128 /* RSExtendedCode39Generator.swift */,
-				D08336C31A209AAB004EE128 /* RSFocusMarkLayer.swift */,
-				D08336C41A209AAB004EE128 /* RSITF14Generator.swift */,
+				D0E879411BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift */,
 				D08336C51A209AAB004EE128 /* RSITFGenerator.swift */,
-				D08336C61A209AAB004EE128 /* RSUnifiedCodeGenerator.swift */,
+				D08336C41A209AAB004EE128 /* RSITF14Generator.swift */,
 				D08336C71A209AAB004EE128 /* RSUPCEGenerator.swift */,
+				D08336C11A209AAB004EE128 /* RSEANGenerator.swift */,
+				D08336BF1A209AAB004EE128 /* RSCodeReaderViewController.swift */,
+				D08336BE1A209AAB004EE128 /* RSCodeLayer.swift */,
+				D08336C01A209AAB004EE128 /* RSCornersLayer.swift */,
+				D08336C31A209AAB004EE128 /* RSFocusMarkLayer.swift */,
 				D08336C81A209AAB004EE128 /* StringExtension.swift */,
 				D08336C91A209AAB004EE128 /* UIColorExtension.swift */,
 				D083363A1A202E81004EE128 /* Supporting Files */,
@@ -178,6 +181,7 @@
 			files = (
 				D08336DA1A209AAB004EE128 /* UIColorExtension.swift in Sources */,
 				D08336CA1A209AAB004EE128 /* RSCode39Generator.swift in Sources */,
+				D0E879421BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift in Sources */,
 				D08336D61A209AAB004EE128 /* RSITFGenerator.swift in Sources */,
 				D08336D41A209AAB004EE128 /* RSFocusMarkLayer.swift in Sources */,
 				D08336CE1A209AAB004EE128 /* RSCodeGenerator.swift in Sources */,
