@@ -43,7 +43,7 @@ Simply add the following lines to your `Podfile`:
 # required by Cocoapods 0.36.0.rc.1 for Swift Pods
 use_frameworks! 
 
-pod 'RSBarcodes_Swift', '~> 0.1.4'
+pod 'RSBarcodes_Swift', '~> 0.1.5'
 ```
 
 *(CocoaPods v0.36 or later required. See [this blog post](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) for details.)*
@@ -53,7 +53,7 @@ pod 'RSBarcodes_Swift', '~> 0.1.4'
 Simply add the following line to your `Cartfile`:
 
 ```ruby
-github "yeahdongcn/RSBarcodes_Swift" >= 0.1.4
+github "yeahdongcn/RSBarcodes_Swift" >= 0.1.5
 ```
 
 ###Manual
