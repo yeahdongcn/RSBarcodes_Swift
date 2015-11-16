@@ -13,6 +13,15 @@ import CoreImage
 
 let DIGITS_STRING = "0123456789"
 
+// Controls the amount of additional data encoded in the output image to provide error correction.
+// Higher levels of error correction result in larger output images but allow larger areas of the code to be damaged or obscured without.
+public enum InputCorrectionLevel: String {
+    case Medium = "M"   // 7%
+    case Low = "L"      // 15% default
+    case Quarter = "Q"  // 25%
+    case High = "H"     // 30%
+}
+
 // Code generators are required to provide these two functions.
 public protocol RSCodeGenerator {
     /** The fill (background) color of the generated barcode. */
@@ -21,8 +30,14 @@ public protocol RSCodeGenerator {
     /** The stroke color of the generated barcode. */
     var strokeColor: UIColor {get set}
     
+    /** Generate code image using the given machine readable code object and correction level. */
+    func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel:InputCorrectionLevel) -> UIImage?
+    
     /** Generate code image using the given machine readable code object. */
     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
+    
+    /** Generate code image using the given machine readable code object type, contents and correction level. */
+    func generateCode(contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String) -> UIImage?
     
     /** Generate code image using the given machine readable code object type and contents. */
     func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage?
@@ -117,15 +132,23 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // RSCodeGenerator
     
-    public func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type)
+    public func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject.stringValue, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type)
     }
     
-    public func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage? {
+    public func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium)
+    }
+    
+    public func generateCode(contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String) -> UIImage? {
         if self.isValid(contents) {
             return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)))
         }
         return nil
+    }
+    
+    public func generateCode(contents:String, machineReadableCodeObjectType:String) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType)
     }
     
     // Class funcs
@@ -146,13 +169,14 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Generate CI related code image
-    public class func generateCode(contents:String, filterName:String) -> UIImage? {
+    public class func generateCode(contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String) -> UIImage? {
         if filterName.length() > 0 {
             let filter = CIFilter(name: filterName)
             if let filter = filter {
                 filter.setDefaults()
                 let inputMessage = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
                 filter.setValue(inputMessage, forKey: "inputMessage")
+                filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
                 
                 let outputImage = filter.outputImage
                 let context = CIContext(options: nil)
@@ -163,6 +187,10 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
             }
         }
         return nil
+    }
+    
+    public class func generateCode(contents:String, filterName:String) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, filterName: filterName)
     }
     
     // Resize image

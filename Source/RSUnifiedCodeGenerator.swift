@@ -22,11 +22,11 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
     
     // MARK: RSCodeGenerator
     
-    public func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
+    public func generateCode(contents: String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType: String) -> UIImage? {
         var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
-            return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+            return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
         case AVMetadataObjectTypeCode39Code:
             codeGenerator = RSCode39Generator()
         case AVMetadataObjectTypeCode39Mod43Code:
@@ -46,7 +46,7 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
             // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObjectTypeCode128Code:
             if self.isBuiltInCode128GeneratorSelected {
-                return RSAbstractCodeGenerator.generateCode(contents, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+                return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
             } else {
                 codeGenerator = RSCode128Generator()
             }
@@ -65,14 +65,22 @@ public class RSUnifiedCodeGenerator: RSCodeGenerator {
         if codeGenerator != nil {
             codeGenerator!.fillColor = self.fillColor
             codeGenerator!.strokeColor = self.strokeColor
-            return codeGenerator!.generateCode(contents, machineReadableCodeObjectType: machineReadableCodeObjectType)
+            return codeGenerator!.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObjectType)
         } else {
             return nil
         }
     }
     
+    public func generateCode(contents: String, machineReadableCodeObjectType: String) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType)
+    }
+    
+    public func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject.stringValue, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type)
+    }
+    
     public func generateCode(machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue, machineReadableCodeObjectType: machineReadableCodeObject.type)
+        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium)
     }
 }
 
