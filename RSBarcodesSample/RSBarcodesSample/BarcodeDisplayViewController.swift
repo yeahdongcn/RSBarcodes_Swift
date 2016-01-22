@@ -3,6 +3,9 @@
 //  RSBarcodesSample
 //
 //  Created by R0CKSTAR on 15/1/17.
+//
+//  Updated by Jarvie8176 on 01/21/2016
+//
 //  Copyright (c) 2015年 P.D.Q. All rights reserved.
 //
 
@@ -11,10 +14,9 @@ import AVFoundation
 import RSBarcodes
 
 class BarcodeDisplayViewController: UIViewController {
-
-    @IBOutlet var barcodeView: UIImageView!
+    @IBOutlet weak var imageDisplayed: UIImageView!
     
-    let contents = "AAABBBCCCDDDEEE1"
+    var contents:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +26,11 @@ class BarcodeDisplayViewController: UIViewController {
         let gen = RSUnifiedCodeGenerator.shared
         gen.fillColor = UIColor.whiteColor()
         gen.strokeColor = UIColor.blackColor()
+        print ("generating image with barcode: " + contents)
         let image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
-        if let image = image {
-            self.barcodeView.image = RSAbstractCodeGenerator.resizeImage(image, scale: 1.0)
+        
+        if (image != nil) {
+            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image!, scale: 1.0)
         }
     }
 }
