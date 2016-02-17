@@ -51,17 +51,17 @@ The simplest way to use the generators is:
 
     RSUnifiedCodeGenerator.shared.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
 
-It will generate an UIImage instance if the `2166529V` is a valid code39 string. For AVMetadataObjectTypeCode128Code, you can change `useBuiltInCode128Generator` to `false` to use my implementation (AutoTable for code128).
+It will generate a UIImage instance if the `2166529V` is a valid code39 string. For AVMetadataObjectTypeCode128Code, you can change `useBuiltInCode128Generator` to `false` to use my implementation (AutoTable for code128).
 
-P.S. There are 4 table for encoding a string to code128, `TableA`, `TableB`, `TableC` and `TableAuto`, the `TableAuto` is always the best choice, but if one has certain requirement, try this:
+P.S. There are 4 tables for encoding a string to code128, `TableA`, `TableB`, `TableC` and `TableAuto`; the `TableAuto` is always the best choice, but if one has specific requirements, try this:
 
     RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
 
-These calling simples can be found in the test project.
+Example of these simple calls can be found in the test project.
 
 ###Reader
 
-Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` based class as its custom class and it almost there, focus mark layer and corners layer is already there working for you. There are to handlers, one for the single tap on the screen along with the focus mark and the other is detected objects handler, which all detected will come to you. Set them up in `viewDidLoad()` or some place more suitable:
+Place a `UIViewController` in storyboard and set `RSCodeReaderViewController` as its custom class, and you're almost there, as the focus mark layer and corners layer are already there working for you. There are two handlers: one for the single tap on the screen (along with the focus mark), and the other is the detected objects handler, which ensures that all detected objects will come to you. Set them up in `viewDidLoad()` or some other place more suitable for your project:
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +81,7 @@ Place an `UIViewController` in storyboard and set `RSCodeReaderViewController` b
         }
     }
     
-If you want to ignore some code types, you'd better add following lines
+If you want to ignore some code types, you'd better add the following lines:
 
     let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
     types.removeObject(AVMetadataObjectTypeQRCode)
