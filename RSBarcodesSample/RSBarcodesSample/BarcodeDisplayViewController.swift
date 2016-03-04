@@ -16,7 +16,7 @@ import RSBarcodes
 class BarcodeDisplayViewController: UIViewController {
     @IBOutlet weak var imageDisplayed: UIImageView!
     
-    var contents:String = ""
+    var contents:String = "http://www.zai360.com/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +27,10 @@ class BarcodeDisplayViewController: UIViewController {
         gen.fillColor = UIColor.whiteColor()
         gen.strokeColor = UIColor.blackColor()
         print ("generating image with barcode: " + contents)
-        let image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeQRCode)
         
         if (image != nil) {
-            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image!, scale: 1.0)
+            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image!, scale: 10.0)
         }
     }
 }
