@@ -25,6 +25,7 @@
 		D08336D91A209AAB004EE128 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336C81A209AAB004EE128 /* StringExtension.swift */; };
 		D08336DA1A209AAB004EE128 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336C91A209AAB004EE128 /* UIColorExtension.swift */; };
 		D0E879421BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E879411BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift */; };
+		E71A74281C914B0C0081B389 /* RSUnifiedCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A74271C914B0C0081B389 /* RSUnifiedCodeValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		D08336C81A209AAB004EE128 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = Source/StringExtension.swift; sourceTree = SOURCE_ROOT; };
 		D08336C91A209AAB004EE128 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExtension.swift; path = Source/UIColorExtension.swift; sourceTree = SOURCE_ROOT; };
 		D0E879411BDE13D000D1A577 /* RSCodeDataMatrixGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCodeDataMatrixGenerator.swift; path = Source/RSCodeDataMatrixGenerator.swift; sourceTree = SOURCE_ROOT; };
+		E71A74271C914B0C0081B389 /* RSUnifiedCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUnifiedCodeValidator.swift; path = Source/RSUnifiedCodeValidator.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				D08336BD1A209AAB004EE128 /* RSCodeGenerator.swift */,
+				E71A74271C914B0C0081B389 /* RSUnifiedCodeValidator.swift */,
 				D08336C61A209AAB004EE128 /* RSUnifiedCodeGenerator.swift */,
 				D08336B91A209AAB004EE128 /* RSCode39Generator.swift */,
 				D08336BA1A209AAB004EE128 /* RSCode39Mod43Generator.swift */,
@@ -188,6 +191,7 @@
 				D08336D91A209AAB004EE128 /* StringExtension.swift in Sources */,
 				D08336D71A209AAB004EE128 /* RSUnifiedCodeGenerator.swift in Sources */,
 				D08336CD1A209AAB004EE128 /* RSCode128Generator.swift in Sources */,
+				E71A74281C914B0C0081B389 /* RSUnifiedCodeValidator.swift in Sources */,
 				D08336CF1A209AAB004EE128 /* RSCodeLayer.swift in Sources */,
 				D08336D51A209AAB004EE128 /* RSITF14Generator.swift in Sources */,
 				D08336D01A209AAB004EE128 /* RSCodeReaderViewController.swift in Sources */,

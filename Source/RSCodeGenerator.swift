@@ -30,6 +30,9 @@ public protocol RSCodeGenerator {
     /** The stroke color of the generated barcode. */
     var strokeColor: UIColor {get set}
     
+    /** Check whether the given contents are valid. */
+    func isValid(contents:String) -> Bool
+    
     /** Generate code image using the given machine readable code object and correction level. */
     func generateCode(machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel:InputCorrectionLevel) -> UIImage?
     
