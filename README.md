@@ -126,6 +126,12 @@ If you want to ignore some code types, you'd better add the following lines:
     types.removeObject(AVMetadataObjectTypeQRCode)
     self.output.metadataObjectTypes = NSArray(array: types)
     
+###Validator
+
+To validate codes:
+
+    let isValid = RSUnifiedCodeValidator.shared.isValid(code, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
+
 ###Helper
 
 Use `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
