@@ -132,9 +132,11 @@ To validate codes:
 
     let isValid = RSUnifiedCodeValidator.shared.isValid(code, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
 
-###Helper
+###Image helpers
 
 Use `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
+
+Use `RSAbstractCodeGenerator.resizeImage(<#T##source: UIImage##UIImage#>, targetSize: <#T##CGSize#>, contentMode: <#T##UIViewContentMode#>)` to fill/fit the bounds of something to the best capability and don't necessarily know what scale is too much to fill/fit, or if the imageView itself is flexible.
 
 ##Miscellaneous
 
