@@ -185,6 +185,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
                 && videoPreviewLayer.connection.videoOrientation != videoOrientation {
                     videoPreviewLayer.connection.videoOrientation = videoOrientation
             }
+            videoPreviewLayer.frame = self.view.bounds
         }
     }
     
