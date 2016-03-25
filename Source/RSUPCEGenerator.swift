@@ -113,6 +113,7 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         Sum all digits in even position.
         Sum the results of step 3 and step 4.
         divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
+        If there is no remainder then the check digit equals zero.
         */
         let upc_a = self.convert2UPC_A(contents)
         var sum_odd = 0
@@ -125,6 +126,7 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
                 sum_odd += digit
             }
         }
-        return String(10 - (sum_even + sum_odd * 3) % 10)
+        let remainder = (sum_even + sum_odd * 3) % 10
+        return String(remainder == 0 ? remainder : 10 - remainder)
     }
 }
