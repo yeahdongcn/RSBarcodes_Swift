@@ -73,8 +73,8 @@ Need to import RSBarcodes_Swift manually in the ViewController file after creati
 
 ##Usage
 
-[HOW TO USE GENERATOR](https://github.com/yeahdongcn/RSBarcodes_Swift/tree/CB) and 
-[HOW TO USE READER](https://github.com/yeahdongcn/RSBarcodes_Swift/tree/Vicky)
+[HOW TO USE GENERATOR](#generator-1) and 
+[HOW TO USE READER](#reader-1)
 
 ###Generators
 
