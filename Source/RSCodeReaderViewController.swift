@@ -250,7 +250,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
         }
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "onTap:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RSCodeReaderViewController.onTap(_:)))
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
         self.focusMarkLayer.frame = self.view.bounds
@@ -263,8 +263,8 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationWillEnterForeground", name:UIApplicationWillEnterForegroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onApplicationDidEnterBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
         self.session.startRunning()
     }
@@ -306,7 +306,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             if let ticker = self.ticker {
                 ticker.invalidate()
             }
-            self.ticker = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "onTick", userInfo: nil, repeats: true)
+            self.ticker = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(RSCodeReaderViewController.onTick), userInfo: nil, repeats: true)
         })
     }
 }
