@@ -110,12 +110,12 @@ The following are steps to get the barcode reader working:
         self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
         
         self.tapHandler = { point in
-            println(point)
+            print(point)
         }
         
         self.barcodesHandler = { barcodes in
             for barcode in barcodes {
-                println("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
+                print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
             }
         }
     }
