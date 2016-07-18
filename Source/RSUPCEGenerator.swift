@@ -52,18 +52,18 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         "011010"
     ]
     
-    func convert2UPC_A(contents:String) -> String {
-        let code = contents.substring(1, length: contents.length() - 2)
+    func convert2UPC_A(_ contents:String) -> String {
+        let code = contents.substring(1, length: contents.length() - 2)!
         let lastDigit = Int(code[code.length() - 1])!
         var insertDigits = "0000"
         var upc_a = ""
         switch lastDigit {
         case 0...2:
             upc_a += code.substring(0, length: 2) + String(lastDigit) + insertDigits + code.substring(2, length: 3)
-        case 3:lastDigit
+        case 3:
         insertDigits = "00000"
         upc_a += code.substring(0, length: 3) + insertDigits + code.substring(3, length: 2)
-        case 4:lastDigit
+        case 4:
         insertDigits = "00000"
         upc_a += code.substring(0, length: 4) + insertDigits + code.substring(4, length: 1)
         default:
@@ -72,7 +72,7 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return "00" + upc_a
     }
     
-    override public func isValid(contents: String) -> Bool {
+    override public func isValid(_ contents: String) -> Bool {
         return super.isValid(contents)
             && contents.length() == 8
             && Int(contents[0])! == 0
@@ -87,7 +87,7 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return "010101"
     }
     
-    override public func barcode(contents: String) -> String {
+    override public func barcode(_ contents: String) -> String {
         let checkValue = Int(contents[contents.length() - 1])!
         let sequence = UPCE_SEQUENCES[checkValue]
         var barcode = ""
@@ -104,7 +104,7 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     // MARK: RSCheckDigitGenerator
     
-    public func checkDigit(contents: String) -> String {
+    public func checkDigit(_ contents: String) -> String {
         /*
         UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
         

@@ -157,6 +157,7 @@
 				TargetAttributes = {
 					D08336361A202E81004EE128 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -306,6 +307,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pdq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -322,6 +324,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pdq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

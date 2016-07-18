@@ -45,7 +45,7 @@ public class RSEANGenerator: RSAbstractCodeGenerator {
         self.length = length
     }
     
-    override public func isValid(contents: String) -> Bool {
+    override public func isValid(_ contents: String) -> Bool {
         if super.isValid(contents) && self.length == contents.length() {
             var sum_odd = 0
             var sum_even = 0
@@ -76,7 +76,7 @@ public class RSEANGenerator: RSAbstractCodeGenerator {
         return "01010"
     }
     
-    override public func barcode(contents: String) -> String {
+    override public func barcode(_ contents: String) -> String {
         var lefthandParity = "OOOO"
         var newContents = contents
         if self.length == 13 {
@@ -113,14 +113,14 @@ class RSEAN13Generator: RSEANGenerator {
 }
 
 class RSISBN13Generator: RSEAN13Generator {
-    override func isValid(contents: String) -> Bool {
+    override func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISBN.php
         return super.isValid(contents) && contents.substring(0, length: 3) == "978"
     }
 }
 
 class RSISSN13Generator: RSEAN13Generator {
-    override func isValid(contents: String) -> Bool {
+    override func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISSN.php
         return super.isValid(contents) && contents.substring(0, length: 3) == "977"
     }
