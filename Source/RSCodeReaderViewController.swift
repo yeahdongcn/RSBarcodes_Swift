@@ -11,13 +11,13 @@ import AVFoundation
 
 public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    public lazy var device: AVCaptureDevice? = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-    public lazy var output = AVCaptureMetadataOutput()
-    public lazy var session = AVCaptureSession()
+    public var device: AVCaptureDevice? = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+    public var output = AVCaptureMetadataOutput()
+    public var session = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    public lazy var focusMarkLayer = RSFocusMarkLayer()
-    public lazy var cornersLayer = RSCornersLayer()
+    public var focusMarkLayer = RSFocusMarkLayer()
+    public var cornersLayer = RSCornersLayer()
     
     public var tapHandler: ((CGPoint) -> Void)?
     public var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
