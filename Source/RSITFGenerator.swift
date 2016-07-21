@@ -23,7 +23,7 @@ public class RSITFGenerator: RSAbstractCodeGenerator {
         "01010",
     ]
     
-    override public func isValid(contents: String) -> Bool {
+    override public func isValid(_ contents: String) -> Bool {
         return super.isValid(contents) && contents.length() % 2 == 0
     }
     
@@ -35,7 +35,7 @@ public class RSITFGenerator: RSAbstractCodeGenerator {
         return "1101"
     }
     
-    override public func barcode(contents: String) -> String {
+    override public func barcode(_ contents: String) -> String {
         var barcode = ""
         for i in 0..<contents.length() / 2 {
             let pair = contents.substring(i * 2, length: 2)

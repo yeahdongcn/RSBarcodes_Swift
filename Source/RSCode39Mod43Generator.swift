@@ -14,13 +14,13 @@ public class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     
     // MARK: RSAbstractCodeGenerator
     
-    override public func barcode(contents: String) -> String {
-        return super.barcode(contents + self.checkDigit(contents.uppercaseString))
+    override public func barcode(_ contents: String) -> String {
+        return super.barcode(contents + self.checkDigit(contents.uppercased()))
     }
     
     // MARK: RSCheckDigitGenerator
     
-    public func checkDigit(contents: String) -> String {
+    public func checkDigit(_ contents: String) -> String {
         /**
         Step 1: From the table below, find the values of each character.
         C    O    D    E        3    9    <--Message characters
