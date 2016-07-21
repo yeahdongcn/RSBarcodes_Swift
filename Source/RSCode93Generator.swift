@@ -66,12 +66,12 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     ]
     
     
-    func encodeCharacterString(characterString:String) -> String {
+    func encodeCharacterString(_ characterString:String) -> String {
         return CODE93_CHARACTER_ENCODINGS[CODE93_ALPHABET_STRING.location(characterString)]
     }
     
-    override public func isValid(contents: String) -> Bool {
-        if contents.length() > 0 && contents == contents.uppercaseString {
+    override public func isValid(_ contents: String) -> Bool {
+        if contents.length() > 0 && contents == contents.uppercased() {
             for i in 0..<contents.length() {
                 if CODE93_ALPHABET_STRING.location(contents[i]) == NSNotFound {
                     return false
@@ -94,7 +94,7 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         return self.encodeCharacterString("*") + "1"
     }
     
-    override public func barcode(contents: String) -> String {
+    override public func barcode(_ contents: String) -> String {
         var barcode = ""
         for character in contents.characters {
             barcode += self.encodeCharacterString(String(character))
@@ -109,13 +109,13 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     // MARK: RSCheckDigitGenerator
     
-    public func checkDigit(contents: String) -> String {
+    public func checkDigit(_ contents: String) -> String {
         // Weighted sum += value * weight
         
         // The first character
         var sum = 0
         for i in 0..<contents.length() {
-            let character = contents[contents.length() - i - 1]
+            let character = contents[contents.length() - i - 1]!
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (i % 20 + 1)
         }
@@ -126,7 +126,7 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         sum = 0
         let newContents = contents + checkDigits
         for i in 0..<newContents.length() {
-            let character = newContents[newContents.length() - i - 1]
+            let character = newContents[newContents.length() - i - 1]!
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (i % 15 + 1)
         }

@@ -14,11 +14,11 @@ extension String {
     }
     
     func trim() -> String {
-        return self.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
-    func substring(location:Int, length:Int) -> String! {
-        return (self as NSString).substringWithRange(NSMakeRange(location, length))
+    func substring(_ location:Int, length:Int) -> String! {
+        return (self as NSString).substring(with: NSMakeRange(location, length))
     }
     
     subscript(index: Int) -> String! {
@@ -27,16 +27,16 @@ extension String {
         }
     }
     
-    func location(other: String) -> Int {
-        return (self as NSString).rangeOfString(other).location
+    func location(_ other: String) -> Int {
+        return (self as NSString).range(of: other).location
     }
     
-    func contains(other: String) -> Bool {
-        return (self as NSString).containsString(other)
+    func contains(_ other: String) -> Bool {
+        return (self as NSString).contains(other)
     }
     
     // http://stackoverflow.com/questions/6644004/how-to-check-if-nsstring-is-contains-a-numeric-value
     func isNumeric() -> Bool {
-        return (self as NSString).rangeOfCharacterFromSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).location == NSNotFound
+        return (self as NSString).rangeOfCharacter(from: CharacterSet.decimalDigits.inverted).location == NSNotFound
     }
 }

@@ -14,7 +14,7 @@ public class RSUnifiedCodeValidator {
         return UnifiedCodeValidatorSharedInstance
     }
     
-    public func isValid(contents:String, machineReadableCodeObjectType: String) -> Bool {
+    public func isValid(_ contents:String, machineReadableCodeObjectType: String) -> Bool {
         var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
