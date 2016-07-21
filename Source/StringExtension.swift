@@ -14,7 +14,7 @@ extension String {
     }
     
     func trim() -> String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines())
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func substring(_ location:Int, length:Int) -> String! {

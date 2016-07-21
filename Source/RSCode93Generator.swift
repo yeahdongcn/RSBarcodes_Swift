@@ -115,7 +115,7 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         // The first character
         var sum = 0
         for i in 0..<contents.length() {
-            let character = contents[contents.length() - i - 1]
+            let character = contents[contents.length() - i - 1]!
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (i % 20 + 1)
         }
@@ -126,7 +126,7 @@ public class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         sum = 0
         let newContents = contents + checkDigits
         for i in 0..<newContents.length() {
-            let character = newContents[newContents.length() - i - 1]
+            let character = newContents[newContents.length() - i - 1]!
             let characterValue = CODE93_ALPHABET_STRING.location(character)
             sum += characterValue * (i % 15 + 1)
         }
