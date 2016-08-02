@@ -12,13 +12,13 @@ import QuartzCore
 public class RSCodeLayer: CALayer {
     var code: UIImage?
     
-    override public func drawInContext(ctx: CGContext) {
+    override public func draw(in ctx: CGContext) {
         if let code = self.code {
-            CGContextSaveGState(ctx)
+            ctx.saveGState()
             
-            CGContextDrawImage(ctx, self.bounds, code.CGImage)
+            ctx.draw(in: self.bounds, image: code.cgImage!)
             
-            CGContextRestoreGState(ctx)
+            ctx.restoreGState()
         }
     }
 }
