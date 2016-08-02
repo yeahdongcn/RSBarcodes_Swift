@@ -13,8 +13,8 @@ import AVFoundation
 public class RSUnifiedCodeGenerator: RSCodeGenerator {
     
     public var isBuiltInCode128GeneratorSelected = false
-    public var fillColor: UIColor = UIColor.white()
-    public var strokeColor: UIColor = UIColor.black()
+    public var fillColor: UIColor = UIColor.white
+    public var strokeColor: UIColor = UIColor.black
     
     public class var shared: RSUnifiedCodeGenerator {
         return UnifiedCodeGeneratorSharedInstance

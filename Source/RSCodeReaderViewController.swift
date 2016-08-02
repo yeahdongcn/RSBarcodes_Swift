@@ -96,7 +96,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         }
         if session.isRunning {
             let when = DispatchTime.now() + Double(Int64(10 * Double(USEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.after(when: when, execute: {
+            DispatchQueue.main.asyncAfter(deadline: when, execute: {
                 self.autoUpdateLensPosition()
             })
         }
@@ -180,7 +180,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         super.viewDidLayoutSubviews()
         
         if let videoPreviewLayer = self.videoPreviewLayer {
-            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(UIApplication.shared().statusBarOrientation)
+            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(UIApplication.shared.statusBarOrientation)
             if videoPreviewLayer.connection.isVideoOrientationSupported
                 && videoPreviewLayer.connection.videoOrientation != videoOrientation {
                     videoPreviewLayer.connection.videoOrientation = videoOrientation
@@ -203,7 +203,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.clear()
+        self.view.backgroundColor = UIColor.clear
         
         var error : NSError?
         let input: AVCaptureDeviceInput!
@@ -243,7 +243,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
             self.view.layer.addSublayer(videoPreviewLayer)
         }
         
-        let queue = DispatchQueue(label: "com.pdq.rsbarcodes.metadata", attributes: DispatchQueueAttributes.concurrent)
+        let queue = DispatchQueue(label: "com.pdq.rsbarcodes.metadata", attributes: DispatchQueue.Attributes.concurrent)
         self.output.setMetadataObjectsDelegate(self, queue: queue)
         if self.session.canAddOutput(self.output) {
             self.session.addOutput(self.output)

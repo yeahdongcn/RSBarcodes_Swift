@@ -32,7 +32,7 @@ public class RSFocusMarkLayer: CALayer {
             })
             
             let when = DispatchTime.now() + Double(Int64(self.delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.after(when: when, execute: {
+            DispatchQueue.main.asyncAfter(deadline: when, execute: {
                 self.canDraw = false
                 self.setNeedsDisplay()
             })
@@ -48,7 +48,7 @@ public class RSFocusMarkLayer: CALayer {
         
         ctx.setShouldAntialias(true)
         ctx.setAllowsAntialiasing(true)
-        ctx.setFillColor(UIColor.clear().cgColor)
+        ctx.setFillColor(UIColor.clear.cgColor)
         ctx.setStrokeColor(self.strokeColor)
         ctx.setLineWidth(self.strokeWidth)
         
