@@ -16,7 +16,7 @@ public class RSCodeLayer: CALayer {
         if let code = self.code {
             ctx.saveGState()
             
-            ctx.draw(in: self.bounds, image: code.cgImage!)
+            ctx.draw(code.cgImage!, in: self.bounds)
             
             ctx.restoreGState()
         }

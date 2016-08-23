@@ -43,9 +43,9 @@ public class RSCornersLayer: CALayer {
                 let x = CGFloat((dict.object(forKey: "X") as! NSNumber).floatValue)
                 let y = CGFloat((dict.object(forKey: "Y") as! NSNumber).floatValue)
                 if i == 0 {
-                    ctx.moveTo(x: x, y: y)
+                    ctx.move(to: CGPoint(x: x, y: y))
                 } else {
-                    ctx.addLineTo(x: x, y: y)
+                    ctx.addLine(to: CGPoint(x: x, y: y))
                 }
             }
         }

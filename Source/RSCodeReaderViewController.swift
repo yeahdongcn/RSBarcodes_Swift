@@ -279,17 +279,17 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     }
     
     // MARK: AVCaptureMetadataOutputObjectsDelegate
-    
-    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+        
         var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
         var cornersArray : Array<[AnyObject]> = []
-        for metadataObject : AnyObject in metadataObjects {
+        for metadataObject : AnyObject in metadataObjects as [AnyObject]! {
             if let videoPreviewLayer = self.videoPreviewLayer {
                 let transformedMetadataObject = videoPreviewLayer.transformedMetadataObject(for: metadataObject as! AVMetadataObject)
                 if ((transformedMetadataObject?.isKind(of: AVMetadataMachineReadableCodeObject.self)) != nil) {
                     let barcodeObject = transformedMetadataObject as! AVMetadataMachineReadableCodeObject
                     barcodeObjects.append(barcodeObject)
-                    cornersArray.append(barcodeObject.corners)
+                    cornersArray.append(barcodeObject.corners as [AnyObject])
                 }
             }
         }

@@ -123,8 +123,8 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
             let character = completeBarcode[i]
             if character == "1" {
                 let x = i + (2 + 1)
-                context?.moveTo(x: CGFloat(x), y: 1.5)
-                context?.addLineTo(x: CGFloat(x), y: size.height - 2)
+                context?.move(to: CGPoint(x: CGFloat(x), y: 1.5))
+                context?.addLine(to: CGPoint(x: CGFloat(x), y: size.height - 2))
             }
         }
         context?.drawPath(using: CGPathDrawingMode.fillStroke)

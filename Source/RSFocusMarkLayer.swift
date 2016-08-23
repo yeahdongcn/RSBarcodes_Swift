@@ -60,21 +60,21 @@ public class RSFocusMarkLayer: CALayer {
             var endPoint: CGPoint
             switch i {
             case 0:
-                ctx.moveTo(x: self.point.x, y: self.point.y - self.size.height / 2.0)
+                ctx.move(to: CGPoint(x: self.point.x, y: self.point.y - self.size.height / 2.0))
                 endPoint = CGPoint(x: self.point.x, y: self.point.y - self.size.height / 2.0 + self.sight)
             case 1:
-                ctx.moveTo(x: self.point.x, y: self.point.y + self.size.height / 2.0)
+                ctx.move(to: CGPoint(x: self.point.x, y: self.point.y + self.size.height / 2.0))
                 endPoint = CGPoint(x: self.point.x, y: self.point.y + self.size.height / 2.0 - self.sight)
             case 2:
-                ctx.moveTo(x: self.point.x - self.size.width / 2.0, y: self.point.y)
+                ctx.move(to: CGPoint(x: self.point.x - self.size.width / 2.0, y: self.point.y))
                 endPoint = CGPoint(x: self.point.x - self.size.width / 2.0 + self.sight, y: self.point.y)
             case 3:
-                ctx.moveTo(x: self.point.x + self.size.width / 2.0, y: self.point.y)
+                ctx.move(to: CGPoint(x: self.point.x + self.size.width / 2.0, y: self.point.y))
                 endPoint = CGPoint(x: self.point.x + self.size.width / 2.0 - self.sight, y: self.point.y)
             default:
                 endPoint = CGPoint(x: 0, y: 0)
             }
-            ctx.addLineTo(x: endPoint.x, y: endPoint.y)
+            ctx.addLine(to: endPoint)
         }
         
         ctx.drawPath(using: CGPathDrawingMode.fillStroke)
