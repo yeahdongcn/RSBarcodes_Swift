@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     public var device: AVCaptureDevice? = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
     public var output = AVCaptureMetadataOutput()
@@ -176,7 +176,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
     
     // MARK: View lifecycle
     
-    override public func viewDidLayoutSubviews() {
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if let videoPreviewLayer = self.videoPreviewLayer {
@@ -189,7 +189,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         }
     }
     
-    override public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -200,7 +200,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         self.cornersLayer.frame = frame
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clear
@@ -260,7 +260,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         self.view.layer.addSublayer(self.cornersLayer)
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
@@ -269,7 +269,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         self.session.startRunning()
     }
     
-    override public func viewDidDisappear(_ animated: Bool) {
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
