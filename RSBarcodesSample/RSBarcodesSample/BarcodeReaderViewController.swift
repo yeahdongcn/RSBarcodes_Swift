@@ -40,7 +40,6 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
             print(point)
         }
         
-        
         let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
         types.removeObject(AVMetadataObjectTypeQRCode)
         self.output.metadataObjectTypes = NSArray(array: types) as [AnyObject]
@@ -77,7 +76,6 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBarHidden = true
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -85,7 +83,9 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         if segue.identifier == "nextView" {
             let destinationVC = segue.destinationViewController as! BarcodeDisplayViewController
-            destinationVC.contents = self.barcode
+            if !self.barcode.isEmpty {
+                destinationVC.contents = self.barcode
+            }
         }
     }
 }

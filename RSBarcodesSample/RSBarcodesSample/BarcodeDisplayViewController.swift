@@ -16,7 +16,7 @@ import RSBarcodes
 class BarcodeDisplayViewController: UIViewController {
     @IBOutlet weak var imageDisplayed: UIImageView!
     
-    var contents:String = "http://www.zai360.com/"
+    var contents: String = "http://www.zai360.com/"
     
     override func viewDidLoad() {
         super.viewDidLoad()

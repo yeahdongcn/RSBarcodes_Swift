@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jho-ea-TZv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Jho-ea-TZv">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -63,6 +63,21 @@
                                     <segue destination="rLF-0l-4AA" kind="show" identifier="nextView" id="xdl-UA-dUI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXp-Eg-5aR">
+                                <rect key="frame" x="500" y="500" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="OwE-3H-0RM"/>
+                                    <constraint firstAttribute="height" constant="100" id="YSa-wh-VmD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Switch">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J7U-nj-ahi">
                                 <rect key="frame" x="0.0" y="500" width="100" height="100"/>
                                 <constraints>
@@ -87,9 +102,11 @@
                             <constraint firstItem="F3M-sF-FTl" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="2gu-Ca-5bn"/>
                             <constraint firstItem="J7U-nj-ahi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="2yx-Uc-QyE"/>
                             <constraint firstAttribute="trailing" secondItem="F3M-sF-FTl" secondAttribute="trailing" id="HpU-IC-OjQ"/>
-                            <constraint firstAttribute="bottom" secondItem="J7U-nj-ahi" secondAttribute="bottom" id="XSk-95-Yna"/>
                             <constraint firstItem="LZw-KE-djz" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="deL-4L-SLg"/>
                             <constraint firstItem="LZw-KE-djz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="icT-ed-Y0h"/>
+                            <constraint firstAttribute="trailing" secondItem="BXp-Eg-5aR" secondAttribute="trailing" id="jLD-it-YlD"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="BXp-Eg-5aR" secondAttribute="bottom" id="nn4-TB-Soj"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="J7U-nj-ahi" secondAttribute="bottom" id="wPZ-Gl-Vgt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9HP-xD-nxc"/>

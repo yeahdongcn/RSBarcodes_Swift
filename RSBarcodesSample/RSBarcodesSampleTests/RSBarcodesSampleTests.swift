@@ -88,13 +88,13 @@ class RSBarcodesSampleTests: XCTestCase {
     
     func testCICode128() {
         self.measureBlock() {
-            let r = RSUnifiedCodeGenerator.shared.generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+            _ = RSUnifiedCodeGenerator.shared.generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
     }
     
     func testRSBarcodesCode128() {
         self.measureBlock() {
-            let r = RSCode128Generator().generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+            _ = RSCode128Generator().generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
     }
 }
