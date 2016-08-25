@@ -17,6 +17,11 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     
     @IBOutlet var toggle: UIButton!
     
+    @IBAction func switchCamera(sender: AnyObject?) {
+        let position = self.switchCamera()
+        print(position)
+    }
+    
     @IBAction func close(sender: AnyObject?) {
         print("close called.")
     }

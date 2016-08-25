@@ -44,6 +44,11 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         return false
     }
     
+    public func switchCamera() -> AVCaptureDevicePosition {
+        // TODO: impl
+        return AVCaptureDevicePosition.Back
+    }
+    
     public func toggleTorch() -> Bool {
         if self.hasTorch() {
             self.session.beginConfiguration()
