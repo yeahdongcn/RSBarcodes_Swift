@@ -19,7 +19,11 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     
     @IBAction func switchCamera(sender: AnyObject?) {
         let position = self.switchCamera()
-        print(position)
+        if position == AVCaptureDevicePosition.Back {
+            print("back camera.")
+        } else {
+            print("front camera.")
+        }
     }
     
     @IBAction func close(sender: AnyObject?) {
