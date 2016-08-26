@@ -60,10 +60,12 @@ class RSBarcodesSampleTests: XCTestCase {
         let c93r = g.generateCode("TEST93", machineReadableCodeObjectType: AVMetadataObjectTypeCode93Code)
         XCTAssert(c93r != nil, "Pass code 93")
         
+        g.isBuiltInCode128GeneratorSelected = true
         let c128r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128r != nil, "Pass code 128 auto table")
         
         // Using custom code table for code 128.
+        g.isBuiltInCode128GeneratorSelected = false
         let c128autor = RSCode128Generator().generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128autor != nil, "Pass code 128 Auto table")
         

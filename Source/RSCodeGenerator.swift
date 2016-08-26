@@ -179,7 +179,9 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
                 filter.setDefaults()
                 let inputMessage = contents.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
                 filter.setValue(inputMessage, forKey: "inputMessage")
-                filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
+                if filterName == "CIQRCodeGenerator" {
+                    filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
+                }
                 
                 let outputImage = filter.outputImage
                 let context = CIContext(options: nil)
