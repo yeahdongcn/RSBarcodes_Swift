@@ -37,6 +37,9 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: NOTE: Uncomment the following line to enable crazy mode
+        // self.isCrazyMode = true
+        
         self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
         
         self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
@@ -45,8 +48,10 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
             print(point)
         }
         
+        // MARK: NOTE: If you want to detect specific barcode types, you should update the types
         let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
-        types.removeObject(AVMetadataObjectTypeQRCode)
+        // MARK: NOTE: Uncomment the following line remove QRCode scanning capability
+        // types.removeObject(AVMetadataObjectTypeQRCode)
         self.output.metadataObjectTypes = NSArray(array: types) as [AnyObject]
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
@@ -70,6 +75,9 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
                         
                         // MARK: NOTE: Perform UI related actions here.
                     })
+                    
+                    // MARK: NOTE: break here to only handle the first barcode object
+                    break
                 }
             }
         }
