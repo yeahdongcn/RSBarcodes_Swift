@@ -20,10 +20,6 @@ public class RSFocusMarkLayer: CALayer {
     public var delay: CFTimeInterval = 1
     public var canDraw = false
     
-    deinit {
-        print("RSFocusMarkLayer deinit")
-    }
-    
     public var point : CGPoint = CGPointMake(0, 0) {
         didSet {
             dispatch_async(dispatch_get_main_queue(), {
