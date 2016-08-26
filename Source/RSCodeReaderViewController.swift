@@ -50,7 +50,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         if let device = captureDevice {
             self.device = device
         }
-        self.setupVideo()
+        self.setupCamera()
         self.session.startRunning()
         return self.device.position
     }
@@ -96,7 +96,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         return nil
     }
     
-    func setupVideo() {
+    func setupCamera() {
         var error : NSError?
         let input: AVCaptureDeviceInput!
         do {
@@ -300,7 +300,7 @@ public class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutp
         
         self.view.backgroundColor = UIColor.clearColor()
         
-        self.setupVideo()
+        self.setupCamera()
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(RSCodeReaderViewController.onTap(_:)))
         self.view.addGestureRecognizer(tapGestureRecognizer)
