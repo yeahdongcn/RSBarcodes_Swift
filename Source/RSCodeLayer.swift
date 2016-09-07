@@ -15,8 +15,9 @@ public class RSCodeLayer: CALayer {
     override public func drawInContext(ctx: CGContext) {
         if let code = self.code {
             CGContextSaveGState(ctx)
-            
-            CGContextDrawImage(ctx, self.bounds, code.CGImage)
+            if let img = code.CGImage {
+                CGContextDrawImage(ctx, self.bounds, img)
+            }
             
             CGContextRestoreGState(ctx)
         }

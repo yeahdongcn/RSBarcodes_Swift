@@ -109,7 +109,7 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
         let width = length + 4
         let size = CGSizeMake(CGFloat(width), 28)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         
         CGContextSetShouldAntialias(context, false)
         
@@ -186,7 +186,7 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
                 let outputImage = filter.outputImage
                 let context = CIContext(options: nil)
                 if let outputImage = outputImage {
-                    let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent)
+                    guard let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent) else { return nil }
                     return UIImage(CGImage: cgImage, scale: 1, orientation: UIImageOrientation.Up)
                 }
             }
@@ -199,12 +199,12 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Resize image
-    public class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage {
+    public class func resizeImage(source:UIImage, scale:CGFloat) -> UIImage? {
         let width = source.size.width * scale
         let height = source.size.height * scale
         
         UIGraphicsBeginImageContext(CGSizeMake(width, height))
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         CGContextSetInterpolationQuality(context, CGInterpolationQuality.None)
         source.drawInRect(CGRectMake(0, 0, width, height))
         let target = UIGraphicsGetImageFromCurrentImageContext()
@@ -212,7 +212,7 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
         return target
     }
     
-    public class func resizeImage(source:UIImage, targetSize:CGSize, contentMode:UIViewContentMode) -> UIImage {
+    public class func resizeImage(source:UIImage, targetSize:CGSize, contentMode:UIViewContentMode) -> UIImage? {
         var x: CGFloat = 0
         var y: CGFloat = 0
         var width = targetSize.width
@@ -264,7 +264,7 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
         }
 
         UIGraphicsBeginImageContext(targetSize)
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         CGContextSetInterpolationQuality(context, CGInterpolationQuality.None)
         source.drawInRect(CGRectMake(x, y, width, height))
         let target = UIGraphicsGetImageFromCurrentImageContext()
