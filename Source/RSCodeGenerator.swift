@@ -226,7 +226,7 @@ public class RSAbstractCodeGenerator : RSCodeGenerator {
             x = (targetSize.width  - width)  / 2.0
             y = (targetSize.height - height) / 2.0
         } else  { // contents scaled to fit with fixed aspect. remainder is transparent
-            let scaledRect = AVMakeRectWithAspectRatioInsideRect(source.size, CGRectMake(0.0, 0.0, targetSize.width, targetSize.height))
+            let scaledRect = AVMakeRect(aspectRatio: source.size, insideRect: CGRect(x: 0.0, y: 0.0, width: targetSize.width, height: targetSize.height))
             width = scaledRect.width
             height = scaledRect.height
             if (contentMode == UIViewContentMode.scaleAspectFit
