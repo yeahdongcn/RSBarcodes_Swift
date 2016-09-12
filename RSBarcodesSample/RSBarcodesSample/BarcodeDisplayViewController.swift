@@ -24,14 +24,14 @@ class BarcodeDisplayViewController: UIViewController {
         self.navigationItem.title = contents
         
         let gen = RSUnifiedCodeGenerator.shared
-        gen.fillColor = UIColor.whiteColor()
-        gen.strokeColor = UIColor.blackColor()
+        gen.fillColor = UIColor.white
+        gen.strokeColor = UIColor.black
         print ("generating image with barcode: " + contents)
         let image: UIImage? = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObjectTypeQRCode)
         
         if (image != nil) {
             self.imageDisplayed.layer.borderWidth = 1
-            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image!, targetSize: self.imageDisplayed.bounds.size, contentMode: UIViewContentMode.BottomRight)
+            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image!, targetSize: self.imageDisplayed.bounds.size, contentMode: UIViewContentMode.bottomRight)
         }
     }
 }

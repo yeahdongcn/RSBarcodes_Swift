@@ -9,7 +9,7 @@
 import UIKit
 
 // http://www.barcodeisland.com/int2of5.phtml
-public class RSITFGenerator: RSAbstractCodeGenerator {
+open class RSITFGenerator: RSAbstractCodeGenerator {
     let ITF_CHARACTER_ENCODINGS = [
         "00110",
         "10001",
@@ -23,19 +23,19 @@ public class RSITFGenerator: RSAbstractCodeGenerator {
         "01010",
     ]
     
-    override public func isValid(contents: String) -> Bool {
+    override open func isValid(_ contents: String) -> Bool {
         return super.isValid(contents) && contents.length() % 2 == 0
     }
     
-    override public func initiator() -> String {
+    override open func initiator() -> String {
         return "1010"
     }
     
-    override public func terminator() -> String {
+    override open func terminator() -> String {
         return "1101"
     }
     
-    override public func barcode(contents: String) -> String {
+    override open func barcode(_ contents: String) -> String {
         var barcode = ""
         for i in 0..<contents.length() / 2 {
             let pair = contents.substring(i * 2, length: 2)

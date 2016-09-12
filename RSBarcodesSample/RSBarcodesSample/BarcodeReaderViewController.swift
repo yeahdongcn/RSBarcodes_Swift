@@ -17,20 +17,20 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     
     @IBOutlet var toggle: UIButton!
     
-    @IBAction func switchCamera(sender: AnyObject?) {
+    @IBAction func switchCamera(_ sender: AnyObject?) {
         let position = self.switchCamera()
-        if position == AVCaptureDevicePosition.Back {
+        if position == AVCaptureDevicePosition.back {
             print("back camera.")
         } else {
             print("front camera.")
         }
     }
     
-    @IBAction func close(sender: AnyObject?) {
+    @IBAction func close(_ sender: AnyObject?) {
         print("close called.")
     }
     
-    @IBAction func toggle(sender: AnyObject?) {
+    @IBAction func toggle(_ sender: AnyObject?) {
         let isTorchOn = self.toggleTorch()
         print(isTorchOn)
     }
@@ -44,9 +44,9 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         // MARK: NOTE: Uncomment the following line to enable crazy mode
         // self.isCrazyMode = true
         
-        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+        self.focusMarkLayer.strokeColor = UIColor.red.cgColor
         
-        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+        self.cornersLayer.strokeColor = UIColor.yellow.cgColor
         
         self.tapHandler = { point in
             print(point)
@@ -60,11 +60,11 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
-            self.view.bringSubviewToFront(subview)
+            self.view.bringSubview(toFront: subview)
         }
         
         if !self.hasTorch() {
-            self.toggle.enabled = false
+            self.toggle.isEnabled = false
         }
         
         self.barcodesHandler = { barcodes in
@@ -74,8 +74,8 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
                     self.barcode = barcode.stringValue
                     print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.performSegueWithIdentifier("nextView", sender: self)
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "nextView", sender: self)
                         
                         // MARK: NOTE: Perform UI related actions here.
                     })
@@ -87,19 +87,19 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.dispatched = false // reset the flag so user can do another scan
         
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.navigationController?.navigationBarHidden = false
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.navigationController?.isNavigationBarHidden = false
         
         if segue.identifier == "nextView" {
-            let destinationVC = segue.destinationViewController as! BarcodeDisplayViewController
+            let destinationVC = segue.destination as! BarcodeDisplayViewController
             if !self.barcode.isEmpty {
                 destinationVC.contents = self.barcode
             }

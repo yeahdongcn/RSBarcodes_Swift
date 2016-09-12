@@ -10,8 +10,8 @@ import UIKit
 
 // http://www.gs1au.org/assets/documents/info/user_manuals/barcode_technical_details/ITF_14_Barcode_Structure.pdf
 // http://www.barcodeisland.com/int2of5.phtml
-public class RSITF14Generator: RSITFGenerator {
-    override public func isValid(contents: String) -> Bool {
+open class RSITF14Generator: RSITFGenerator {
+    override open func isValid(_ contents: String) -> Bool {
         return super.isValid(contents) && contents.length() == 14
     }
 }
