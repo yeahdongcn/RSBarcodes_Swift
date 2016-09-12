@@ -32,6 +32,8 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Read barcodes and 2D codes</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
