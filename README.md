@@ -3,7 +3,7 @@
 </p>
 
 RSBarcodes, now Swift.
-[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=Swift-3.0)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift) 
+[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=Swift-3.0)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift)
 ==========
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Total views](https://sourcegraph.com/api/repos/github.com/yeahdongcn/RSBarcodes_Swift/counters/views.png)](https://sourcegraph.com/github.com/yeahdongcn/RSBarcodes_Swift)
