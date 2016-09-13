@@ -11,13 +11,13 @@ import AVFoundation
 
 open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    open lazy var device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-    open lazy var output = AVCaptureMetadataOutput()
-    open lazy var session = AVCaptureSession()
+    open var device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+    open var output = AVCaptureMetadataOutput()
+    open var session = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
-    open lazy var focusMarkLayer = RSFocusMarkLayer()
-    open lazy var cornersLayer = RSCornersLayer()
+    open var focusMarkLayer = RSFocusMarkLayer()
+    open var cornersLayer = RSCornersLayer()
     
     open var tapHandler: ((CGPoint) -> Void)?
     open var barcodesHandler: ((Array<AVMetadataMachineReadableCodeObject>) -> Void)?
@@ -27,6 +27,16 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     open var isCrazyMode = false
     var isCrazyModeStarted = false
     var lensPosition: Float = 0
+    
+    fileprivate struct Platform {
+        static let isSimulator: Bool = {
+            var isSim = false
+            #if arch(i386) || arch(x86_64)
+                isSim = true
+            #endif
+            return isSim
+        }()
+    }
     
     // MARK: Public methods
     
@@ -45,14 +55,18 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     }
     
     open func switchCamera() -> AVCaptureDevicePosition {
-        self.session.stopRunning()
-        let captureDevice = self.captureDevice()
-        if let device = captureDevice {
-            self.device = device
+        if !Platform.isSimulator {
+            self.session.stopRunning()
+            let captureDevice = self.captureDevice()
+            if let device = captureDevice {
+                self.device = device
+            }
+            self.setupCamera()
+            self.session.startRunning()
+            return self.device!.position
+        } else {
+            return .unspecified
         }
-        self.setupCamera()
-        self.session.startRunning()
-        return self.device!.position
     }
     
     open func toggleTorch() -> Bool {
@@ -256,11 +270,15 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     }
     
     func onApplicationWillEnterForeground() {
-        self.session.startRunning()
+        if !Platform.isSimulator {
+            self.session.startRunning()
+        }
     }
     
     func onApplicationDidEnterBackground() {
-        self.session.stopRunning()
+        if !Platform.isSimulator {
+            self.session.stopRunning()
+        }
     }
     
     // MARK: Deinitialization
@@ -278,7 +296,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
             let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(UIApplication.shared.statusBarOrientation)
             if videoPreviewLayer.connection.isVideoOrientationSupported
                 && videoPreviewLayer.connection.videoOrientation != videoOrientation {
-                    videoPreviewLayer.connection.videoOrientation = videoOrientation
+                videoPreviewLayer.connection.videoOrientation = videoOrientation
             }
             videoPreviewLayer.frame = self.view.bounds
         }
@@ -318,7 +336,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
-        self.session.startRunning()
+        if !Platform.isSimulator {
+            self.session.startRunning()
+        }
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
@@ -326,22 +346,25 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
-        self.session.stopRunning()
+        if !Platform.isSimulator {
+            self.session.stopRunning()
+        }
     }
     
     // MARK: AVCaptureMetadataOutputObjectsDelegate
     
     open func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
-        var cornersArray : Array<[AnyObject]> = []
-        for metadataObject : AnyObject in metadataObjects {
+        var cornersArray : Array<[Any]> = []
+        for metadataObject in metadataObjects {
             if let videoPreviewLayer = self.videoPreviewLayer {
                 let transformedMetadataObject = videoPreviewLayer.transformedMetadataObject(for: metadataObject as! AVMetadataObject)
-                if transformedMetadataObject.isKind(of: AVMetadataMachineReadableCodeObject.self) {
-                    let barcodeObject = transformedMetadataObject as! AVMetadataMachineReadableCodeObject
-                    barcodeObjects.append(barcodeObject)
-                    cornersArray.append(barcodeObject.corners)
+                if let transformedMetadataObject = transformedMetadataObject {
+                    if transformedMetadataObject.isKind(of: AVMetadataMachineReadableCodeObject.self) {
+                        let barcodeObject = transformedMetadataObject as! AVMetadataMachineReadableCodeObject
+                        barcodeObjects.append(barcodeObject)
+                        cornersArray.append(barcodeObject.corners)
+                    }
                 }
             }
         }

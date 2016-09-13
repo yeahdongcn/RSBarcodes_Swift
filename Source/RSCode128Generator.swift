@@ -79,39 +79,39 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         let length = range.upperBound - range.lowerBound
         if (range.lowerBound == 0 && length >= 4)
             || (range.lowerBound > 0 && length >= 6) {
-                var isOrphanDigitUsed = false
-                // Use START C when continous digits are found from range.location == 0
-                if range.lowerBound == 0 {
-                    self.autoCodeTable.startCodeTable = .c
-                } else {
-                    if length % 2 == 1 {
-                        let digitValue = CODE128_ALPHABET_STRING.location(contents[range.lowerBound])
-                        self.autoCodeTable.sequence.append(digitValue)
-                        isOrphanDigitUsed = true
-                    }
-                    self.autoCodeTable.sequence.append(self.middleCodeTableValue(.c))
-                }
-                
-                // Insert all xx combinations
-                for i in 0..<length / 2 {
-                    let startIndex = range.lowerBound + i * 2
-                    let digitValue = Int(contents.substring(isOrphanDigitUsed ? startIndex + 1 : startIndex, length: 2))!
+            var isOrphanDigitUsed = false
+            // Use START C when continous digits are found from range.location == 0
+            if range.lowerBound == 0 {
+                self.autoCodeTable.startCodeTable = .c
+            } else {
+                if length % 2 == 1 {
+                    let digitValue = CODE128_ALPHABET_STRING.location(contents[range.lowerBound])
                     self.autoCodeTable.sequence.append(digitValue)
+                    isOrphanDigitUsed = true
                 }
-                
-                if (length % 2 == 1 && !isOrphanDigitUsed) || !isFinished {
-                    self.autoCodeTable.sequence.append(self.middleCodeTableValue(defaultCodeTable))
-                }
-                
-                if length % 2 == 1 && !isOrphanDigitUsed {
-                    let digitValue = CODE128_ALPHABET_STRING.location(contents[range.upperBound - 1])
-                    self.autoCodeTable.sequence.append(digitValue)
-                }
-                
-                if !isFinished {
-                    let characterValue = CODE128_ALPHABET_STRING.location(contents[range.upperBound])
-                    self.autoCodeTable.sequence.append(characterValue)
-                }
+                self.autoCodeTable.sequence.append(self.middleCodeTableValue(.c))
+            }
+            
+            // Insert all xx combinations
+            for i in 0..<length / 2 {
+                let startIndex = range.lowerBound + i * 2
+                let digitValue = Int(contents.substring(isOrphanDigitUsed ? startIndex + 1 : startIndex, length: 2))!
+                self.autoCodeTable.sequence.append(digitValue)
+            }
+            
+            if (length % 2 == 1 && !isOrphanDigitUsed) || !isFinished {
+                self.autoCodeTable.sequence.append(self.middleCodeTableValue(defaultCodeTable))
+            }
+            
+            if length % 2 == 1 && !isOrphanDigitUsed {
+                let digitValue = CODE128_ALPHABET_STRING.location(contents[range.upperBound - 1])
+                self.autoCodeTable.sequence.append(digitValue)
+            }
+            
+            if !isFinished {
+                let characterValue = CODE128_ALPHABET_STRING.location(contents[range.upperBound])
+                self.autoCodeTable.sequence.append(characterValue)
+            }
         } else {
             for i in range.lowerBound...(isFinished ? range.upperBound - 1 : range.upperBound) {
                 let characterValue = CODE128_ALPHABET_STRING.location(contents[i])
@@ -127,40 +127,43 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             
             // Determine whether to use code table B
             let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING.substring(0, length: 64)
-            
-            for i in 0..<contents.length() {
-                if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound
-                    && defaultCodeTable == .a {
+            if let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING_A {
+                for i in 0..<contents.length() {
+                    if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound
+                        && defaultCodeTable == .a {
                         defaultCodeTable = .b
                         break
+                    }
                 }
             }
             
             var continousDigitsStartIndex:Int = NSNotFound
             for i in 0..<contents.length() {
+                var continousDigitsRange:Range<Int> = Range<Int>(0..<0)
                 let character = contents[i]
-                var continousDigitsRange:CountableRange<Int> = CountableRange<Int>(0..<0)
-                if DIGITS_STRING.location(character) == NSNotFound {
-                    // Non digit found
-                    if continousDigitsStartIndex != NSNotFound {
-                        continousDigitsRange = CountableRange<Int>(continousDigitsStartIndex..<i)
+                if let character = character {
+                    if DIGITS_STRING.location(character) == NSNotFound {
+                        // Non digit found
+                        if continousDigitsStartIndex != NSNotFound {
+                            continousDigitsRange = Range<Int>(continousDigitsStartIndex..<i)
+                        } else {
+                            let characterValue = CODE128_ALPHABET_STRING.location(character)
+                            self.autoCodeTable.sequence.append(characterValue)
+                        }
                     } else {
-                        let characterValue = CODE128_ALPHABET_STRING.location(character)
-                        self.autoCodeTable.sequence.append(characterValue)
+                        // Digit found
+                        if continousDigitsStartIndex == NSNotFound {
+                            continousDigitsStartIndex = i
+                        }
+                        if continousDigitsStartIndex != NSNotFound && i == contents.length() - 1 {
+                            continousDigitsRange = Range<Int>(continousDigitsStartIndex..<(i + 1))
+                        }
                     }
-                } else {
-                    // Digit found
-                    if continousDigitsStartIndex == NSNotFound {
-                        continousDigitsStartIndex = i
+                    
+                    if continousDigitsRange.upperBound - continousDigitsRange.lowerBound != 0 {
+                        self.calculateContinousDigits(contents, defaultCodeTable: defaultCodeTable, range: continousDigitsRange)
+                        continousDigitsStartIndex = NSNotFound
                     }
-                    if continousDigitsStartIndex != NSNotFound && i == contents.length() - 1 {
-                        continousDigitsRange = CountableRange<Int>(continousDigitsStartIndex..<(i + 1))
-                    }
-                }
-                
-                if continousDigitsRange.upperBound - continousDigitsRange.lowerBound != 0 {
-                    self.calculateContinousDigits(contents, defaultCodeTable: defaultCodeTable, range: continousDigitsRange)
-                    continousDigitsStartIndex = NSNotFound
                 }
             }
             
@@ -203,9 +206,11 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
                 return true
             case .a:
                 let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING.substring(0, length: 64)
-                for i in 0..<contents.length() {
-                    if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound {
-                        return false
+                if let CODE128_ALPHABET_STRING_A = CODE128_ALPHABET_STRING_A {
+                    for i in 0..<contents.length() {
+                        if CODE128_ALPHABET_STRING_A.location(contents[i]) == NSNotFound {
+                            return false
+                        }
                     }
                 }
                 return true

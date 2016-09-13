@@ -53,21 +53,23 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     ]
     
     func convert2UPC_A(_ contents:String) -> String {
-        let code = contents.substring(1, length: contents.length() - 2)
-        let lastDigit = Int(code[code.length() - 1])!
-        var insertDigits = "0000"
         var upc_a = ""
-        switch lastDigit {
-        case 0...2:
-            upc_a += code.substring(0, length: 2) + String(lastDigit) + insertDigits + code.substring(2, length: 3)
-        case 3:lastDigit
-        insertDigits = "00000"
-        upc_a += code.substring(0, length: 3) + insertDigits + code.substring(3, length: 2)
-        case 4:lastDigit
-        insertDigits = "00000"
-        upc_a += code.substring(0, length: 4) + insertDigits + code.substring(4, length: 1)
-        default:
-            upc_a += code.substring(0, length: 5) + insertDigits + String(lastDigit)
+        let code = contents.substring(1, length: contents.length() - 2)
+        if let code = code {
+            let lastDigit = Int(code[code.length() - 1])!
+            var insertDigits = "0000"
+            switch lastDigit {
+            case 0...2:
+                upc_a += code.substring(0, length: 2) + String(lastDigit) + insertDigits + code.substring(2, length: 3)
+            case 3:
+            insertDigits = "00000"
+            upc_a += code.substring(0, length: 3) + insertDigits + code.substring(3, length: 2)
+            case 4:
+            insertDigits = "00000"
+            upc_a += code.substring(0, length: 4) + insertDigits + code.substring(4, length: 1)
+            default:
+                upc_a += code.substring(0, length: 5) + insertDigits + String(lastDigit)
+            }
         }
         return "00" + upc_a
     }
@@ -106,15 +108,15 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     open func checkDigit(_ contents: String) -> String {
         /*
-        UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
-        
-        From the right to left, start with odd position, assign the odd/even position to each digit.
-        Sum all digits in odd position and multiply the result by 3.
-        Sum all digits in even position.
-        Sum the results of step 3 and step 4.
-        divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
-        If there is no remainder then the check digit equals zero.
-        */
+         UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
+         
+         From the right to left, start with odd position, assign the odd/even position to each digit.
+         Sum all digits in odd position and multiply the result by 3.
+         Sum all digits in even position.
+         Sum the results of step 3 and step 4.
+         divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
+         If there is no remainder then the check digit equals zero.
+         */
         let upc_a = self.convert2UPC_A(contents)
         var sum_odd = 0
         var sum_even = 0
