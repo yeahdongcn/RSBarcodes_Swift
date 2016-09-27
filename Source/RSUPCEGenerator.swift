@@ -12,7 +12,7 @@ import UIKit
 // http://mdn.morovia.com/kb/UPCE-Specification-10634.html
 // http://mdn.morovia.com/kb/UPCA-Specification-10632.html
 // http://www.barcodeisland.com/upce.phtml
-public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
+open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     let UPCE_ODD_ENCODINGS = [
         "0001101",
         "0011001",
@@ -52,42 +52,43 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         "011010"
     ]
     
-    func convert2UPC_A(contents:String) -> String {
-        let code = contents.substring(1, length: contents.length() - 2)
-        let lastDigit = Int(code[code.length() - 1])!
-        var insertDigits = "0000"
+    func convert2UPC_A(_ contents:String) -> String {
         var upc_a = ""
-        switch lastDigit {
-        case 0...2:
-            upc_a += code.substring(0, length: 2) + String(lastDigit) + insertDigits + code.substring(2, length: 3)
-        case 3:lastDigit
-        insertDigits = "00000"
-        upc_a += code.substring(0, length: 3) + insertDigits + code.substring(3, length: 2)
-        case 4:lastDigit
-        insertDigits = "00000"
-        upc_a += code.substring(0, length: 4) + insertDigits + code.substring(4, length: 1)
-        default:
-            upc_a += code.substring(0, length: 5) + insertDigits + String(lastDigit)
+        if let code = contents.substring(1, length: contents.length() - 2) {
+            let lastDigit = Int(code[code.length() - 1])!
+            var insertDigits = "0000"
+            switch lastDigit {
+            case 0...2:
+                upc_a += code.substring(0, length: 2) + String(lastDigit) + insertDigits + code.substring(2, length: 3)
+            case 3:
+            insertDigits = "00000"
+            upc_a += code.substring(0, length: 3) + insertDigits + code.substring(3, length: 2)
+            case 4:
+            insertDigits = "00000"
+            upc_a += code.substring(0, length: 4) + insertDigits + code.substring(4, length: 1)
+            default:
+                upc_a += code.substring(0, length: 5) + insertDigits + String(lastDigit)
+            }
         }
         return "00" + upc_a
     }
     
-    override public func isValid(contents: String) -> Bool {
+    override open func isValid(_ contents: String) -> Bool {
         return super.isValid(contents)
             && contents.length() == 8
             && Int(contents[0])! == 0
             && contents[contents.length() - 1] == self.checkDigit(contents)
     }
     
-    override public func initiator() -> String {
+    override open func initiator() -> String {
         return "101"
     }
     
-    override public func terminator() -> String {
+    override open func terminator() -> String {
         return "010101"
     }
     
-    override public func barcode(contents: String) -> String {
+    override open func barcode(_ contents: String) -> String {
         let checkValue = Int(contents[contents.length() - 1])!
         let sequence = UPCE_SEQUENCES[checkValue]
         var barcode = ""
@@ -104,17 +105,17 @@ public class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     // MARK: RSCheckDigitGenerator
     
-    public func checkDigit(contents: String) -> String {
+    open func checkDigit(_ contents: String) -> String {
         /*
-        UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
-        
-        From the right to left, start with odd position, assign the odd/even position to each digit.
-        Sum all digits in odd position and multiply the result by 3.
-        Sum all digits in even position.
-        Sum the results of step 3 and step 4.
-        divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
-        If there is no remainder then the check digit equals zero.
-        */
+         UPC-A check digit is calculated using standard Mod10 method. Here outlines the steps to calculate UPC-A check digit:
+         
+         From the right to left, start with odd position, assign the odd/even position to each digit.
+         Sum all digits in odd position and multiply the result by 3.
+         Sum all digits in even position.
+         Sum the results of step 3 and step 4.
+         divide the result of step 4 by 10. The check digit is the number which adds the remainder to 10.
+         If there is no remainder then the check digit equals zero.
+         */
         let upc_a = self.convert2UPC_A(contents)
         var sum_odd = 0
         var sum_even = 0

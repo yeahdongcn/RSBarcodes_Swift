@@ -69,13 +69,13 @@ class RSBarcodesSampleTests: XCTestCase {
         let c128autor = RSCode128Generator().generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128autor != nil, "Pass code 128 Auto table")
         
-        let c128ar = RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let c128ar = RSCode128Generator(codeTable: .a).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128ar != nil, "Pass code 128 A table")
         
-        let c128br = RSCode128Generator(codeTable: .B).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let c128br = RSCode128Generator(codeTable: .b).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128br != nil, "Pass code 128 B table")
         
-        let c128cr = RSCode128Generator(codeTable: .C).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+        let c128cr = RSCode128Generator(codeTable: .c).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         XCTAssert(c128cr != nil, "Pass code 128 C table")
 
         let pdf417r = g.generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypePDF417Code)
@@ -89,13 +89,13 @@ class RSBarcodesSampleTests: XCTestCase {
     }
     
     func testCICode128() {
-        self.measureBlock() {
+        self.measure() {
             _ = RSUnifiedCodeGenerator.shared.generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
     }
     
     func testRSBarcodesCode128() {
-        self.measureBlock() {
+        self.measure() {
             _ = RSCode128Generator().generateCode("1234567890", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
         }
     }

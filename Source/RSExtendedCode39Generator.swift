@@ -12,14 +12,14 @@ public let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
-public class RSExtendedCode39Generator: RSCode39Generator {
-    func encodeContents(contents: String) -> String {
+open class RSExtendedCode39Generator: RSCode39Generator {
+    func encodeContents(_ contents: String) -> String {
         var encodedContents = ""
         for character in contents.characters {
             let characterString = String(character)
             switch characterString {
             case "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z":
-                encodedContents += "+" + characterString.uppercaseString
+                encodedContents += "+" + characterString.uppercased()
             case "!":
                 encodedContents += "/A"
             case "\"":
@@ -134,11 +134,11 @@ public class RSExtendedCode39Generator: RSCode39Generator {
         return encodedContents
     }
     
-    override public func isValid(contents: String) -> Bool {
+    override open func isValid(_ contents: String) -> Bool {
         return contents.length() > 0
     }
     
-    override public func barcode(contents: String) -> String {
+    override open func barcode(_ contents: String) -> String {
         return super.barcode(self.encodeContents(contents))
     }
 }
