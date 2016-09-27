@@ -16,7 +16,7 @@ public class RSCodeLayer: CALayer {
         if let code = self.code {
             CGContextSaveGState(ctx)
             
-            CGContextDrawImage(ctx, self.bounds, code.CGImage)
+            CGContextDrawImage(ctx, self.bounds, code.CGImage!)
             
             CGContextRestoreGState(ctx)
         }
