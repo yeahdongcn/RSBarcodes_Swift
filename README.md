@@ -3,7 +3,7 @@
 </p>
 
 RSBarcodes, now Swift.
-[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=Swift-2.3)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift)
+[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=master)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift)
 ==========
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Total views](https://sourcegraph.com/api/repos/github.com/yeahdongcn/RSBarcodes_Swift/counters/views.png)](https://sourcegraph.com/github.com/yeahdongcn/RSBarcodes_Swift)
@@ -44,7 +44,7 @@ Simply add the following lines to your `Podfile`:
 # required by Cocoapods 0.36.0.rc.1 for Swift Pods
 use_frameworks! 
 
-pod 'RSBarcodes_Swift', '~> 0.1.9'
+pod 'RSBarcodes_Swift', '~> 2.3'
 ```
 
 Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
@@ -56,7 +56,7 @@ Need to import RSBarcodes_Swift manually in the ViewController file after creati
 Simply add the following line to your `Cartfile`:
 
 ```ruby
-github "yeahdongcn/RSBarcodes_Swift" >= 0.1.9
+github "yeahdongcn/RSBarcodes_Swift" >= 2.3
 ```
 
 Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
