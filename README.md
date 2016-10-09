@@ -40,7 +40,7 @@ Simply add the following lines to your `Podfile`:
 # required by Cocoapods 0.36.0.rc.1 for Swift Pods
 use_frameworks!
 
-pod 'RSBarcodes_Swift', '~> 3.0'
+pod 'RSBarcodes_Swift', '~> 3.0.1'
 ```
 
 Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
@@ -52,7 +52,7 @@ Need to import RSBarcodes_Swift manually in the ViewController file after creati
 Simply add the following line to your `Cartfile`:
 
 ```ruby
-github "yeahdongcn/RSBarcodes_Swift" >= 3.0
+github "yeahdongcn/RSBarcodes_Swift" >= 3.0.1
 ```
 
 Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
