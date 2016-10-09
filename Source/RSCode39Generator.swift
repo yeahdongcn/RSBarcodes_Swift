@@ -68,7 +68,9 @@ open class RSCode39Generator: RSAbstractCodeGenerator {
     // MAKR: RSAbstractCodeGenerator
     
     override open func isValid(_ contents: String) -> Bool {
-        if contents.length() > 0 && contents == contents.uppercased() {
+        if contents.length() > 0
+            && contents.range(of: "*") == nil
+            && contents == contents.uppercased() {
             for character in contents.characters {
                 let location = CODE39_ALPHABET_STRING.location(String(character))
                 if location == NSNotFound {
