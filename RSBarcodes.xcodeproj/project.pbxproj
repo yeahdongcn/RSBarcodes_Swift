@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		566905411DE3EE3B00B7D6D2 /* ContextMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5669053F1DE3EE3B00B7D6D2 /* ContextMaker.h */; };
+		566905421DE3EE3B00B7D6D2 /* ContextMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 566905401DE3EE3B00B7D6D2 /* ContextMaker.m */; };
 		D08336CA1A209AAB004EE128 /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336B91A209AAB004EE128 /* RSCode39Generator.swift */; };
 		D08336CB1A209AAB004EE128 /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336BA1A209AAB004EE128 /* RSCode39Mod43Generator.swift */; };
 		D08336CC1A209AAB004EE128 /* RSCode93Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08336BB1A209AAB004EE128 /* RSCode93Generator.swift */; };
@@ -29,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5669053F1DE3EE3B00B7D6D2 /* ContextMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContextMaker.h; path = Source/ContextMaker.h; sourceTree = SOURCE_ROOT; };
+		566905401DE3EE3B00B7D6D2 /* ContextMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContextMaker.m; path = Source/ContextMaker.m; sourceTree = SOURCE_ROOT; };
+		566905431DE3F19100B7D6D2 /* RSBarcodes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RSBarcodes-Bridging-Header.h"; path = "Source/RSBarcodes-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D08336371A202E81004EE128 /* RSBarcodes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSBarcodes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08336B81A209AA0004EE128 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = SOURCE_ROOT; };
 		D08336B91A209AAB004EE128 /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = Source/RSCode39Generator.swift; sourceTree = SOURCE_ROOT; };
@@ -82,6 +87,9 @@
 		D08336391A202E81004EE128 /* RSBarcodes */ = {
 			isa = PBXGroup;
 			children = (
+				566905431DE3F19100B7D6D2 /* RSBarcodes-Bridging-Header.h */,
+				5669053F1DE3EE3B00B7D6D2 /* ContextMaker.h */,
+				566905401DE3EE3B00B7D6D2 /* ContextMaker.m */,
 				D08336BD1A209AAB004EE128 /* RSCodeGenerator.swift */,
 				E71A74271C914B0C0081B389 /* RSUnifiedCodeValidator.swift */,
 				D08336C61A209AAB004EE128 /* RSUnifiedCodeGenerator.swift */,
@@ -121,6 +129,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566905411DE3EE3B00B7D6D2 /* ContextMaker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +202,7 @@
 				D08336D71A209AAB004EE128 /* RSUnifiedCodeGenerator.swift in Sources */,
 				D08336CD1A209AAB004EE128 /* RSCode128Generator.swift in Sources */,
 				E71A74281C914B0C0081B389 /* RSUnifiedCodeValidator.swift in Sources */,
+				566905421DE3EE3B00B7D6D2 /* ContextMaker.m in Sources */,
 				D08336CF1A209AAB004EE128 /* RSCodeLayer.swift in Sources */,
 				D08336D51A209AAB004EE128 /* RSITF14Generator.swift in Sources */,
 				D08336D01A209AAB004EE128 /* RSCodeReaderViewController.swift in Sources */,
@@ -251,6 +261,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Source/RSBarcodes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -293,6 +304,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Source/RSBarcodes-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -304,6 +316,7 @@
 		D083364E1A202E81004EE128 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -315,6 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pdq.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -322,6 +336,7 @@
 		D083364F1A202E81004EE128 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

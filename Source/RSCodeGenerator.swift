@@ -182,7 +182,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
                     filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
                 }
                 if let outputImage = filter.outputImage {
-                    if let cgImage = CIContext(options: nil).createCGImage(outputImage, from: outputImage.extent) {
+                    if let cgImage = ContextMaker.make().createCGImage(outputImage, from: outputImage.extent) {
                         return UIImage(cgImage: cgImage, scale: 1, orientation: UIImageOrientation.up)
                     }
                 }
