@@ -2,12 +2,12 @@
   <img src="https://raw.githubusercontent.com/yeahdongcn/RSBarcodes_Swift/master/home-hero-swift-hero.png">
 </p>
 
-RSBarcodes, now Swift.
+RSBarcodes, now in Swift.
 [![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=master)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift) [![codecov.io](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master/graphs/badge.svg)](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master) ![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 ==========
 RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning capabilities introduced with iOS 7 and generate the same set of barcode images for displaying and sharing. Now implemented in Swift.
 
-* Objective-C version. [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
+* Objective-C version: [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
 
 ##TODO
 
@@ -43,7 +43,7 @@ use_frameworks!
 pod 'RSBarcodes_Swift', '~> 3.0.2'
 ```
 
-Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
+You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
 
 *(CocoaPods v0.36 or later required. See [this blog post](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) for details.)*
 
@@ -55,7 +55,7 @@ Simply add the following line to your `Cartfile`:
 github "yeahdongcn/RSBarcodes_Swift" >= 3.0.2
 ```
 
-Need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
+You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
 
 ###Manual
 
@@ -70,21 +70,30 @@ Need to import RSBarcodes_Swift manually in the ViewController file after creati
 
 ##Usage
 
-[HOW TO USE GENERATOR](#generator-1) and
-[HOW TO USE READER](#reader-1)
+[How to Use Generator](#generator-1) and
+[How to Use Reader](#reader-1)
 
 ###Generators
 
-The simplest way to use the generators is:
+First, import the following frameworks:
 
-    RSUnifiedCodeGenerator.shared.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+``` swift
+import RSBarcodes_Swift
+import AVFoundation
+```
 
-It will generate a UIImage instance if the `2166529V` is a valid code39 string. For AVMetadataObjectTypeCode128Code, you can change `useBuiltInCode128Generator` to `false` to use my implementation (AutoTable for code128).
+Then, use the generator to generate a barcode. For example:
+
+``` swift
+RSUnifiedCodeGenerator.shared.generateCode("2166529V", machineReadableCodeObjectType: AVMetadataObjectTypeCode39Code)
+```
+It will generate a `UIImage` instance if the `2166529V` is a valid code39 string. For `AVMetadataObjectTypeCode128Code`, you can change `useBuiltInCode128Generator` to `false` to use my implementation (AutoTable for code128).
 
 P.S. There are 4 tables for encoding a string to code128, `TableA`, `TableB`, `TableC` and `TableAuto`; the `TableAuto` is always the best choice, but if one has specific requirements, try this:
 
-    RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
-
+``` swift
+RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObjectType: AVMetadataObjectTypeCode128Code)
+```
 Example of these simple calls can be found in the test project.
 
 ###Reader
@@ -98,42 +107,43 @@ The following are steps to get the barcode reader working:
 5. Open your storyboard and drag a `UIViewController` onto it.
 6. Show the identity inspect and under custom class select `ScanViewController`
 7. The focus mark layer and corners layer are already there working for you. There are two handlers: one for the single tap on the screen along with the focus mark and one detected objects handler, which all detected will come to you. Now in the `ScanViewController.swift` file add the following code into the `viewDidLoad()` or some place more suitable for you:
+  ``` swift
+  override func viewDidLoad() {
+      super.viewDidLoad()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+      self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
 
-        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+      self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
 
-        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+      self.tapHandler = { point in
+          print(point)
+      }
 
-        self.tapHandler = { point in
-            print(point)
-        }
+      self.barcodesHandler = { barcodes in
+          for barcode in barcodes {
+              print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
+          }
+      }
+  }
+  ```
 
-        self.barcodesHandler = { barcodes in
-            for barcode in barcodes {
-                print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
-            }
-        }
-    }
-
-If you want to ignore some code types, you'd better add the following lines:
-
-    let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
-    types.removeObject(AVMetadataObjectTypeQRCode)
-    self.output.metadataObjectTypes = NSArray(array: types)
-
+If you want to ignore some code types (for example, `AVMetadataObjectTypeQRCode`), add the following lines:
+``` swift
+let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
+types.removeObject(AVMetadataObjectTypeQRCode)
+self.output.metadataObjectTypes = NSArray(array: types)
+```
 ###Validator
 
 To validate codes:
-
-    let isValid = RSUnifiedCodeValidator.shared.isValid(code, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
-
+``` swift
+let isValid = RSUnifiedCodeValidator.shared.isValid(code, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
+```
 ###Image helpers
 
-Use `RSAbstractCodeGenerator.resizeImage(<#source: UIImage#>, scale: <#CGFloat#>)` to scale the generated image.
+Use `RSAbstractCodeGenerator.resizeImage(source: UIImage, scale: CGFloat)` to scale the generated image.
 
-Use `RSAbstractCodeGenerator.resizeImage(<#T##source: UIImage##UIImage#>, targetSize: <#T##CGSize#>, contentMode: <#T##UIViewContentMode#>)` to fill/fit the bounds of something to the best capability and don't necessarily know what scale is too much to fill/fit, or if the imageView itself is flexible.
+Use `RSAbstractCodeGenerator.resizeImage(source: UIImage, targetSize: CGSize, contentMode: UIViewContentMode)` to fill/fit the bounds of something to the best capability and don't necessarily know what scale is too much to fill/fit, or if the `UIImageView` itself is flexible.
 
 ##Miscellaneous
 
