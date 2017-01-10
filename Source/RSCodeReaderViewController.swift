@@ -62,6 +62,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
                 self.device = device
             }
             self.setupCamera()
+			self.view.setNeedsLayout()
             self.session.startRunning()
             if let device = self.device {
                 return device.position
