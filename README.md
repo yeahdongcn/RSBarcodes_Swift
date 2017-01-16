@@ -111,9 +111,9 @@ The following are steps to get the barcode reader working:
   override func viewDidLoad() {
       super.viewDidLoad()
 
-      self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+      self.focusMarkLayer.strokeColor = UIColor.red.cgColor
 
-      self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+      self.cornersLayer.strokeColor = UIColor.yellow.cgColor
 
       self.tapHandler = { point in
           print(point)
@@ -130,7 +130,7 @@ The following are steps to get the barcode reader working:
 If you want to ignore some code types (for example, `AVMetadataObjectTypeQRCode`), add the following lines:
 ``` swift
 let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
-types.removeObject(AVMetadataObjectTypeQRCode)
+types.remove(AVMetadataObjectTypeQRCode)
 self.output.metadataObjectTypes = NSArray(array: types)
 ```
 ###Validator
