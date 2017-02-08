@@ -184,6 +184,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
                 self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
             }
         }
+		
+		reloadVideoOrientation()
     }
     
     class func interfaceOrientationToVideoOrientation(_ orientation : UIInterfaceOrientation) -> AVCaptureVideoOrientation {
@@ -201,6 +203,27 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         }
     }
     
+	func reloadVideoOrientation() {
+		guard let videoPreviewLayer = self.videoPreviewLayer else {
+			return
+		}
+		guard videoPreviewLayer.connection.isVideoOrientationSupported else {
+			print("isVideoOrientationSupported is false")
+			return
+		}
+		
+		let statusBarOrientation = UIApplication.shared.statusBarOrientation
+		let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(statusBarOrientation)
+		
+		if videoPreviewLayer.connection.videoOrientation == videoOrientation {
+			print("no change to videoOrientation")
+			return
+		}
+		
+		videoPreviewLayer.connection.videoOrientation = videoOrientation
+		videoPreviewLayer.removeAllAnimations()
+	}
+	
     func autoUpdateLensPosition() {
         self.lensPosition += 0.01
         if self.lensPosition > 1 {
@@ -302,26 +325,19 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        if let videoPreviewLayer = self.videoPreviewLayer {
-            let videoOrientation = RSCodeReaderViewController.interfaceOrientationToVideoOrientation(UIApplication.shared.statusBarOrientation)
-            if videoPreviewLayer.connection.isVideoOrientationSupported
-                && videoPreviewLayer.connection.videoOrientation != videoOrientation {
-                videoPreviewLayer.connection.videoOrientation = videoOrientation
-            }
-            videoPreviewLayer.frame = self.view.bounds
-        }
+		let frame = self.view.bounds
+		self.videoPreviewLayer?.frame = frame
+		self.focusMarkLayer.frame = frame
+		self.cornersLayer.frame = frame
     }
     
     override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        if let videoPreviewLayer = self.videoPreviewLayer {
-            videoPreviewLayer.frame = frame
-        }
-        self.focusMarkLayer.frame = frame
-        self.cornersLayer.frame = frame
+		coordinator.animate(alongsideTransition: nil, completion: { [weak self] _ in
+			DispatchQueue.main.async {
+				self?.reloadVideoOrientation()
+			}
+		})
     }
     
     override open func viewDidLoad() {
