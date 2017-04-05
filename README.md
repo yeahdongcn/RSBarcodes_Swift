@@ -3,15 +3,19 @@
 </p>
 
 RSBarcodes, now in Swift.
+
 [![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=master)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift) [![codecov.io](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master/graphs/badge.svg)](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master) ![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
-==========
+
+---
+
 RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning capabilities introduced with iOS 7 and generate the same set of barcode images for displaying and sharing. Now implemented in Swift.
 
-* Objective-C version: [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
+- Objective-C version: [RSBarcodes](https://github.com/yeahdongcn/RSBarcodes)
 
-##TODO
+## TODO
 
-###Generators
+### Generators
+
 - [x] Code39
 - [x] Code39Mod43
 - [x] ExtendedCode39
@@ -27,15 +31,17 @@ RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning cap
 - [x] Aztec
 - [x] Views
 
-###Reader
+### Reader
+
 - [x] Views
 - [x] ReaderController
 
-##Installation
+## Installation
 
-###[CocoaPods](http://cocoapods.org)
+### [CocoaPods](http://cocoapods.org)
 
 Simply add the following lines to your `Podfile`:
+
 ```ruby
 # required by Cocoapods 0.36.0.rc.1 for Swift Pods
 use_frameworks!
@@ -47,7 +53,7 @@ You will need to import RSBarcodes_Swift manually in the ViewController file aft
 
 *(CocoaPods v0.36 or later required. See [this blog post](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/) for details.)*
 
-###[Carthage](http://github.com/Carthage/Carthage)
+### [Carthage](http://github.com/Carthage/Carthage)
 
 Simply add the following line to your `Cartfile`:
 
@@ -57,7 +63,7 @@ github "yeahdongcn/RSBarcodes_Swift" >= 3.0.3
 
 You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
 
-###Manual
+### Manual
 
 1. Add RSBarcodes_Swift as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/yeahdongcn/RSBarcodes_Swift.git`
 2. Open the `RSBarcodes_Swift` folder, and drag `RSBarcodes.xcodeproj` into the file navigator of your app project.
@@ -68,12 +74,12 @@ You will need to import RSBarcodes_Swift manually in the ViewController file aft
 7. Click on the `+` button at the top left of the panel and select "New Copy Files Phase". Rename this new phase to "Copy Frameworks", set the "Destination" to "Frameworks", and add `RSBarcodes.framework`.
 8. Need to import RSBarcodes manually in the ViewController file after creating the file using wizard.
 
-##Usage
+## Usage
 
 [How to Use Generator](#generator-1) and
 [How to Use Reader](#reader-1)
 
-###Generators
+### Generators
 
 First, import the following frameworks:
 
@@ -96,7 +102,7 @@ RSCode128Generator(codeTable: .A).generateCode("123456", machineReadableCodeObje
 ```
 Example of these simple calls can be found in the test project.
 
-###Reader
+### Reader
 
 The following are steps to get the barcode reader working:
 
@@ -128,30 +134,34 @@ The following are steps to get the barcode reader working:
   ```
 
 If you want to ignore some code types (for example, `AVMetadataObjectTypeQRCode`), add the following lines:
+
 ``` swift
 let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
 types.remove(AVMetadataObjectTypeQRCode)
 self.output.metadataObjectTypes = NSArray(array: types)
 ```
-###Validator
+
+### Validator
 
 To validate codes:
+
 ``` swift
 let isValid = RSUnifiedCodeValidator.shared.isValid(code, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
 ```
-###Image helpers
+
+### Image helpers
 
 Use `RSAbstractCodeGenerator.resizeImage(source: UIImage, scale: CGFloat)` to scale the generated image.
 
 Use `RSAbstractCodeGenerator.resizeImage(source: UIImage, targetSize: CGSize, contentMode: UIViewContentMode)` to fill/fit the bounds of something to the best capability and don't necessarily know what scale is too much to fill/fit, or if the `UIImageView` itself is flexible.
 
-##Miscellaneous
+## Miscellaneous
 
 [The Swift Programming Language 中文版](https://github.com/numbbbbb/the-swift-programming-language-in-chinese/)
 
 [Online version](http://numbbbbb.github.io/the-swift-programming-language-in-chinese/) generated using [GitBook](https://www.gitbook.io/)
 
-##License
+## License
 
     The MIT License (MIT)
 
