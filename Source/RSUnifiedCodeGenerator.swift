@@ -30,32 +30,32 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
     open func generateCode(_ contents: String, inputCorrectionLevel: InputCorrectionLevel, machineReadableCodeObjectType: String) -> UIImage? {
         var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
-        case AVMetadataObjectTypeQRCode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeAztecCode:
+        case AVMetadataObject.ObjectType.qr.rawValue, AVMetadataObject.ObjectType.pdf417.rawValue, AVMetadataObject.ObjectType.aztec.rawValue:
             return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
-        case AVMetadataObjectTypeCode39Code:
+        case AVMetadataObject.ObjectType.code39.rawValue:
             codeGenerator = RSCode39Generator()
-        case AVMetadataObjectTypeCode39Mod43Code:
+        case AVMetadataObject.ObjectType.code39Mod43.rawValue:
             codeGenerator = RSCode39Mod43Generator()
-        case AVMetadataObjectTypeEAN8Code:
+        case AVMetadataObject.ObjectType.ean8.rawValue:
             codeGenerator = RSEAN8Generator()
-        case AVMetadataObjectTypeEAN13Code:
+        case AVMetadataObject.ObjectType.ean13.rawValue:
             codeGenerator = RSEAN13Generator()
-        case AVMetadataObjectTypeInterleaved2of5Code:
+        case AVMetadataObject.ObjectType.interleaved2of5.rawValue:
             codeGenerator = RSITFGenerator()
-        case AVMetadataObjectTypeITF14Code:
+        case AVMetadataObject.ObjectType.itf14.rawValue:
             codeGenerator = RSITF14Generator()
-        case AVMetadataObjectTypeUPCECode:
+        case AVMetadataObject.ObjectType.upce.rawValue:
             codeGenerator = RSUPCEGenerator()
-        case AVMetadataObjectTypeCode93Code:
+        case AVMetadataObject.ObjectType.code93.rawValue:
             codeGenerator = RSCode93Generator()
             // iOS 8 included, but my implementation's performance is better :)
-        case AVMetadataObjectTypeCode128Code:
+        case AVMetadataObject.ObjectType.code128.rawValue:
             if self.isBuiltInCode128GeneratorSelected {
                 return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
             } else {
                 codeGenerator = RSCode128Generator()
             }
-        case AVMetadataObjectTypeDataMatrixCode:
+        case AVMetadataObject.ObjectType.dataMatrix.rawValue:
             codeGenerator = RSCodeDataMatrixGenerator()
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
@@ -81,7 +81,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
     }
     
     open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type)
+        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue)
     }
     
     open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {
