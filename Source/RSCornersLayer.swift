@@ -10,10 +10,10 @@ import UIKit
 import QuartzCore
 
 open class RSCornersLayer: CALayer {
-    open var strokeColor = UIColor.green.cgColor
-    open var strokeWidth: CGFloat = 2
-    open var drawingCornersArray: Array<Array<CGPoint>> = []
-    open var cornersArray: Array<[Any]> = [] {
+    @objc open var strokeColor = UIColor.green.cgColor
+    @objc open var strokeWidth: CGFloat = 2
+    @objc open var drawingCornersArray: Array<Array<CGPoint>> = []
+    @objc open var cornersArray: Array<[Any]> = [] {
         willSet {
             DispatchQueue.main.async(execute: {
                 self.setNeedsDisplay()
