@@ -379,8 +379,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 	}
 	
 	// MARK: AVCaptureMetadataOutputObjectsDelegate
-	
-	@objc open func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+
+	public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 		var barcodeObjects : Array<AVMetadataMachineReadableCodeObject> = []
 		var cornersArray : Array<[Any]> = []
 		for metadataObject in metadataObjects {
