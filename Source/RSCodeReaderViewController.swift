@@ -123,7 +123,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 		var error : NSError?
 		let input: AVCaptureDeviceInput!
 		do {
-			input = try AVCaptureDeviceInput(device: self.device!)
+			guard let device = self.device else { return }
+			input = try AVCaptureDeviceInput(device: device)
 		} catch let error1 as NSError {
 			error = error1
 			input = nil
