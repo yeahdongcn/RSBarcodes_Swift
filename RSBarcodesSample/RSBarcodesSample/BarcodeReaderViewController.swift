@@ -87,18 +87,11 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.dispatched = false // reset the flag so user can do another scan
-        
         super.viewWillAppear(animated)
-        
-        if let navigationController = self.navigationController {
-            navigationController.isNavigationBarHidden = true
-        }
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationController = self.navigationController {
-            navigationController.isNavigationBarHidden = false
-        }
         
         if segue.identifier == "nextView" && !self.barcode.isEmpty {
             if let destinationVC = segue.destination as? BarcodeDisplayViewController {
