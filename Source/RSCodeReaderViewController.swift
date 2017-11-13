@@ -122,6 +122,12 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     func setupCamera() {
         var error : NSError?
         let input: AVCaptureDeviceInput!
+        
+        if self.device == nil {
+            print("Camera not available")
+            return
+        }
+        
         do {
             input = try AVCaptureDeviceInput(device: self.device!)
         } catch let error1 as NSError {
