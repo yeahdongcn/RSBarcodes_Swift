@@ -13,7 +13,7 @@ open class RSCornersLayer: CALayer {
     open var strokeColor = UIColor.green.cgColor
     open var strokeWidth: CGFloat = 2
     open var drawingCornersArray: Array<Array<CGPoint>> = []
-    open var cornersArray: Array<[Any]> = [] {
+    open var cornersArray: [[String:CGFloat]] = [] {
         willSet {
             DispatchQueue.main.async(execute: {
                 self.setNeedsDisplay()
@@ -33,17 +33,19 @@ open class RSCornersLayer: CALayer {
         ctx.setLineWidth(self.strokeWidth)
         
         for corners in self.cornersArray {
-            for i in 0...corners.count {
+            for i in 0...corners.count-1 {
                 var idx = i
-                if i == corners.count {
+                if i == corners.count-1 {
                     idx = 0
                 }
-                let point = corners[idx] as! CGPoint
-                
+                let dict = self.cornersArray[idx]
+            
+                let x = dict["X"] ?? 0.0
+                let y = dict["Y"] ?? 0.0
                 if i == 0 {
-                    ctx.move(to: point)
+                    ctx.move(to: CGPoint(x: x, y: y))
                 } else {
-                    ctx.addLine(to: point)
+                    ctx.addLine(to: CGPoint(x: x, y: y))
                 }
             }
         }
