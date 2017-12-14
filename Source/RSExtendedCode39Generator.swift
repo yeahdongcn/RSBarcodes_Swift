@@ -15,7 +15,7 @@ public let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
 open class RSExtendedCode39Generator: RSCode39Generator {
     func encodeContents(_ contents: String) -> String {
         var encodedContents = ""
-        for character in contents.characters {
+        for character in contents {
             let characterString = String(character)
             switch characterString {
             case "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z":
@@ -137,7 +137,7 @@ open class RSExtendedCode39Generator: RSCode39Generator {
     override open func isValid(_ contents: String) -> Bool {
         if contents.length() > 0 {
             let encContents = self.encodeContents(contents)
-            for character in encContents.characters {
+            for character in encContents {
                 let location = CODE39_ALPHABET_STRING.location(String(character))
                 if location == NSNotFound {
                     return false
