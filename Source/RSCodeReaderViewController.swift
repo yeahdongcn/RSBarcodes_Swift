@@ -98,9 +98,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         return false
     }
     
-    // MARK: Private methods
+    // MARK: Internal methods
     
-    func captureDevice() -> AVCaptureDevice? {
+    open func captureDevice() -> AVCaptureDevice? {
         if let device = self.device {
             if device.position == AVCaptureDevice.Position.back {
                 for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
@@ -119,7 +119,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         return nil
     }
     
-    func setupCamera() {
+    open func setupCamera() {
         var error : NSError?
         let input: AVCaptureDeviceInput!
         
@@ -209,7 +209,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         }
     }
     
-    func reloadVideoOrientation() {
+    open func reloadVideoOrientation() {
         guard let videoPreviewLayer = self.videoPreviewLayer else {
             return
         }
@@ -230,7 +230,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         videoPreviewLayer.removeAllAnimations()
     }
     
-    func autoUpdateLensPosition() {
+    open func autoUpdateLensPosition() {
         self.lensPosition += 0.01
         if self.lensPosition > 1 {
             self.lensPosition = 0
