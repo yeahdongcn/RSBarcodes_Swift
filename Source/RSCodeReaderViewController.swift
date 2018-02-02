@@ -14,7 +14,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     open var device = AVCaptureDevice.default(for: AVMediaType.video)
     open var output = AVCaptureMetadataOutput()
     open var session = AVCaptureSession()
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    open var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     open var focusMarkLayer = RSFocusMarkLayer()
     open var cornersLayer = RSCornersLayer()
