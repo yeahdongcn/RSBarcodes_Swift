@@ -56,7 +56,7 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         var types = self.output.availableMetadataObjectTypes
         // MARK: NOTE: Uncomment the following line remove QRCode scanning capability
         // types = types.filter({ $0 != AVMetadataObject.ObjectType.qr })
-		self.output.metadataObjectTypes = types
+		  self.output.metadataObjectTypes = types
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {

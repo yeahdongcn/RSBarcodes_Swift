@@ -38,15 +38,7 @@ open class RSCornersLayer: CALayer {
                 if i == corners.count-1 {
                     idx = 0
                 }
-<<<<<<< HEAD
-                let dict = self.cornersArray[idx]
-            
-                let x = dict["X"] ?? 0.0
-                let y = dict["Y"] ?? 0.0
-=======
                 let point = corners[idx] as! CGPoint
-
->>>>>>> pr/101
                 if i == 0 {
                     ctx.move(to: point)
                 } else {
