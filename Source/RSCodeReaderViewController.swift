@@ -98,26 +98,31 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 		return false
 	}
 	
-	// MARK: Private methods
-	
-	@objc func captureDevice() -> AVCaptureDevice? {
-		if let device = self.device {
-			if device.position == AVCaptureDevice.Position.back {
-				for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-					if device.position == AVCaptureDevice.Position.front {
-						return device
-					}
-				}
-			} else if device.position == AVCaptureDevice.Position.front {
-				for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-					if device.position == AVCaptureDevice.Position.back {
-						return device
-					}
-				}
-			}
-		}
-		return nil
-	}
+   // MARK: Private methods
+   
+   @objc func captureDevice() -> AVCaptureDevice? {
+      if let device = self.device {
+         if #available(iOS 10.0, *) {
+            let devices = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: device.position).devices
+            return devices.first
+         } else {
+            if device.position == AVCaptureDevice.Position.back {
+               for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
+                  if device.position == AVCaptureDevice.Position.front {
+                     return device
+                  }
+               }
+            } else if device.position == AVCaptureDevice.Position.front {
+               for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
+                  if device.position == AVCaptureDevice.Position.back {
+                     return device
+                  }
+               }
+            }
+         }
+      }
+      return nil
+   }
 	
 	@objc func setupCamera() {
 		var error : NSError?
