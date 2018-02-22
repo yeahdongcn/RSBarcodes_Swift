@@ -96,12 +96,12 @@ open class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     override open func barcode(_ contents: String) -> String {
         var barcode = ""
-        for character in contents.characters {
+        for character in contents {
             barcode += self.encodeCharacterString(String(character))
         }
         
         let checkDigits = self.checkDigit(contents)
-        for character in checkDigits.characters {
+        for character in checkDigits {
             barcode += self.encodeCharacterString(String(character))
         }
         return barcode

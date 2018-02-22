@@ -36,7 +36,7 @@ open class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
         27 = R = Check Character
         */
         var sum = 0
-        for character in contents.characters {
+        for character in contents {
             sum += CODE39_ALPHABET_STRING.location(String(character))
         }
         // 43 = CODE39_ALPHABET_STRING's length - 1 -- excludes asterisk
