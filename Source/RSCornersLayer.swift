@@ -10,10 +10,10 @@ import UIKit
 import QuartzCore
 
 open class RSCornersLayer: CALayer {
-    open var strokeColor = UIColor.green.cgColor
-    open var strokeWidth: CGFloat = 2
-    open var drawingCornersArray: Array<Array<CGPoint>> = []
-    open var cornersArray: [[String:CGFloat]] = [] {
+    @objc open var strokeColor = UIColor.green.cgColor
+    @objc open var strokeWidth: CGFloat = 2
+    @objc open var drawingCornersArray: Array<Array<CGPoint>> = []
+    @objc open var cornersArray: Array<[Any]> = [] {
         willSet {
             DispatchQueue.main.async(execute: {
                 self.setNeedsDisplay()
@@ -38,14 +38,19 @@ open class RSCornersLayer: CALayer {
                 if i == corners.count-1 {
                     idx = 0
                 }
+<<<<<<< HEAD
                 let dict = self.cornersArray[idx]
             
                 let x = dict["X"] ?? 0.0
                 let y = dict["Y"] ?? 0.0
+=======
+                let point = corners[idx] as! CGPoint
+
+>>>>>>> pr/101
                 if i == 0 {
-                    ctx.move(to: CGPoint(x: x, y: y))
+                    ctx.move(to: point)
                 } else {
-                    ctx.addLine(to: CGPoint(x: x, y: y))
+                    ctx.addLine(to: point)
                 }
             }
         }
