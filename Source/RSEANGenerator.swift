@@ -41,7 +41,7 @@ open class RSEANGenerator: RSAbstractCodeGenerator {
         ["O" : "0001011", "E" : "0010111", "R" : "1110100"]
     ]
     
-    init(length:Int) {
+    public init(length:Int) {
         self.length = length
     }
     
@@ -100,27 +100,27 @@ open class RSEANGenerator: RSAbstractCodeGenerator {
     }
 }
 
-class RSEAN8Generator: RSEANGenerator {
-    init() {
+open class RSEAN8Generator: RSEANGenerator {
+    public init() {
         super.init(length: 8)
     }
 }
 
-class RSEAN13Generator: RSEANGenerator {
-    init() {
+open class RSEAN13Generator: RSEANGenerator {
+    public init() {
         super.init(length: 13)
     }
 }
 
-class RSISBN13Generator: RSEAN13Generator {
-    override func isValid(_ contents: String) -> Bool {
+open class RSISBN13Generator: RSEAN13Generator {
+    override open func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISBN.php
         return super.isValid(contents) && contents.substring(0, length: 3) == "978"
     }
 }
 
-class RSISSN13Generator: RSEAN13Generator {
-    override func isValid(_ contents: String) -> Bool {
+open class RSISSN13Generator: RSEAN13Generator {
+    override open func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISSN.php
         return super.isValid(contents) && contents.substring(0, length: 3) == "977"
     }
