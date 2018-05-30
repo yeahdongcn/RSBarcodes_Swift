@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RSBarcodes_Swift"
-  s.version      = "3.0.3"
+  s.version      = "4.0.0"
   s.summary      = "1D and 2D barcodes reader and generators for iOS 8 with delightful controls. Now Swift. "
   s.homepage     = "https://github.com/yeahdongcn/RSBarcodes_Swift"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
