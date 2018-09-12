@@ -101,27 +101,16 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
    // MARK: Private methods
    
    @objc func captureDevice() -> AVCaptureDevice? {
-      if let device = self.device {
-         if #available(iOS 10.0, *) {
-            let devices = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: device.position).devices
-            return devices.first
-         } else {
-            if device.position == AVCaptureDevice.Position.back {
-               for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-                  if device.position == AVCaptureDevice.Position.front {
-                     return device
-                  }
-               }
-            } else if device.position == AVCaptureDevice.Position.front {
-               for device: AVCaptureDevice in AVCaptureDevice.devices(for: AVMediaType.video) {
-                  if device.position == AVCaptureDevice.Position.back {
-                     return device
-                  }
-               }
+        if let device = self.device {
+            var devices: [AVCaptureDevice]!
+            if device.position == .back {
+                devices = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .front).devices
+            } else if device.position == .front {
+                devices = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices
             }
-         }
-      }
-      return nil
+            return devices.first
+        }
+        return nil
    }
 	
 	@objc func setupCamera() {
@@ -185,7 +174,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 		if self.session.canAddOutput(self.output) {
 			self.session.addOutput(self.output)
 			if let metadataObjectTypes = metadataObjectTypes {
-				self.output.metadataObjectTypes = metadataObjectTypes as! [AVMetadataObject.ObjectType]
+                self.output.metadataObjectTypes = metadataObjectTypes as? [AVMetadataObject.ObjectType]
 			} else  {
 				self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
 			}
@@ -366,8 +355,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 	override open func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:UIApplication.willEnterForegroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		
 		if !Platform.isSimulator {
 			self.session.startRunning()
@@ -377,8 +366,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 	override open func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		if !Platform.isSimulator {
 			self.session.stopRunning()
 		}
