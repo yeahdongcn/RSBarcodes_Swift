@@ -209,14 +209,14 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         return target
     }
     
-    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIViewContentMode) -> UIImage? {
+    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIView.ContentMode) -> UIImage? {
         var x: CGFloat = 0
         var y: CGFloat = 0
         var width = targetSize.width
         var height = targetSize.height
-        if contentMode == UIViewContentMode.scaleToFill { // contents scaled to fill
+        if contentMode == UIView.ContentMode.scaleToFill { // contents scaled to fill
             // Nothing to do
-        } else if contentMode == UIViewContentMode.scaleAspectFill { // contents scaled to fill with fixed aspect. some portion of content may be clipped.
+        } else if contentMode == UIView.ContentMode.scaleAspectFill { // contents scaled to fill with fixed aspect. some portion of content may be clipped.
             let targtLength  = (targetSize.height > targetSize.width)   ? targetSize.height  : targetSize.width
             let sourceLength = (source.size.height < source.size.width) ? source.size.height : source.size.width
             let fillScale = targtLength / sourceLength
@@ -228,33 +228,33 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
             let scaledRect = AVMakeRect(aspectRatio: source.size, insideRect: CGRect(x: 0.0, y: 0.0, width: targetSize.width, height: targetSize.height))
             width = scaledRect.width
             height = scaledRect.height
-            if contentMode == UIViewContentMode.scaleAspectFit
-                || contentMode == UIViewContentMode.redraw
-                || contentMode == UIViewContentMode.center {
+            if contentMode == UIView.ContentMode.scaleAspectFit
+                || contentMode == UIView.ContentMode.redraw
+                || contentMode == UIView.ContentMode.center {
                 x = (targetSize.width  - width)  / 2.0
                 y = (targetSize.height - height) / 2.0
-            } else if contentMode == UIViewContentMode.top {
+            } else if contentMode == UIView.ContentMode.top {
                 x = (targetSize.width  - width)  / 2.0
                 y = 0
-            } else if contentMode == UIViewContentMode.bottom {
+            } else if contentMode == UIView.ContentMode.bottom {
                 x = (targetSize.width  - width)  / 2.0
                 y = targetSize.height - height
-            } else if contentMode == UIViewContentMode.left {
+            } else if contentMode == UIView.ContentMode.left {
                 x = 0
                 y = (targetSize.height - height) / 2.0
-            } else if contentMode == UIViewContentMode.right {
+            } else if contentMode == UIView.ContentMode.right {
                 x = targetSize.width  - width
                 y = (targetSize.height - height) / 2.0
-            } else if contentMode == UIViewContentMode.topLeft {
+            } else if contentMode == UIView.ContentMode.topLeft {
                 x = 0
                 y = 0
-            } else if contentMode == UIViewContentMode.topRight {
+            } else if contentMode == UIView.ContentMode.topRight {
                 x = targetSize.width  - width
                 y = 0
-            } else if contentMode == UIViewContentMode.bottomLeft {
+            } else if contentMode == UIView.ContentMode.bottomLeft {
                 x = 0
                 y = targetSize.height - height
-            } else if contentMode == UIViewContentMode.bottomRight {
+            } else if contentMode == UIView.ContentMode.bottomRight {
                 x = targetSize.width  - width
                 y = targetSize.height - height
             }
