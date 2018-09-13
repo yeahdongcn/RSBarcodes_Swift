@@ -138,12 +138,12 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
             
             var continousDigitsStartIndex:Int = NSNotFound
             for i in 0..<contents.length() {
-                var continousDigitsRange:Range<Int> = Range<Int>(0..<0)
+                var continousDigitsRange:Range<Int> = 0..<0
                 if let character = contents[i] {
                     if DIGITS_STRING.location(character) == NSNotFound {
                         // Non digit found
                         if continousDigitsStartIndex != NSNotFound {
-                            continousDigitsRange = Range<Int>(continousDigitsStartIndex..<i)
+                            continousDigitsRange = continousDigitsStartIndex..<i
                         } else {
                             let characterValue = CODE128_ALPHABET_STRING.location(character)
                             self.autoCodeTable.sequence.append(characterValue)
@@ -154,7 +154,7 @@ open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
                             continousDigitsStartIndex = i
                         }
                         if continousDigitsStartIndex != NSNotFound && i == contents.length() - 1 {
-                            continousDigitsRange = Range<Int>(continousDigitsStartIndex..<(i + 1))
+                            continousDigitsRange = continousDigitsStartIndex..<(i + 1)
                         }
                     }
                     
