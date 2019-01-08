@@ -37,7 +37,7 @@ class BarcodeDisplayViewController: UIViewController {
         print ("generating image with barcode: " + contents)
         if let image = gen.generateCode(contents, machineReadableCodeObjectType: AVMetadataObject.ObjectType.qr.rawValue) {
             self.imageDisplayed.layer.borderWidth = 1
-            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image, targetSize: self.imageDisplayed.bounds.size, contentMode: UIViewContentMode.bottomRight)
+            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image, targetSize: self.imageDisplayed.bounds.size, contentMode: UIView.ContentMode.bottomRight)
         }
     }
 }
