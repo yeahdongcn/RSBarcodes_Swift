@@ -46,7 +46,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 		}
 		return false
 	}
-	
+
+    @discardableResult
 	@objc open func hasTorch() -> Bool {
 		if let device = self.device {
 			return device.hasTorch
