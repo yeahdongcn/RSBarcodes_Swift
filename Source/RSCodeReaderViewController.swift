@@ -73,7 +73,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 			return .unspecified
 		}
 	}
-	
+
+    @discardableResult
 	@objc open func toggleTorch() -> Bool {
 		if self.hasTorch() {
 			self.session.beginConfiguration()
