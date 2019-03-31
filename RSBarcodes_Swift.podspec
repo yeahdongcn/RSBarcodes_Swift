@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "RSBarcodes_Swift"
-  s.version      = "4.2.1"
+  s.version      = "5.0.0"
   s.summary      = "1D and 2D barcodes reader and generators for iOS 8 with delightful controls. Now Swift. "
   s.homepage     = "https://github.com/yeahdongcn/RSBarcodes_Swift"
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/*.{swift,h,m}'
   s.frameworks   = ['CoreImage', 'AVFoundation', 'QuartzCore']
   s.requires_arc = true
-  s.swift_version = "4.2"
+  s.swift_version = "5.0"
 end
