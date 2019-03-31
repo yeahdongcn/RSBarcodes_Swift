@@ -207,7 +207,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 			return AVCaptureVideoOrientation.landscapeLeft
 		case .landscapeRight:
 			return AVCaptureVideoOrientation.landscapeRight
-		}
+        @unknown default:
+            return AVCaptureVideoOrientation.portrait
+        }
 	}
 	
 	@objc func reloadVideoOrientation() {
