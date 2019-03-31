@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/*.{swift,h,m}'
   s.frameworks   = ['CoreImage', 'AVFoundation', 'QuartzCore']
   s.requires_arc = true
-  s.swift_version = "5.0"
+  s.swift_versions = ['5.0']
 end
