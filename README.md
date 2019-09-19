@@ -4,7 +4,7 @@
 
 RSBarcodes, now in Swift.
 
-[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=master)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift) [![codecov.io](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master/graphs/badge.svg)](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master) ![](https://img.shields.io/badge/Swift-4.0-blue.svg?style=flat) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![Build Status](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift.svg?branch=master)](https://travis-ci.org/yeahdongcn/RSBarcodes_Swift) [![codecov.io](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master/graphs/badge.svg)](https://codecov.io/gh/yeahdongcn/RSBarcodes_Swift/branch/master) ![](https://img.shields.io/badge/Swift-5.0-blue.svg?style=flat) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) ![](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 ---
 
@@ -46,7 +46,7 @@ Simply add the following lines to your `Podfile`:
 # required by Cocoapods 0.36.0.rc.1 for Swift Pods
 use_frameworks!
 
-pod 'RSBarcodes_Swift', '~> 4.2.0'
+pod 'RSBarcodes_Swift', '~> 5.0.0'
 ```
 
 You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
@@ -58,7 +58,7 @@ You will need to import RSBarcodes_Swift manually in the ViewController file aft
 Simply add the following line to your `Cartfile`:
 
 ```ruby
-github "yeahdongcn/RSBarcodes_Swift" >= 4.2.0
+github "yeahdongcn/RSBarcodes_Swift" >= 5.0.0
 ```
 
 You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.

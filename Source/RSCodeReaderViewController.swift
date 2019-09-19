@@ -73,7 +73,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 			return .unspecified
 		}
 	}
-	
+
+    @discardableResult
 	@objc open func toggleTorch() -> Bool {
 		if self.hasTorch() {
 			self.session.beginConfiguration()
@@ -206,7 +207,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 			return AVCaptureVideoOrientation.landscapeLeft
 		case .landscapeRight:
 			return AVCaptureVideoOrientation.landscapeRight
-		}
+        @unknown default:
+            return AVCaptureVideoOrientation.portrait
+        }
 	}
 	
 	@objc func reloadVideoOrientation() {
@@ -376,9 +379,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 	
 	override open func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+      NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+      NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		if !Platform.isSimulator {
 			self.session.stopRunning()
 		}

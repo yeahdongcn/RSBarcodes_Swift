@@ -60,7 +60,7 @@ class BarcodeReaderViewController: RSCodeReaderViewController {
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
-            self.view.bringSubview(toFront: subview)
+            self.view.bringSubviewToFront(subview)
         }
         
         self.toggle.isEnabled = self.hasTorch()
