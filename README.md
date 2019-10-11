@@ -63,6 +63,12 @@ github "yeahdongcn/RSBarcodes_Swift" >= 5.0.0
 
 You will need to import RSBarcodes_Swift manually in the ViewController file after creating the file using wizard.
 
+### Swift Package Manager (required Xcode 11)
+
+1. Select File > Swift Packages > Add Package Dependency. Enter `https://github.com/yeahdongcn/RSBarcodes_Swift` in the "Choose Package Repository" dialog.
+2. In the next page, specify the version resolving rule as "Up to Next Major" with the latest version.
+3. After Xcode checking out the source and resolving the version, you can choose the "RSBarcodes_Swift" library and add it to your app target.
+
 ### Manual
 
 1. Add RSBarcodes_Swift as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the command `git submodule add https://github.com/yeahdongcn/RSBarcodes_Swift.git`
