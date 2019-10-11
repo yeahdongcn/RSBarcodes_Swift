@@ -38,6 +38,11 @@ RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning cap
 
 ## Installation
 
+### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+To add a package dependency to your Xcode project, select File > Swift Packages > Add Package Dependency and enter https://github.com/yeahdongcn/RSBarcodes_Swift to the text field.
+
+
 ### [CocoaPods](http://cocoapods.org)
 
 Simply add the following lines to your `Podfile`:
