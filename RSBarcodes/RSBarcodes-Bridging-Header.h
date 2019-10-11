@@ -8,7 +8,4 @@
 
 #ifndef RSBarcodes_Bridging_Header_h
 #define RSBarcodes_Bridging_Header_h
-
-#import "ContextMaker.h"
-
 #endif /* RSBarcodes_Bridging_Header_h */
