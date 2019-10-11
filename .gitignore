@@ -5,3 +5,6 @@ RSBarcodes.xcodeproj/xcuserdata/*
 RSBarcodes.xcodeproj/project.xcworkspace/xcuserdata/*
 Build/*
 .DS_Store
+
+Carthage/
+.build/
