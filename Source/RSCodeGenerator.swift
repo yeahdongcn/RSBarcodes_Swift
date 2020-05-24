@@ -34,16 +34,16 @@ public protocol RSCodeGenerator {
     func isValid(_ contents:String) -> Bool
     
     /** Generate code image using the given machine readable code object and correction level. */
-    func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel:InputCorrectionLevel) -> UIImage?
+    func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel:InputCorrectionLevel, targetSize: CGSize?) -> UIImage?
     
     /** Generate code image using the given machine readable code object. */
-    func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage?
+    func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, targetSize: CGSize?) -> UIImage?
     
     /** Generate code image using the given machine readable code object type, contents and correction level. */
-    func generateCode(_ contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String) -> UIImage?
+    func generateCode(_ contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String, targetSize: CGSize?) -> UIImage?
     
     /** Generate code image using the given machine readable code object type and contents. */
-    func generateCode(_ contents:String, machineReadableCodeObjectType:String) -> UIImage?
+    func generateCode(_ contents:String, machineReadableCodeObjectType:String, targetSize: CGSize?) -> UIImage?
 }
 
 // Check digit are not required for all code generators.
@@ -94,7 +94,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Drawer for completed barcode.
-    func drawCompleteBarcode(_ completeBarcode:String) -> UIImage? {
+    func drawCompleteBarcode(_ completeBarcode:String, targetSize: CGSize? = nil) -> UIImage? {
         let length:Int = completeBarcode.length()
         if length <= 0 {
             return nil
@@ -127,6 +127,11 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
             context.drawPath(using: CGPathDrawingMode.fillStroke)
             let barcode = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+            
+            if let targetSize = targetSize, let barcode = barcode {
+                return RSAbstractCodeGenerator.resizeImage(barcode, targetSize: targetSize, contentMode: UIView.ContentMode.bottomRight)
+            }
+            
             return barcode
         } else {
             return nil
@@ -135,23 +140,23 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // RSCodeGenerator
     
-    open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue)
+    open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue, targetSize: targetSize)
     }
     
-    open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium)
+    open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium, targetSize: targetSize)
     }
     
-    open func generateCode(_ contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String) -> UIImage? {
+    open func generateCode(_ contents:String, inputCorrectionLevel:InputCorrectionLevel, machineReadableCodeObjectType:String, targetSize: CGSize? = nil) -> UIImage? {
         if self.isValid(contents) {
-            return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)))
+            return self.drawCompleteBarcode(self.completeBarcode(self.barcode(contents)), targetSize: targetSize)
         }
         return nil
     }
     
-    open func generateCode(_ contents:String, machineReadableCodeObjectType:String) -> UIImage? {
-        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType)
+    open func generateCode(_ contents:String, machineReadableCodeObjectType:String, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType, targetSize: targetSize)
     }
     
     // Class funcs
@@ -172,7 +177,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Generate CI related code image
-    open class func generateCode(_ contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String) -> UIImage? {
+    open class func generateCode(_ contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String, targetSize: CGSize? = nil) -> UIImage? {
         if filterName.length() > 0 {
             if let filter = CIFilter(name: filterName) {
                 filter.setDefaults()
@@ -181,7 +186,13 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
                 if filterName == "CIQRCodeGenerator" {
                     filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
                 }
-                if let outputImage = filter.outputImage {
+                var transform = CGAffineTransform(scaleX: 1, y: 1)
+                if let targetSize = targetSize, let output = filter.outputImage {
+                    let scaleX: CGFloat = targetSize.width / output.extent.size.width
+                    let scaleY: CGFloat = targetSize.height / output.extent.size.height
+                    transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+                }
+                if let outputImage = filter.outputImage?.transformed(by: transform) {
                     if let cgImage = ContextMaker.make().createCGImage(outputImage, from: outputImage.extent) {
                         return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
                     }
@@ -191,8 +202,8 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         return nil
     }
     
-    open class func generateCode(_ contents:String, filterName:String) -> UIImage? {
-        return self.generateCode(contents, inputCorrectionLevel: .Medium, filterName: filterName)
+    open class func generateCode(_ contents:String, filterName:String, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, filterName: filterName, targetSize: targetSize)
     }
     
     // Resize image
