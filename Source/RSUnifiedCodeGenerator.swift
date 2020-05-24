@@ -31,7 +31,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
         var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObject.ObjectType.qr.rawValue, AVMetadataObject.ObjectType.pdf417.rawValue, AVMetadataObject.ObjectType.aztec.rawValue:
-            return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize)
+            return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize, fillColor: fillColor, strokeColor: strokeColor)
         case AVMetadataObject.ObjectType.code39.rawValue:
             codeGenerator = RSCode39Generator()
         case AVMetadataObject.ObjectType.code39Mod43.rawValue:
@@ -51,7 +51,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
             // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObject.ObjectType.code128.rawValue:
             if self.isBuiltInCode128GeneratorSelected {
-                return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize)
+                return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize, fillColor: fillColor, strokeColor: strokeColor)
             } else {
                 codeGenerator = RSCode128Generator()
             }

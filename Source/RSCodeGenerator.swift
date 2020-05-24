@@ -177,7 +177,8 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     }
     
     // Generate CI related code image
-    open class func generateCode(_ contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String, targetSize: CGSize? = nil) -> UIImage? {
+    open class func generateCode(_ contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String, targetSize: CGSize? = nil, fillColor: UIColor = .white, strokeColor: UIColor = .black) -> UIImage? {
+        
         if filterName.length() > 0 {
             if let filter = CIFilter(name: filterName) {
                 filter.setDefaults()
@@ -186,13 +187,12 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
                 if filterName == "CIQRCodeGenerator" {
                     filter.setValue(inputCorrectionLevel.rawValue, forKey: "inputCorrectionLevel")
                 }
-                var transform = CGAffineTransform(scaleX: 1, y: 1)
-                if let targetSize = targetSize, let output = filter.outputImage {
-                    let scaleX: CGFloat = targetSize.width / output.extent.size.width
-                    let scaleY: CGFloat = targetSize.height / output.extent.size.height
-                    transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-                }
-                if let outputImage = filter.outputImage?.transformed(by: transform) {
+
+                let outputImage = colorizeImage(filter.outputImage, fillColor, strokeColor)
+                
+                let transform = createImageTransform(targetSize, outputImage)
+
+                if let outputImage = outputImage?.transformed(by: transform) {
                     if let cgImage = ContextMaker.make().createCGImage(outputImage, from: outputImage.extent) {
                         return UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
                     }
@@ -202,15 +202,37 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         return nil
     }
     
-    open class func generateCode(_ contents:String, filterName:String, targetSize: CGSize? = nil) -> UIImage? {
-        return self.generateCode(contents, inputCorrectionLevel: .Medium, filterName: filterName, targetSize: targetSize)
+    open class func generateCode(_ contents:String, filterName:String, targetSize: CGSize? = nil, fillColor: UIColor = .white, strokeColor: UIColor = .black) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, filterName: filterName, targetSize: targetSize, fillColor: fillColor, strokeColor: strokeColor)
     }
     
+    fileprivate static func colorizeImage(_ outputImage: CIImage?, _ fillColor: UIColor, _ strokeColor: UIColor) -> CIImage? {
+        if let colorFilter = CIFilter(name: "CIFalseColor") {
+            colorFilter.setValue(outputImage, forKey: "inputImage")
+            let ciFillColor = CIColor(cgColor: fillColor.cgColor)
+            let ciStrokeColor = CIColor(cgColor: strokeColor.cgColor)
+            colorFilter.setValue(ciFillColor, forKey: "inputColor1")
+            colorFilter.setValue(ciStrokeColor, forKey: "inputColor0")
+            return colorFilter.outputImage
+        }
+        return outputImage
+    }
+    
+    fileprivate static func createImageTransform(_ targetSize: CGSize?, _ image: CIImage?) -> CGAffineTransform {
+        if let targetSize = targetSize, let image = image {
+            let scaleX: CGFloat = targetSize.width / image.extent.size.width
+            let scaleY: CGFloat = targetSize.height / image.extent.size.height
+            let scale = min(scaleX, scaleY)
+            return CGAffineTransform(scaleX: scale, y: scale)
+        }
+        return CGAffineTransform(scaleX: 1, y: 1)
+    }
+
     // Resize image
     open class func resizeImage(_ source:UIImage, scale:CGFloat) -> UIImage? {
         let width = source.size.width * scale
         let height = source.size.height * scale
-
+        
         UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.interpolationQuality = .none
