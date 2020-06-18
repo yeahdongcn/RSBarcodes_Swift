@@ -27,11 +27,11 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
         return false
     }
     
-    open func generateCode(_ contents: String, inputCorrectionLevel: InputCorrectionLevel, machineReadableCodeObjectType: String) -> UIImage? {
+    open func generateCode(_ contents: String, inputCorrectionLevel: InputCorrectionLevel, machineReadableCodeObjectType: String, targetSize: CGSize? = nil) -> UIImage? {
         var codeGenerator: RSCodeGenerator?
         switch machineReadableCodeObjectType {
         case AVMetadataObject.ObjectType.qr.rawValue, AVMetadataObject.ObjectType.pdf417.rawValue, AVMetadataObject.ObjectType.aztec.rawValue:
-            return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+            return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize, fillColor: fillColor, strokeColor: strokeColor)
         case AVMetadataObject.ObjectType.code39.rawValue:
             codeGenerator = RSCode39Generator()
         case AVMetadataObject.ObjectType.code39Mod43.rawValue:
@@ -51,7 +51,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
             // iOS 8 included, but my implementation's performance is better :)
         case AVMetadataObject.ObjectType.code128.rawValue:
             if self.isBuiltInCode128GeneratorSelected {
-                return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType))
+                return RSAbstractCodeGenerator.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, filterName: RSAbstractCodeGenerator.filterName(machineReadableCodeObjectType), targetSize: targetSize, fillColor: fillColor, strokeColor: strokeColor)
             } else {
                 codeGenerator = RSCode128Generator()
             }
@@ -70,22 +70,22 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
         if codeGenerator != nil {
             codeGenerator!.fillColor = self.fillColor
             codeGenerator!.strokeColor = self.strokeColor
-            return codeGenerator!.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObjectType)
+            return codeGenerator!.generateCode(contents, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObjectType, targetSize: targetSize)
         } else {
             return nil
         }
     }
     
-    open func generateCode(_ contents: String, machineReadableCodeObjectType: String) -> UIImage? {
-        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType)
+    open func generateCode(_ contents: String, machineReadableCodeObjectType: String, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(contents, inputCorrectionLevel: .Medium, machineReadableCodeObjectType: machineReadableCodeObjectType, targetSize: targetSize)
     }
     
-    open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue)
+    open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue, targetSize: targetSize)
     }
     
-    open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium)
+    open func generateCode(_ machineReadableCodeObject: AVMetadataMachineReadableCodeObject, targetSize: CGSize? = nil) -> UIImage? {
+        return self.generateCode(machineReadableCodeObject, inputCorrectionLevel: .Medium, targetSize: targetSize)
     }
 }
 
