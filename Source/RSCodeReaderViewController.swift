@@ -178,15 +178,17 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 			self.output.setMetadataObjectsDelegate(self, queue: queue)
 		}
 		// Remove previous added outputs from session
-		var metadataObjectTypes: [AnyObject]?
+		var metadataObjectTypes: [AVMetadataObject.ObjectType]?
 		for output in self.session.outputs {
-			metadataObjectTypes = (output as AnyObject).metadataObjectTypes as [AnyObject]?
-			self.session.removeOutput(output )
+			if let output = output as? AVCaptureMetadataOutput {
+				metadataObjectTypes = output.metadataObjectTypes
+			}
+			self.session.removeOutput(output)
 		}
 		if self.session.canAddOutput(self.output) {
 			self.session.addOutput(self.output)
 			if let metadataObjectTypes = metadataObjectTypes {
-				self.output.metadataObjectTypes = metadataObjectTypes as? [AVMetadataObject.ObjectType]
+				self.output.metadataObjectTypes = metadataObjectTypes
 			} else  {
 				self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
 			}
@@ -398,7 +400,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 					if transformedMetadataObject.isKind(of: AVMetadataMachineReadableCodeObject.self) {
 						let barcodeObject = transformedMetadataObject as! AVMetadataMachineReadableCodeObject
 						barcodeObjects.append(barcodeObject)
+						#if !targetEnvironment(simulator)
 						cornersArray.append(barcodeObject.corners)
+						#endif
 					}
 				}
 			}
