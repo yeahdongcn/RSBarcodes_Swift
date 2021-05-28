@@ -9,6 +9,7 @@
 import UIKit
 
 // http://www.barcodeisland.com/code93.phtml
+@available(macCatalyst 14.0, *)
 open class RSCode93Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     let CODE93_ALPHABET_STRING    = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%abcd*"
     

@@ -15,6 +15,7 @@ public enum RSCode128GeneratorCodeTable: Int {
 
 // http://www.barcodeisland.com/code128.phtml
 // http://courses.cs.washington.edu/courses/cse370/01au/minirproject/BarcodeBattlers/barcodes.html
+@available(macCatalyst 14.0, *)
 open class RSCode128Generator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     class RSCode128GeneratorAutoCodeTable {
         var startCodeTable = RSCode128GeneratorCodeTable.auto

@@ -9,6 +9,7 @@
 import UIKit
 
 // http://www.barcodeisland.com/int2of5.phtml
+@available(macCatalyst 14.0, *)
 open class RSITFGenerator: RSAbstractCodeGenerator {
     let ITF_CHARACTER_ENCODINGS = [
         "00110",

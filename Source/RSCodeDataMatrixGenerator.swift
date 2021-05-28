@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(macCatalyst 14.0, *)
 class RSCodeDataMatrixGenerator: RSAbstractCodeGenerator {
 
 }

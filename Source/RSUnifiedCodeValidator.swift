@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+@available(macCatalyst 14.0, *)
 open class RSUnifiedCodeValidator {
     open class var shared: RSUnifiedCodeValidator {
         return UnifiedCodeValidatorSharedInstance
@@ -52,4 +53,6 @@ open class RSUnifiedCodeValidator {
         return codeGenerator!.isValid(contents)
     }
 }
+
+@available(macCatalyst 14.0, *)
 let UnifiedCodeValidatorSharedInstance = RSUnifiedCodeValidator()

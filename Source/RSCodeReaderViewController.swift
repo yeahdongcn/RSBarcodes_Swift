@@ -9,6 +9,7 @@
 import AVFoundation
 import UIKit
 
+@available(macCatalyst 14.0, *)
 open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
    @objc open var device = AVCaptureDevice.default(for: AVMediaType.video)
    @objc open var output = AVCaptureMetadataOutput()

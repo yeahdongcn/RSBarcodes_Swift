@@ -12,6 +12,7 @@ public let RSBarcodesTypeISBN13Code = "com.pdq.rsbarcodes.isbn13"
 public let RSBarcodesTypeISSN13Code = "com.pdq.rsbarcodes.issn13"
 
 // http://blog.sina.com.cn/s/blog_4015406e0100bsqk.html
+@available(macCatalyst 14.0, *)
 open class RSEANGenerator: RSAbstractCodeGenerator {
     var length = 0
     // 'O' for odd and 'E' for even
@@ -100,18 +101,21 @@ open class RSEANGenerator: RSAbstractCodeGenerator {
     }
 }
 
+@available(macCatalyst 14.0, *)
 class RSEAN8Generator: RSEANGenerator {
     init() {
         super.init(length: 8)
     }
 }
 
+@available(macCatalyst 14.0, *)
 class RSEAN13Generator: RSEANGenerator {
     init() {
         super.init(length: 13)
     }
 }
 
+@available(macCatalyst 14.0, *)
 class RSISBN13Generator: RSEAN13Generator {
     override func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISBN.php
@@ -119,6 +123,7 @@ class RSISBN13Generator: RSEAN13Generator {
     }
 }
 
+@available(macCatalyst 14.0, *)
 class RSISSN13Generator: RSEAN13Generator {
     override func isValid(_ contents: String) -> Bool {
         // http://www.appsbarcode.com/ISSN.php

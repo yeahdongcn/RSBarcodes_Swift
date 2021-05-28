@@ -23,6 +23,7 @@ public enum InputCorrectionLevel: String {
 }
 
 // Code generators are required to provide these two functions.
+@available(macCatalyst 14.0, *)
 public protocol RSCodeGenerator {
     /** The fill (background) color of the generated barcode. */
     var fillColor: UIColor {get set}
@@ -54,6 +55,7 @@ public protocol RSCheckDigitGenerator {
 }
 
 // Abstract code generator, provides default functions for validations and generations.
+@available(macCatalyst 14.0, *)
 open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     open var fillColor: UIColor = UIColor.white

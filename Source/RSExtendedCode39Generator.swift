@@ -12,6 +12,7 @@ public let RSBarcodesTypeExtendedCode39Code = "com.pdq.rsbarcodes.code39.ext"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
+@available(macCatalyst 14.0, *)
 open class RSExtendedCode39Generator: RSCode39Generator {
     func encodeContents(_ contents: String) -> String {
         var encodedContents = ""
