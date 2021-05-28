@@ -109,7 +109,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         // Height               = 28
         let width = length + 4
         let size = CGSize(width: CGFloat(width), height: 28)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         if let context = UIGraphicsGetCurrentContext() {
             context.setShouldAntialias(false)
             
