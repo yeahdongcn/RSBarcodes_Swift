@@ -244,7 +244,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         return target
     }
     
-    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIView.ContentMode) -> UIImage? {
+    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIView.ContentMode, scale:CGFloat? = nil) -> UIImage? {
         var x: CGFloat = 0
         var y: CGFloat = 0
         var width = targetSize.width
@@ -295,7 +295,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
             }
         }
         
-        UIGraphicsBeginImageContextWithOptions(targetSize, false, 0)
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, scale ?? 0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.interpolationQuality = CGInterpolationQuality.none
         source.draw(in: CGRect(x: x, y: y, width: width, height: height))
