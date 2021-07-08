@@ -104,9 +104,13 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         // Top spacing          = 1.5
         // Bottom spacing       = 2
         // Left & right spacing = 2
-        // Height               = 28
         let width = length + 4
-        let size = CGSize(width: CGFloat(width), height: 28)
+        // Calculate the correct aspect ratio, so that the resulting image can be resized to the target size
+        var height = width
+        if let targetSize = targetSize {
+            height = Int(targetSize.height / targetSize.width * CGFloat(width))
+        }
+        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         if let context = UIGraphicsGetCurrentContext() {
             context.setShouldAntialias(false)
