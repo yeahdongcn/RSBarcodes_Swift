@@ -12,6 +12,7 @@ import AVFoundation
 import CoreImage
 
 let DIGITS_STRING = "0123456789"
+let BARCODE_DEFAULT_HEIGHT = 28
 
 // Controls the amount of additional data encoded in the output image to provide error correction.
 // Higher levels of error correction result in larger output images but allow larger areas of the code to be damaged or obscured without.
@@ -106,7 +107,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         // Left & right spacing = 2
         let width = length + 4
         // Calculate the correct aspect ratio, so that the resulting image can be resized to the target size
-        var height = width
+        var height = BARCODE_DEFAULT_HEIGHT
         if let targetSize = targetSize {
             height = Int(targetSize.height / targetSize.width * CGFloat(width))
         }
