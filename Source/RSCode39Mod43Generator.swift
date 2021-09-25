@@ -10,6 +10,7 @@ import UIKit
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
+@available(macCatalyst 14.0, *)
 open class RSCode39Mod43Generator: RSCode39Generator, RSCheckDigitGenerator {
     
     // MARK: RSAbstractCodeGenerator

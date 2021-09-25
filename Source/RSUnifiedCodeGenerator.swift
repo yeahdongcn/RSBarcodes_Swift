@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
+@available(macCatalyst 14.0, *)
 open class RSUnifiedCodeGenerator: RSCodeGenerator {
     
     open var isBuiltInCode128GeneratorSelected = false
@@ -89,4 +90,5 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
     }
 }
 
+@available(macCatalyst 14.0, *)
 let UnifiedCodeGeneratorSharedInstance = RSUnifiedCodeGenerator()

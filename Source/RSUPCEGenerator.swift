@@ -12,6 +12,7 @@ import UIKit
 // http://mdn.morovia.com/kb/UPCE-Specification-10634.html
 // http://mdn.morovia.com/kb/UPCA-Specification-10632.html
 // http://www.barcodeisland.com/upce.phtml
+@available(macCatalyst 14.0, *)
 open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     let UPCE_ODD_ENCODINGS = [
         "0001101",

@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+@available(macCatalyst 14.0, *)
 open class RSUnifiedCodeValidator {
     open class var shared: RSUnifiedCodeValidator {
         return UnifiedCodeValidatorSharedInstance
@@ -37,8 +38,10 @@ open class RSUnifiedCodeValidator {
             codeGenerator = RSCode93Generator()
         case AVMetadataObject.ObjectType.code128.rawValue:
             codeGenerator = RSCode128Generator()
+        /** TODO: Uncomment this once DataMatrix generator is implemented.
         case AVMetadataObject.ObjectType.dataMatrix.rawValue:
             codeGenerator = RSCodeDataMatrixGenerator()
+         */
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
         case RSBarcodesTypeISSN13Code:
@@ -52,4 +55,6 @@ open class RSUnifiedCodeValidator {
         return codeGenerator!.isValid(contents)
     }
 }
+
+@available(macCatalyst 14.0, *)
 let UnifiedCodeValidatorSharedInstance = RSUnifiedCodeValidator()

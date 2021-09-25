@@ -24,6 +24,7 @@ public enum InputCorrectionLevel: String {
 }
 
 // Code generators are required to provide these two functions.
+@available(macCatalyst 14.0, *)
 public protocol RSCodeGenerator {
     /** The fill (background) color of the generated barcode. */
     var fillColor: UIColor {get set}
@@ -55,6 +56,7 @@ public protocol RSCheckDigitGenerator {
 }
 
 // Abstract code generator, provides default functions for validations and generations.
+@available(macCatalyst 14.0, *)
 open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     open var fillColor: UIColor = UIColor.white
@@ -112,7 +114,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
             height = Int(targetSize.height / targetSize.width * CGFloat(width))
         }
         let size = CGSize(width: CGFloat(width), height: CGFloat(height))
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
         if let context = UIGraphicsGetCurrentContext() {
             context.setShouldAntialias(false)
             
@@ -247,7 +249,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
         return target
     }
     
-    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIView.ContentMode) -> UIImage? {
+    open class func resizeImage(_ source:UIImage, targetSize:CGSize, contentMode:UIView.ContentMode, scale:CGFloat? = nil) -> UIImage? {
         var x: CGFloat = 0
         var y: CGFloat = 0
         var width = targetSize.width
@@ -298,7 +300,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
             }
         }
         
-        UIGraphicsBeginImageContextWithOptions(targetSize, false, 0)
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, scale ?? 0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.interpolationQuality = CGInterpolationQuality.none
         source.draw(in: CGRect(x: x, y: y, width: width, height: height))

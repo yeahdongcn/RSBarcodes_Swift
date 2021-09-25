@@ -12,6 +12,7 @@ let CODE39_ALPHABET_STRING = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-. $/+%*"
 
 // http://www.barcodesymbols.com/code39.htm
 // http://www.barcodeisland.com/code39.phtml
+@available(macCatalyst 14.0, *)
 open class RSCode39Generator: RSAbstractCodeGenerator {
     let CODE39_CHARACTER_ENCODINGS = [
         "1010011011010",
