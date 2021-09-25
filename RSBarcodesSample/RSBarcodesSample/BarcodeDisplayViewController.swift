@@ -16,7 +16,7 @@ import RSBarcodes
 class BarcodeDisplayViewController: UIViewController {
     @IBOutlet weak var imageDisplayed: UIImageView!
     
-    var contents: String = "https://github.com/VMwareFusion/nautilus"
+    var contents: String = "https://github.com/yeahdongcn/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
