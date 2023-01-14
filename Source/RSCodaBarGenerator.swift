@@ -91,7 +91,7 @@ open class RSCodaBarGenerator: RSAbstractCodeGenerator {
             for character in contents {
                 let location = CODABAR_ALPHABET_STRING.location(String(character))
                 if location == NSNotFound {
-                    // Contents include any character that does not allowed as CODABAR
+                    // Contents include any character that is not allowed as CODABAR
                     return false
                 }
             }
