@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520AC2E5292275350019DB0E /* RSCodaBarGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520AC2E4292275350019DB0E /* RSCodaBarGenerator.swift */; };
 		D450EB6D23506647008610B2 /* RSEANGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D450EB5A23506647008610B2 /* RSEANGenerator.swift */; };
 		D450EB6E23506647008610B2 /* RSUnifiedCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D450EB5B23506647008610B2 /* RSUnifiedCodeValidator.swift */; };
 		D450EB6F23506647008610B2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D450EB5C23506647008610B2 /* UIColorExtension.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		520AC2E4292275350019DB0E /* RSCodaBarGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSCodaBarGenerator.swift; sourceTree = "<group>"; };
 		566905431DE3F19100B7D6D2 /* RSBarcodes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RSBarcodes-Bridging-Header.h"; path = "RSBarcodes/RSBarcodes-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		D08336371A202E81004EE128 /* RSBarcodes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSBarcodes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08336B81A209AA0004EE128 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -114,6 +116,7 @@
 				D450EB6A23506647008610B2 /* StringExtension.swift */,
 				D450EB6B23506647008610B2 /* RSExtendedCode39Generator.swift */,
 				D450EB6C23506647008610B2 /* RSITFGenerator.swift */,
+				520AC2E4292275350019DB0E /* RSCodaBarGenerator.swift */,
 				D450EB80235066BB008610B2 /* ContextMaker.swift */,
 			);
 			path = Source;
@@ -208,6 +211,7 @@
 				D450EB7D23506647008610B2 /* StringExtension.swift in Sources */,
 				D450EB7023506647008610B2 /* RSCode39Mod43Generator.swift in Sources */,
 				D450EB7523506647008610B2 /* RSCodeDataMatrixGenerator.swift in Sources */,
+				520AC2E5292275350019DB0E /* RSCodaBarGenerator.swift in Sources */,
 				D450EB6F23506647008610B2 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
