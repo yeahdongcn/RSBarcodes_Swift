@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let CODABAR_ALPHABET_STRING = "0123456789ー$:/.+ABCD"
+private let CODABAR_ALPHABET_STRING = "0123456789-$:/.+ABCD"
 
 /// Special characters that can be the initiator or the terminator of CodaBar
 public enum RSCodaBarSpecialCharacterType {
