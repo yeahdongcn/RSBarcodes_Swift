@@ -64,7 +64,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
          }
          self.setupCamera()
          self.view.setNeedsLayout()
-         self.session.startRunning()
+         DispatchQueue.global(qos: .background).async {
+             self.session.startRunning()
+         }
          if let device = self.device {
             return device.position
          } else {
@@ -310,7 +312,9 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
 	
    @objc func onApplicationWillEnterForeground() {
       if !Platform.isSimulator {
-         self.session.startRunning()
+          DispatchQueue.global(qos: .background).async {
+              self.session.startRunning()
+          }
       }
    }
 	
@@ -368,9 +372,11 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
       NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
       NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		
-      if !Platform.isSimulator {
-         self.session.startRunning()
-      }
+       if !Platform.isSimulator {
+           DispatchQueue.global(qos: .background).async {
+               self.session.startRunning()
+           }
+       }
    }
 	
    override open func viewDidDisappear(_ animated: Bool) {
