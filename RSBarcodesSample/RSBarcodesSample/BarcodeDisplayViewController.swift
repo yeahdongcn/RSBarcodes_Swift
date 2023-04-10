@@ -35,11 +35,18 @@ class BarcodeDisplayViewController: UIViewController {
         gen.fillColor = UIColor.white
         gen.strokeColor = UIColor.black
         print ("generating image with barcode: " + contents)
-        if let image = gen.generateCode("Text Example", machineReadableCodeObjectType: AVMetadataObject.ObjectType.qr.rawValue, targetSize: CGSize(width: 1000, height: 1000)) {
-            debugPrint(image.size)
-            self.imageDisplayed.layer.borderWidth = 1
-            self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image, targetSize: self.imageDisplayed.bounds.size, contentMode: UIView.ContentMode.bottomRight)
+        if #available(iOS 15.4, *) {
+            if let image = gen.generateCode("9123456780", machineReadableCodeObjectType: AVMetadataObject.ObjectType.codabar.rawValue, targetSize: CGSize(width: 2000, height: 1000)) {
+                debugPrint(image.size)
+                self.imageDisplayed.layer.borderWidth = 1
+                self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image, targetSize: self.imageDisplayed.bounds.size, contentMode: UIView.ContentMode.center)
+            }
+        } else {
+            if let image = gen.generateCode("Text Example", machineReadableCodeObjectType: AVMetadataObject.ObjectType.qr.rawValue, targetSize: CGSize(width: 1000, height: 1000)) {
+                debugPrint(image.size)
+                self.imageDisplayed.layer.borderWidth = 1
+                self.imageDisplayed.image = RSAbstractCodeGenerator.resizeImage(image, targetSize: self.imageDisplayed.bounds.size, contentMode: UIView.ContentMode.bottomRight)
+            }
         }
-
     }
 }

@@ -65,7 +65,13 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
         case RSBarcodesTypeExtendedCode39Code:
             codeGenerator = RSExtendedCode39Generator()
         default:
-            print("No code generator selected.")
+            if #available(iOS 15.4, *),
+                machineReadableCodeObjectType == AVMetadataObject.ObjectType.codabar.rawValue {
+                codeGenerator = RSCodaBarGenerator()
+                
+            } else {
+                print("No code generator selected.")
+            }
         }
         
         if codeGenerator != nil {

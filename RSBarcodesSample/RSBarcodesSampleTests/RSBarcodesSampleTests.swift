@@ -87,6 +87,13 @@ class RSBarcodesSampleTests: XCTestCase {
         
 		let aztecr = g.generateCode("yeahdongcn", machineReadableCodeObjectType: AVMetadataObject.ObjectType.aztec.rawValue)
         XCTAssert(aztecr != nil, "Pass Aztec")
+        
+        if #available(iOS 15.4, *) {
+            let codabarr = g.generateCode("1234-$/:.+1234-$/:.+", machineReadableCodeObjectType: AVMetadataObject.ObjectType.codabar.rawValue)
+            XCTAssert(codabarr != nil, "Pass CodaBar")
+        } else {
+            XCTAssert(true, "iOS version is less than 15.4")
+        }
     }
     
     func testCICode128() {

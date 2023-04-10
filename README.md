@@ -29,6 +29,7 @@ RSBarcodes allows you to read 1D and 2D barcodes using the metadata scanning cap
 - [x] PDF417
 - [x] QR
 - [x] Aztec
+- [x] Codabar: requires iOS15.4 or later
 - [x] Views
 
 ### Reader
