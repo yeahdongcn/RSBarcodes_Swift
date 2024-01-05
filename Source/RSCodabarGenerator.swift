@@ -1,5 +1,5 @@
 //
-//  RSCodeCodabarGenerator.swift
+//  RSCodabarGenerator.swift
 //  RSBarcodes
 //
 //  Created by 山崎謙登 on 2022/11/14.
