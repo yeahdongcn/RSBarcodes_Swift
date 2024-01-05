@@ -38,10 +38,8 @@ open class RSUnifiedCodeValidator {
             codeGenerator = RSCode93Generator()
         case AVMetadataObject.ObjectType.code128.rawValue:
             codeGenerator = RSCode128Generator()
-        /** TODO: Uncomment this once DataMatrix generator is implemented.
         case AVMetadataObject.ObjectType.dataMatrix.rawValue:
-            codeGenerator = RSCodeDataMatrixGenerator()
-         */
+            codeGenerator = RSDataMatrixGenerator()
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
         case RSBarcodesTypeISSN13Code:
@@ -49,8 +47,13 @@ open class RSUnifiedCodeValidator {
         case RSBarcodesTypeExtendedCode39Code:
             codeGenerator = RSExtendedCode39Generator()
         default:
-            print("No code generator selected.")
-            return false
+            if #available(iOS 15.4, *), machineReadableCodeObjectType == AVMetadataObject.ObjectType.codabar.rawValue {
+                codeGenerator = RSCodaBarGenerator()
+            }
+            else {
+                print("No code generator selected.")
+                return false
+            }
         }
         return codeGenerator!.isValid(contents)
     }

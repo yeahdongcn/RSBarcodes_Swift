@@ -57,7 +57,7 @@ open class RSUnifiedCodeGenerator: RSCodeGenerator {
                 codeGenerator = RSCode128Generator()
             }
         case AVMetadataObject.ObjectType.dataMatrix.rawValue:
-            codeGenerator = RSCodeDataMatrixGenerator()
+            codeGenerator = RSDataMatrixGenerator()
         case RSBarcodesTypeISBN13Code:
             codeGenerator = RSISBN13Generator()
         case RSBarcodesTypeISSN13Code:
