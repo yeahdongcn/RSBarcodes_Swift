@@ -1,5 +1,5 @@
 //
-//  RSCodaBarGenerator.swift
+//  RSCodabarGenerator.swift
 //  RSBarcodes
 //
 //  Created by 山崎謙登 on 2022/11/14.
@@ -9,26 +9,6 @@
 import Foundation
 
 private let CODABAR_ALPHABET_STRING = "0123456789-$:/.+ABCD"
-
-/// Special characters that can be the initiator or the terminator of CodaBar
-public enum RSCodaBarSpecialCharacterType {
-    case auto
-    case a, b, c, d
-    
-    /// Index of each character
-    var index: Int {
-        switch self {
-        case .auto, .a:
-            return 16
-        case .b:
-            return 17
-        case .c:
-            return 19
-        case .d:
-            return 20
-        }
-    }
-}
 
 /// https://www.keyence.com/ss/products/auto_id/codereader/basic/code39.jsp
 /// https://en.wikipedia.org/wiki/Codabar
@@ -65,49 +45,21 @@ open class RSCodaBarGenerator: RSAbstractCodeGenerator {
         let location = CODABAR_ALPHABET_STRING.location(characterString)
         return CODABAR_CHARACTER_ENCODINGS[location]
     }
-    
-    private let initialCharactorType: RSCodaBarSpecialCharacterType
-    private let terminatorCharactorType: RSCodaBarSpecialCharacterType
-    
-    init(
-        initialCharactorType: RSCodaBarSpecialCharacterType = .auto,
-        terminatorCharactorType: RSCodaBarSpecialCharacterType = .auto
-    ) {
-        self.initialCharactorType = initialCharactorType
-        self.terminatorCharactorType = terminatorCharactorType
-    }
-    
+        
     // MARK: RSAbstractCodeGenerator
     
     override open func isValid(_ contents: String) -> Bool {
         // Contents length is greater than 0 and
         // Contents do not include start and stop characters
-        if contents.length() > 0
-            && contents.range(of: "A") == nil
-            && contents.range(of: "B") == nil
-            && contents.range(of: "C") == nil
-            && contents.range(of: "D") == nil {
-            
-            for character in contents {
-                let location = CODABAR_ALPHABET_STRING.location(String(character))
-                if location == NSNotFound {
-                    // Contents include any character that is not allowed as CODABAR
-                    return false
-                }
+        guard contents.length() > 0 else { return false }
+        for character in contents {
+            let location = CODABAR_ALPHABET_STRING.location(String(character))
+            if location == NSNotFound {
+                // Contents include any character that is not allowed as CODABAR
+                return false
             }
-            
-            return true
-        } else {
-            return false
         }
-    }
-    
-    override open func initiator() -> String {
-        return CODABAR_CHARACTER_ENCODINGS[initialCharactorType.index]
-    }
-    
-    override open func terminator() -> String {
-        return CODABAR_CHARACTER_ENCODINGS[terminatorCharactorType.index]
+        return true
     }
     
     override open func barcode(_ contents: String) -> String {
